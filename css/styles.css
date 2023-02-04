@@ -1,0 +1,43 @@
+:root {
+    --dark-blue: #08605F;
+    --light-blue: #177E89;
+    --greened-blue: #598381;
+    --dark-green: #8E936D;
+    --light-green: #A2AD59;
+}
+
+.colorPalette {
+    display: flex;
+}
+
+.colorBox {
+    height: 2em;
+    width: 2em;
+}
+
+.dark-blue {
+    background-color: var(--dark-blue);
+}
+
+.light-blue {
+    background-color: var(--light-blue);
+}
+
+.greened-blue {
+    background-color: var(--greened-blue);
+}
+
+.dark-green {
+    background-color: var(--dark-green);
+}
+
+.light-green {
+    background-color: var(--light-green);
+}
+
+.viewImage {
+    text-align: center;
+    width: 50%;
+    height: 50%;
+    border: 1px solid grey;
+}
