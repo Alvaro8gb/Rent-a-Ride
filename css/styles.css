@@ -6,6 +6,10 @@
     --light-green: #A2AD59;
 }
 
+body{
+    margin:3%;
+}
+
 .colorPalette {
     display: flex;
 }
@@ -34,9 +38,12 @@
 .light-green {
     background-color: var(--light-green);
 }
-
+.aling{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .viewImage {
-    text-align: center;
     width: 50%;
     height: 50%;
     border: 1px solid grey;
