@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="img/icon.png">
 
     <title>Propuesta</title>
-
 </head>
 
 <body>
@@ -34,13 +34,33 @@
         <h2> Roles y Tareas</h2>
 
         <ol>
-            <li><strong>Usuario no registrado</strong>: podrá visualizar los coches disponibles en cada compañía de
-                renting de la web.</li>
-            <li><strong>Gestor de la flota</strong>: es la persona que puede crear vehículos y asignarlos a clientes.
+            <li>
+                <strong>Usuario no registrado</strong>: podrá visualizar los coches disponibles en cada compañía de
+                renting de la web.
+                </br>Vistas que puede acceder : Login, Registro, Chat de atención al cliente, Home y Detalles de un
+                auto.
+
             </li>
-            <li><strong>Cliente de renting</strong>: se registra como cliente y realiza una reserva de un vehículo.</li>
-            <li><strong>Administrador</strong>: tiene permiso para realizar cualquier acción y acceder a cualquier parte
-                de la aplicación, exceptuando datos bancarios y contraseñas.</li>
+            <li>
+                <strong>Cliente de renting</strong>: se registra como cliente y realiza una reserva de un vehículo.
+                </br>Vistas que puede acceder : Login, Registro, Chat de atención al cliente, Home, Detalles de un auto
+                y Reservar un auto.
+
+            </li>
+
+            <li>
+                <strong>Gestor de la flota</strong>: es la persona que puede crear vehículos y asignarlos a clientes.
+                No puede reservar coches como los clientes.
+                </br>Vistas que puede acceder : Login, Registro, Home, Detalles de un auto, Reservar un auto y Chats de
+                clientes.
+
+            </li>
+            <li>
+                <strong>Administrador</strong>: tiene permiso para realizar cualquier acción y acceder a cualquier parte
+                de la aplicación, exceptuando datos bancarios y contraseñas.
+                </br>Vistas que puede acceder : Login, Registro, Home, Detalles de un auto, Reservar un auto, Listado de
+                usuarios y Chat de clientes.
+            </li>
         </ol>
     </section>
 
@@ -70,7 +90,7 @@
     </section>
 
     <div class="view">
-        <h3>Página principal</h3>
+        <h3>Home</h3>
         <p>En esta vista todos los usuarios podran ver un listado de coches disponibles y realizar una busqueda a cerca
             de ello</p>
 
@@ -83,42 +103,46 @@
         <h3>Detalle de un coche</h3>
         <p>En esta vista todos los usuarios podran ver caracteristicas del vehiculo como <strong>Año, Combustible,
                 Consumo, Cambio, Plaza, Puerta, Autonomia diaria, Ubicacion de recogida</strong> y
-            <strong>Precio</strong>. Ademas, los administradores pueden modificar los detalles de un coche
+            <strong>Precio</strong>
         </p>
 
         <div class="aling">
-            <img src="img/" class="viewImage" alt="Vista Detalles de un coche">
+            <img src="img/car-details.png" class="viewImage" alt="Vista Detalles de un coche">
         </div>
     </div>
 
     <div class="view">
         <h3>Perfil</h3>
         <p> En esta vista todos los tipos de usuario podran ver su información generica como
-            <strong> nombre, apellido, tipo usuario y dni </strong>. Ademas dependiendo del tipo de usuario podran
-            ver
-            la siguiente información adicional:
-
-        <ul>Gestor de flota : Coches de su flota y si estan asignados a algun cliente</ul>
-        <ul>Administrador: Dashboard de la base de datos</ul>
-        <ul>Cliente: Historia de reservas y si tiene una reserva en proceso actualmente</ul>
+            <strong> Nombre, Apellido, DNI, Nombre de usuario, Tipo de usuario y Correo </strong>.
         </p>
 
         <div class="aling">
-            <img src="img/" class="viewImage" alt="Vista Perfil">
+            <img src="img/perfil.png" class="viewImage" alt="Vista Perfil">
         </div>
     </div>
 
     <div class="view">
-        <h3>Chat incidencias</h3>
-        <p></p>
+        <h3>Chat atención al cliente</h3>
+        <p>
+            En esta vista proporcionaremos al cliente una asistencia en tiempo real para resolver cualquier duda una vez
+            el usuario haya iniciado
+            sesión. Esto chats son accedidos al pulsar al boton modal que se encuentra en la esquina inferior derecha de
+            las pantallas en las que
+            el usuario esta logeado.
+        </p>
         <div class="aling">
-            <img src="img/" class="viewImage" alt="Vista Chat de incidencias">
+            <img src="img/chats.jpg" class="viewImage" alt="Vista Chat de incidencias">
         </div>
     </div>
 
     <div class="view">
         <h3>Reservar un auto</h3>
-        <p></p>
+        <p>
+            La aplicación permitirá realizar la reserva de un vehiculo que se encuentre disponible mandandole una
+            notificación
+            al gestor que aceptará o rechazará según crea conveniente.
+        </p>
         <div class="aling">
             <img src="img/" class="viewImage" alt="Vista Reservar un auto">
         </div>
@@ -126,13 +150,44 @@
 
     <div class="view">
         <h3>Formulario para añadir coches a la flota</h3>
-        <p></p>
+        <p>
+            Se podran añadir coches de dos formas: uno a uno, rellenando un formuario o a través de un
+            archivo csv con un formato especificado.
+            </br>
+            El formulario individual tiene los siguientes campos : <strong> Marca, Modelo, Año, Combustible, Modelo,
+                Cambio, Puertas, Plazas y CV. </strong>
+        </p>
         <div class="aling">
-            <img src="img/" class="viewImage" alt="Vista Formulario para añadir coches a la flota">
+            <img src="img/add-car.png" class="viewImage" alt="Vista Formulario para añadir coches a la flota">
+            <img src="img/add-cars.png" class="viewImage" alt="Vista Formulario para añadir coches a la flota">
         </div>
 
     </div>
-    </section>
+
+    <div class="view">
+
+        <h3>Listado de usuarios</h3>
+        <p>
+            Esta vista proporcionará al administrador un listado de los usuarios y los gestores para gestionar sus
+            cuentas teniendo la opción de borrarlas.
+        </p>
+        <div class="aling">
+            <img src="img/user-list.png" class="viewImage" alt="Vista Listado de usuarios">
+        </div>
+
+    </div>
+
+    <div class="view">
+
+        <h3>Chat atención al cliente</h3>
+        <p>
+            Esta vista proporcionará al gestor de la flota
+        </p>
+        <div class="aling">
+            <img src="img/chats-atencion-cliente.png" class="viewImage" alt="Vista Chat atención al cliente">
+        </div>
+
+    </div>
 
     <section>
         <h3>Paleta de colores</h3>

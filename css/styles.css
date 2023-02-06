@@ -10,6 +10,10 @@ body{
     margin:3%;
 }
 
+p{
+    text-align: justify;
+}
+
 .colorPalette {
     display: flex;
 }
@@ -47,4 +51,5 @@ body{
     width: 50%;
     height: 50%;
     border: 1px solid grey;
+    margin-right: 2em;
 }
