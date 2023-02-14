@@ -25,3 +25,43 @@ img.preview {
     height: 100px;
     border-radius: 10px;
 }
+
+.textColor1{
+    color: rgba(8, 96, 95, 1);
+}
+
+.textColor2{
+    color: rgba(23, 126, 137, 1);
+}
+
+.textColor3{
+    color: rgba(89, 131, 129, 1);
+}
+
+.textColor4{
+    color: rgba(142, 147, 109, 1);
+}
+
+.textColor5{
+    color: rgba(162, 173, 89, 1);
+}
+
+.backgroundColor1{
+    background-color: rgba(8, 96, 95, 1);
+}
+
+.backgroundColor2{
+    background-color: rgba(23, 126, 137, 1);
+}
+
+.backgroundColor3{
+    background-color: rgba(89, 131, 129, 1);
+}
+
+.backgroundColor4{
+    background-color: rgba(142, 147, 109, 1);
+}
+
+.backgroundColor5{
+    background-color: rgba(162, 173, 89, 1);
+}
