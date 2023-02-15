@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="row">
+            <h1 class="text-center mb-5">Chats entrantes</h1>
+        </div>
+    
+		<div class="row">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr >
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre de Usuario</th>
+                        <th colspan="2" scope="col">Mensaje</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="chat, i: ${chats}">
+                        <th th:text="${i.index}" scope="row">1</th>
+                        <td th:text="${chat.getName()}" >angelhort</td>
+                        <td th:text="${chat.getMsg()}" colspan="2">El coche se me ha roto</td>
+                        <td><img src="img/Message.png" class="rounded mx-auto d-block" alt="Message icon"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Profile</title>
+</head>
+
+<body>
+    <div class="container  text-center" width="300px" >
+        <div class="row">
+            <div class="col">
+                <img th:src="@{/img/profile_sample.png}"  alt="profile sample"  class="d-inline-block" width="234px" height="234px">
+            </div>
+        </div>
+        <div class="row">
+            <div id="full_name" class="col-12 text-left">
+                <strong>Pepe Ramon Jimenez </strong>
+            </div>
+        </div>
+        <div class="row">
+            <div id="rol" class="col text-left">
+                <em>Cliente </em>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-left">
+                Nombre
+            </div>
+            <div class="col text-left">
+                Apellidos
+            </div>
+        </div>
+        <div class="row justify-content">
+            <div id="name" class="col text-left">
+                Pepe
+            </div>
+            <div id="last_name" class="col text-left">
+                Ramon Jimenez
+            </div>
+        </div>
+        <div class="row g-5">
+            <div class="col">
+                Correo
+            </div>
+        </div>
+        <div class="row justify-content">
+            <div id="mail" class="col">
+                example@example.com
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Nombre de usuario
+            </div>
+        </div>
+        <div class="row">
+            <div id="user_name" class="col">
+                pepe_69
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                DNI
+            </div>
+        </div>
+        <div class="row justify-content">
+            <div id="dni" class="col">
+                32439402W
+            </div>
+        </div>
+
+    </div>
+
+    <footer th:replace="fragments/footer.html :: footer">
+        Footer goes here
+    </footer>
+</body>
+
+</html>
