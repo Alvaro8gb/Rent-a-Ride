@@ -1,4 +1,11 @@
 /* usa este fichero para personalizar tus vistas */
+:root {
+    --dark-blue: #08605F;
+    --light-blue: #177E89;
+    --greened-blue: #598381;
+    --dark-green: #8E936D;
+    --light-green: #A2AD59;
+}
 
 .iwthumb {
     height: 32px;
@@ -27,41 +34,41 @@ img.preview {
 }
 
 .textColor1{
-    color: rgba(8, 96, 95, 1);
+    color: var(--dark-blue);
 }
 
 .textColor2{
-    color: rgba(23, 126, 137, 1);
+    color: var(--light-blue);
 }
 
 .textColor3{
-    color: rgba(89, 131, 129, 1);
+    color: var(--greened-blue);
 }
 
 .textColor4{
-    color: rgba(142, 147, 109, 1);
+    color: var(--dark-green);
 }
 
 .textColor5{
-    color: rgba(162, 173, 89, 1);
+    color: var(--light-green);
 }
 
 .backgroundColor1{
-    background-color: rgba(8, 96, 95, 1);
+    background-color: var(--dark-blue);
 }
 
 .backgroundColor2{
-    background-color: rgba(23, 126, 137, 1);
+    background-color: var(--light-blue);
 }
 
 .backgroundColor3{
-    background-color: rgba(89, 131, 129, 1);
+    background-color: var(--greened-blue);
 }
 
 .backgroundColor4{
-    background-color: rgba(142, 147, 109, 1);
+    background-color: var(--dark-green);
 }
 
 .backgroundColor5{
-    background-color: rgba(162, 173, 89, 1);
+    background-color: var(--light-green);
 }
