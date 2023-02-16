@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <th:block th:replace="fragments/head :: header" />
-    <title>IW: Login</title>
-</head>
+<th:block th:include="fragments/head" />
 
-<body class="d-flex flex-column h-100">
-    <header th:replace="fragments/nav.html :: nav"></header>
-
-    <main class="flex-shrink-0">
+<body class="">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-6">
@@ -34,9 +28,6 @@
                 </div>
             </div>
         </div>
-    </main>
-
-    <th:block th:replace="fragments/footer.html :: footer" />
 </body>
 
 </html>
