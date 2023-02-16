@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/head :: header" />
+
+<body>
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center mt-5 mb-5">Listado de Usuarios</h1>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" id="search" placeholder="Buscar usuario..."
+                        aria-label="Search">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-hover table-striped align-middle mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre de Usuario</th>
+                        <th scope="col">Correo</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>angelhort</td>
+                        <td>angelhor@ucm.es</td>
+                        <td>
+                            <a th:href="@{/}">
+                                <img th:src="@{/img/Delete.png}" src="/img/Delete.png" class="rounded mx-auto d-block"
+                                    alt="Delete icon">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>ggascon</td>
+                        <td>guille@ucm.es</td>
+                        <td>
+                            <a th:href="@{/}"><img th:src="@{/img/Delete.png}" src="img/Delete.png"
+                                    class="rounded mx-auto d-block" alt="Delete icon">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>alvaro8gb</td>
+                        <td>alvaro@ucm.es</td>
+                        <td>
+                            <a th:href="@{/}"><img th:src="@{/img/Delete.png}" src="img/Delete.png"
+                                    class="rounded mx-auto d-block" alt="Delete icon">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

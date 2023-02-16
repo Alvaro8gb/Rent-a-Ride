@@ -23,4 +23,14 @@ public class RootController {
     public String index(Model model) {
         return "index";
     }
+
+    @GetMapping("/carsManagment")
+    public String carsManagment(Model model) {
+        return "carsManagment";
+    }
+
+    @GetMapping("/userList")
+    public String userList(Model model) {
+        return "userList";
+    }
 }
