@@ -23,6 +23,10 @@ public class RootController {
     public String crearVehiculo(Model model) {
         return "crearVehiculo";
     }
+    @GetMapping("/registro")
+    public String registro(Model model) {
+        return "registro";
+    }
 	@GetMapping("/")
     public String index(Model model) {
         return "index";

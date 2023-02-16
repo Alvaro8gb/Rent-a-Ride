@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:include="fragments/head" />
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <img th:src="@{/img/lexusPortada.png}" src="/img/lexusPortada.png" alt="" class="img-fluid">
+            </div>
+            <div class="col-6">
+                <div class="row text-center mb-5 mt-5">
+                    <h2 class="fw-bold">Registro</h2>
+                </div>
+                <form action="" method="post">
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control mt-1" placeholder="Juan" name="nombre" id="nombre">
+                        </div>
+                        <div class="col"> 
+                            <label for="primer_apellido">Primer apellido</label>
+                            <input type="text" class="form-control mt-1" placeholder="Martinez" name="primer_apellido" id="primer_apellido"></div>
+                        <div class="col">
+                            <label for="segundo_apellido">Segundo apellido</label>
+                            <input type="text" class="form-control mt-1" placeholder="Garcia" name="segundo_apellido" id="segundo_apellido">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="correo">Correo</label>
+                            <input type="email" class="form-control mt-1" placeholder="email@gmail.com" name="correo" id="correo">
+                        </div>
+                        <div class="col">
+                            <label for="usuario">Nombre de usuario</label>
+                            <input type="text" class="form-control mt-1" placeholder="juan.martinez89" name="usuario" id="usuario">
+                        </div>
+                        
+                    </div>
+                    <div class="row mt-3 mb-3">
+                        <div class="col">
+                            <label for="password">Contraseña</label>
+                            <input type="text" class="form-control mt-1" placeholder="Contraseña" name="password" id="password">
+                        </div>
+                        <div class="col">
+                            <label for="conf_pass">Repetir contraseña</label>
+                            <input type="text" class="form-control mt-1" placeholder="Repetir Contraseña" name="conf_pass" id="conf_pass">
+                        </div>
+                    </div> <br>
+                    <div class="row d-flex justify-content-center mt-5">
+                        <div class="col text-center">
+                            <button class="btn btn-primary btn-lg">Registrarme</button>
+                        </div>
+                    </div>
+                    <hr class="border border-dark border-1 mt-4">
+                    <div class="row d-flex justify-content-center text-center">
+                        <p>¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesion ahora!</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
