@@ -18,7 +18,11 @@ public class RootController {
     public String login(Model model) {
         return "login";
     }
-
+    
+    @GetMapping("/crearVehiculo")
+    public String crearVehiculo(Model model) {
+        return "crearVehiculo";
+    }
 	@GetMapping("/")
     public String index(Model model) {
         return "index";
