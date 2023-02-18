@@ -9,9 +9,144 @@
 <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <main class="flex-shrink-0">
-        <div class="container">
-            <h1 class="mt-5">Bienvenid@</h1>
+    <main>
+        <div class="container-fluid d-flex justify-content-center align-items-start homeTopContainer">
+            <div class="row searchContainer">
+                <h1 class="col-md-12 mb-4 text-center searchTitle">Tenemos tu coche ideal ¡Búscalo!</h1>
+                
+                <form class="row" action="">
+                    <div class="col-md-4">
+                        <label for="model" class="form-label">Modelo</label>
+                        <input type="text" id="model" name="model" class="form-control" placeholder="Porsche 911 GT3RS">
+                    </div>
+    
+                    <div class="col-md-4">
+                        <label for="pickupPoint" class="form-label">Lugar de recogida</label>
+                        <select id="pickupPoint" name="pickupPoint" class="form-select">
+                            <option selected>T4 barajas, Madrid</option>
+                            <option>Plaza del Sol, Madrid</option>
+                            <option>Estación de Autobuses Sur, Madrid</option>
+                        </select>
+                    </div>
+    
+                    <div class="col-md-2">
+                        <label for="model" class="form-label">Fecha Inicio</label>
+                        <input type="date" id="model" name="model" class="form-control">
+                    </div>
+    
+                    <div class="col-md-2">
+                        <label for="model" class="form-label">Fecha Fin</label>
+                        <input type="date" id="model" name="model" class="form-control">
+                    </div>
+
+                    <div class="col-md-12 mt-4 text-center">
+                        <button type="submit" class="btn justify-content-center">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row">
+                <h2 class="text-center sugerencesTitle">Nuestras Sugerencias</h2>
+                <div class="row">
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car1.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">Audi A3 Sportback</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+                    
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car2.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">Volkswagen Golf</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car3.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">BMW Z4 Roadster</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car4.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">Porsche Macan</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car1.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">Audi A3 Sportback</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+                    
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car2.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">Volkswagen Golf</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car3.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">BMW Z4 Roadster</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+
+                    <div class="col-md-3 m-0 mt-sm-2">
+                        <div class="card sugerenceCard">
+                            <img th:src="@{/img/car4.png}" class="card-img-top" alt="Imagen coche">
+                            <div class="card-body">
+                              <h5 class="card-title mb-3">Porsche Macan</h5>
+                              <p class="card-text mb-1"><i class="fa-solid fa-fw fa-battery-full"></i> 400km/día incluidos</p>
+                              <p class="card-text"><i class="fa-solid fa-fw fa-location-dot"></i> T4 Barajas, Madrid</p>
+                              <a href="#" class="d-flex justify-content-end">Consultar precio</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

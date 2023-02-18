@@ -7,6 +7,7 @@
     --light-green: #A2AD59;
     --white-hover: #c7c7c7;
     --dark-blue-hover: #064847;
+    --light-blue-hover: #066d78;
 }
 
 * {
@@ -105,4 +106,76 @@ nav li .dropdown-item {
 
 .greenNavbar li .nav-link:hover {
     color: var(--white-hover);
+}
+
+.btn {
+    background-color: var(--light-blue);
+    color: white;
+}
+
+.btn:hover {
+    background-color: var(--light-blue-hover);
+    color: white;
+}
+
+.homeTopContainer {
+    background-image: url("/img/homeBackground.png");
+    height: 500px;
+}
+
+.searchContainer {
+    background-color: white;
+    margin-left: 20em;
+    margin-right: 20em;
+    padding: 2em;
+    border-radius: 1em;
+    top: 10%;
+    position: relative;
+}
+
+.searchContainer form label {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--greened-blue);
+}
+
+.searchContainer form button {
+    width: 25%;
+}
+
+.searchTitle {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--greened-blue);
+}
+
+.sugerenceCard {
+    box-shadow: 5px 5px 20px -10px rgb(8 96 95 / 85%);
+}
+
+.sugerenceCard img {
+    object-fit: contain;
+}
+
+.sugerenceCard .card-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.sugerenceCard .card-text {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.sugerenceCard a {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--light-blue);
+    text-decoration: none;
+}
+
+.sugerencesTitle {
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--greened-blue);
 }
