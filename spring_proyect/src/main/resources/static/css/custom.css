@@ -5,6 +5,12 @@
     --greened-blue: #598381;
     --dark-green: #8E936D;
     --light-green: #A2AD59;
+    --white-hover: #c7c7c7;
+    --dark-blue-hover: #064847;
+}
+
+* {
+    font-family: Inter;
 }
 
 .iwthumb {
@@ -71,4 +77,32 @@ img.preview {
 
 .backgroundColor5{
     background-color: var(--light-green);
+}
+
+nav li .dropdown-item {
+    color: var(--dark-blue);
+}
+
+.whiteNavbar {
+    background-color: white;
+}
+
+.whiteNavbar li .nav-link, .whiteNavbar .navbar-toggler-item {
+    color: var(--dark-blue);
+}
+
+.whiteNavbar li .nav-link:hover {
+    color: var(--dark-blue-hover);
+}
+
+.greenNavbar {
+    background-color: var(--dark-blue);
+}
+
+.greenNavbar li .nav-link, .greenNavbar .navbar-toggler-item {
+    color: white;
+}
+
+.greenNavbar li .nav-link:hover {
+    color: var(--white-hover);
 }

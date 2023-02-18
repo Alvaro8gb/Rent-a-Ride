@@ -9,49 +9,58 @@
 
     <!-- barra de navegación bootstrap 5 -->
     <header th:fragment="nav">
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav th:classappend="${#ctx.springRequestContext.requestUri} == '/' ? whiteNavbar : greenNavbar" class="navbar navbar-expand-md">
             <div class="container-fluid">
                 <!-- nombre del sitio; es un enlace que lleva a la página ppal -->
                 <a class="navbar-brand" th:href="@{/}" href="/">
-                    <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="logo" width="50" height="50" class="d-inline-block align-text-top">
+                    <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="logo" width="45" height="45" class="d-inline-block align-text-top">
                 </a>
 
                 <!-- menu hamburguesa si no cabe todo -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-item fa-solid fa-bars"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <th:block th:unless="${session.u}">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Inicio</a>
-                              </li>
-                        </th:block>
+                        <li class="nav-item px-3">
+                            <a class="nav-link" href="@{/}">Inicio</a>
+                        </li>
                         
                         <th:block th:if="${session.u}">
-                            <li class="nav-item">
+                            <li class="nav-item px-3">
                                 <a class="nav-link" href="#">Crear Vehículo</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item px-3">
                                 <a class="nav-link" href="#">Gestión de flota</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item px-3">
                                 <a class="nav-link" href="#">Chats entrantes</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item px-3">
                                 <a class="nav-link" href="#">Gestión de usuarios</a>
                             </li>
                         </th:block>
-                  </div>
+                    </ul>
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <th:block th:if="${session.u}">
-                            <li class="nav-item align-self-center">
-                                <form th:action="@{/logout}" method="post">
-                                    <button type="submit" class="btn btn-outline-secondary btn-sm">logout</button>
-                                </form>
+                            <li class="d-flex align-items-center"><img class="iwthumb rounded" th:src="@{/user/{id}/pic(id=${session.u.id})}"></li>
+                            <li class="nav-item dropdown ms-auto">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                    Username
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form th:action="@{/logout}" method="post">
+                                            <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
                         </th:block>
 
