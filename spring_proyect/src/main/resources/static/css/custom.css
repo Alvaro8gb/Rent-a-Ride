@@ -192,8 +192,8 @@ nav li .dropdown-item {
     align-items: center;
     cursor: pointer;
     position: fixed;
-    left: 95%;
-    top: 90%;
+    bottom: 20px;
+    right: 20px;
 }
 
 .chatIcon:hover {
@@ -202,9 +202,9 @@ nav li .dropdown-item {
 }
 
 .chat {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: fixed;
+    right: 70px;
+    bottom: 200px;
     height: 25em;
     width: 22em;
     border-radius: 1em;
@@ -239,6 +239,13 @@ nav li .dropdown-item {
     background-color: var(--dark-blue);
     border-bottom-right-radius: 1em;
     border-bottom-left-radius: 1em;
+}
+
+.chatInput .attachmentGroup {
+    border-top-right-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
+    background-color: white;
+    color: #B7B7B7;
 }
 
 .chat form button {

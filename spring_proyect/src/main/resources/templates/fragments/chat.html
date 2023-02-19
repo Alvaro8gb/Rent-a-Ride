@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="row chatBody p-3">
+            <div class="row chatBody p-3 d-flex h-100">
                 <div class="col-12 chatMessage my-2 py-2 chatSender">
                     Hola
                 </div>
@@ -31,9 +31,12 @@
             <div class="row chatInput py-3">
                 <form class="row" action="">
                     <div class="col-10">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="" id="" placeholder="Escribe tu mensaje">
-                            <span class="input-group-text" id="basic-addon1"><input type="file" class="form-control" name="" id=""><i class="fa-solid fa-paperclip"></i></span>
+                        <div class="input-group">
+                            <input type="text" class="form-control border-0" name="message" id="message" placeholder="Escribe tu mensaje">
+                            <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
+                                <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
+                                <input type="file" class="d-none form-control" name="attachment" id="attachment">
+                            </span>
                         </div>
                     </div>
 
