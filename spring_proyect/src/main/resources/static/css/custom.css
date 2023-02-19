@@ -179,3 +179,72 @@ nav li .dropdown-item {
     font-weight: 600;
     color: var(--greened-blue);
 }
+
+.chatIcon {
+    width: 3.5em;
+    height: 3.5em;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--light-blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: fixed;
+    left: 95%;
+    top: 90%;
+}
+
+.chatIcon:hover {
+    transform: scale(1.1);
+    background-color: var(--light-blue-hover);
+}
+
+.chat {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 25em;
+    width: 22em;
+    border-radius: 1em;
+}
+
+.chatHeader {
+    background-color: var(--dark-blue);
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+    font-weight: 600;
+    color: white;
+}
+
+.chatBody {
+    background-color: white;
+}
+
+.chatMessage {
+    background-color: #EFEFEF;
+    border-radius: 0.8em;
+    width: 80%;
+    overflow-wrap: break-word;
+    font-weight: 300;
+}
+
+.chatSender {
+    margin-left: auto;
+    text-align: end;
+}
+
+.chatInput {
+    background-color: var(--dark-blue);
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+}
+
+.chat form button {
+    background-color: transparent;
+}
+
+.loginImage {
+    object-fit: cover;
+}

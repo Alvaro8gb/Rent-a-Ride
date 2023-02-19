@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Chat fragment - rest is empty</title>
+</head>
+
+<body>
+    <th:block th:fragment="chat">
+        <div class="container collapse chat" id="chat">
+            <div class="row chatHeader py-3">
+                <div class="col-12">
+                    ¿En qué te podemos ayudarte?
+                </div>
+            </div>
+
+            <div class="row chatBody p-3">
+                <div class="col-12 chatMessage my-2 py-2 chatSender">
+                    Hola
+                </div>
+
+                <div class="col-12 chatMessage my-2 py-2 chatReceiver">
+                    ¿Qué tal?
+                </div>
+
+                <div class="col-12 chatMessage my-2 py-2 chatSender">
+                    Pues nada bien, esto es una prueba con un texto larguisimo para ver si se desborda el contenedor o no!
+                </div>
+            </div>
+
+            <div class="row chatInput py-3">
+                <form class="row" action="">
+                    <div class="col-10">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="" id="" placeholder="Escribe tu mensaje">
+                            <span class="input-group-text" id="basic-addon1"><input type="file" class="form-control" name="" id=""><i class="fa-solid fa-paperclip"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <button type="submit" class="btn"><i class="fa-solid fa-paper-plane fa-xl"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <button class="chatIcon" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false" aria-controls="chat"><i class="fa-solid fa-headset fa-xl"></i></button>
+    </th:block>
+</body>
+
+</html>

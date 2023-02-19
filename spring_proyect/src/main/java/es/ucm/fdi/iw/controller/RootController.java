@@ -33,4 +33,9 @@ public class RootController {
     public String userList(Model model) {
         return "userList";
     }
+
+    @GetMapping("/carDetails")
+    public String carDetails(Model model) {
+        return "carDetails";
+    }
 }
