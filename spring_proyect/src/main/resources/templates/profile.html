@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<html class="h-100" xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <th:block th:replace="fragments/head :: header" />
@@ -7,66 +7,52 @@
 </head>
 
 <body>
-    <div class="container  text-center" width="300px" >
-        <div class="row">
+    <div class="container  text-center" >
+        <div class="row justify-content-center">
             <div class="col">
                 <img th:src="@{/img/profile_sample.png}"  alt="profile sample"  class="d-inline-block" width="234px" height="234px">
             </div>
         </div>
         <div class="row">
-            <div id="full_name" class="col-12 text-left">
+            <div id="full_name" class="col">
                 <strong>Pepe Ramon Jimenez </strong>
             </div>
         </div>
         <div class="row">
-            <div id="rol" class="col text-left">
+            <div id="rol" class="col">
                 <em>Cliente </em>
             </div>
         </div>
-        <div class="row">
-            <div class="col text-left">
-                Nombre
+        <div class="row justify-content-center rows-cols-auto">
+            <div class="col text-start">
+                <p>Nombre</p>
+                <p class="fa-solid">Pepe</p>
             </div>
-            <div class="col text-left">
-                Apellidos
-            </div>
-        </div>
-        <div class="row justify-content">
-            <div id="name" class="col text-left">
-                Pepe
-            </div>
-            <div id="last_name" class="col text-left">
-                Ramon Jimenez
+            <div class="col text-start">
+                <p>Apellidos </p>
+                <p>Ramon Jimenez</p>
             </div>
         </div>
-        <div class="row g-5">
-            <div class="col">
-                Correo
-            </div>
-        </div>
-        <div class="row justify-content">
-            <div id="mail" class="col">
-                example@example.com
+        <div class="row text-center">
+            <div class="col text-start">
+                <p>Correo</p>
+                <p id="mail" >
+                    example@example.com
+                </p>
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                Nombre de usuario
+            <div class="col text-start">
+                <p> Nombre de usuario </p>
+                <p id="user_name" >
+                    pepe_69
+                </p>
             </div>
         </div>
-        <div class="row">
-            <div id="user_name" class="col">
-                pepe_69
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                DNI
-            </div>
-        </div>
-        <div class="row justify-content">
-            <div id="dni" class="col">
-                32439402W
+        <div class="row mt-4">
+            <div class="col text-start">
+                <p class="mb-0"><i class="fa-solid"></i> DNI</p>
+                <p id="dni" class="fw-bold">32439402W</p>
             </div>
         </div>
 
