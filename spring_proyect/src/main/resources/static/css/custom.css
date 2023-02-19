@@ -248,3 +248,7 @@ nav li .dropdown-item {
 .loginImage {
     object-fit: cover;
 }
+
+.lightBlueBorder{
+    border-color: var(--light-blue) !important;
+}
