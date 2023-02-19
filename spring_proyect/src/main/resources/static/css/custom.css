@@ -244,3 +244,7 @@ nav li .dropdown-item {
 .chat form button {
     background-color: transparent;
 }
+
+.loginImage {
+    object-fit: cover;
+}
