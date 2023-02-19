@@ -24,9 +24,9 @@ public class RootController {
         return "index";
     }
 
-    @GetMapping("/carsManagment")
+    @GetMapping("/carsManagement")
     public String carsManagment(Model model) {
-        return "carsManagment";
+        return "carsManagement";
     }
 
     @GetMapping("/userList")
