@@ -3,15 +3,15 @@
     <th:block th:include="fragments/head" />
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6">
-                <img th:src="@{/img/lexusPortada.png}" src="/img/lexusPortada.png" alt="" class="img-fluid">
+        <div class="row align-items-center">
+            <div class="col-6 p-0">
+                <img th:src="@{/img/lexusPortada.png}" src="/img/lexusPortada.png" alt="" class="img-fluid loginImage vh-100 object-fit-cover">
             </div>
             <div class="col-6">
                 <div class="row text-center mb-5 mt-5">
                     <h2 class="fw-bold">Registro</h2>
                 </div>
-                <form action="" method="post">
+                <form class="form-signin text-center mx-5" th:action="@{/login}" method="POST">
                     <div class="row mt-3">
                         <div class="col">
                             <label for="nombre">Nombre</label>
@@ -48,10 +48,10 @@
                     </div> <br>
                     <div class="row d-flex justify-content-center mt-5">
                         <div class="col text-center">
-                            <button class="btn btn-primary btn-lg">Registrarme</button>
+                            <button class="btn btn-lg">Registrarme</button>
                         </div>
                     </div>
-                    <hr class="border border-dark border-1 mt-4">
+                    <hr class="border border-dark border-1 mt-5">
                     <div class="row d-flex justify-content-center text-center">
                         <p>¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesion ahora!</a></p>
                     </div>

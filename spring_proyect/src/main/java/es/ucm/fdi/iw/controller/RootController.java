@@ -19,13 +19,13 @@ public class RootController {
         return "login";
     }
     
-    @GetMapping("/crearVehiculo")
-    public String crearVehiculo(Model model) {
-        return "crearVehiculo";
+    @GetMapping("/createVehicle")
+    public String createVehicle(Model model) {
+        return "createVehicle";
     }
-    @GetMapping("/registro")
-    public String registro(Model model) {
-        return "registro";
+    @GetMapping("/signup")
+    public String signup(Model model) {
+        return "signup";
     }
 	@GetMapping("/")
     public String index(Model model) {
