@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Profile</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    
+    <div class="container">
+        <div class="row justify-content-center mt-5 mb-2">
+            <div class="col-auto">
+                <img th:src="@{/img/profile_sample.png}" alt="profile sample" class="d-inline-block img-fluid">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <p class="fs-3 fw-bolder mb-0">Juan Carlos Martínez</p>
+                <p class="mt-0">Cliente</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-5 col-auto">
+                <p class="mb-0">Nombre</p>
+                <p class="mt-0 fw-bold">Juan Carlos</p>
+            </div>
+
+            <div class="col-auto">
+                <p class="mb-0">Apellidos</p>
+                <p class="mt-0 fw-bold">Martínez</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-5 col-auto">
+                <p class="mb-0">Correo Electrónico</p>
+                <p class="mt-0 fw-bold">martinator89@gmail.com</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-5 col-auto">
+                <p class="mb-0">Nombre de usuario</p>
+                <p class="mt-0 fw-bold">juancar89</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-5 col-auto">
+                <p class="mb-0">DNI</p>
+                <p class="mt-0 fw-bold">32439402W</p>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="fragments/footer.html :: footer">
+        Footer goes here
+    </footer>
+</body>
+
+</html>
