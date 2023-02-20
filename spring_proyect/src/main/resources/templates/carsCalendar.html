@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/head :: header" />
+
+<body>
+<header th:replace="fragments/nav.html :: nav"></header>
+
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <h1 class=" m-4"> Calendario de disponibilidad de coches</h1>
+            <img th:src="@{/img/Calendar.png}" src="/img/Calendar.png" alt="" class="img-fluid"> <!--Primer prototipo-->
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="fragments/footer.html :: footer" />
+
+</body>
+
+</html>

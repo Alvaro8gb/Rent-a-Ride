@@ -38,4 +38,9 @@ public class RootController {
     public String carDetails(Model model) {
         return "carDetails";
     }
+
+    @GetMapping("/carsCalendar")
+    public String carCalendar(Model model) {
+        return "carsCalendar";
+    }
 }
