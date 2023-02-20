@@ -22,7 +22,7 @@ public class RootController {
         return "profile";
     }
 
-    @GetMapping("/in_chats")
+    @GetMapping("/inChats")
     public String in_chats(Model model) {
 
         ArrayList<ChatDummy> chats = new ArrayList<>();
