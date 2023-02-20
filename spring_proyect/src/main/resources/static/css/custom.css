@@ -259,3 +259,13 @@ nav li .dropdown-item {
 .lightBlueBorder{
     border-color: var(--light-blue) !important;
 }
+
+.createVehicleForm {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.pageTitle {
+    font-size: 48px;
+    font-weight: 600;
+}

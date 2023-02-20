@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <th:block th:replace="fragments/head :: header"/>
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Rent A Ride - Inicio</title>
+</head>
 
-        <title>Rent A Ride - Car Details</title>
-    </head>
-
-<body>
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+    
     <th:block th:include="fragments/nav"/>
 
     <div class="container">

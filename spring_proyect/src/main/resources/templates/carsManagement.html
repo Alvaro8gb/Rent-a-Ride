@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="fragments/head :: header" />
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Rent A Ride - Gestión de flota</title>
+</head>
 
-<body>
+<body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <div class="container">

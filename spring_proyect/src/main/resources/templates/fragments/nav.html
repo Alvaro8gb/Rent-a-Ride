@@ -24,21 +24,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item px-3">
-                            <a class="nav-link" href="@{/}">Inicio</a>
+                            <a class="nav-link" th:href="@{/}">Inicio</a>
                         </li>
                         
                         <th:block th:if="${session.u}">
                             <li class="nav-item px-3">
-                                <a class="nav-link" href="#">Crear Vehículo</a>
+                                <a class="nav-link" th:href="@{/createVehicle}">Crear Vehículo</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link" href="#">Gestión de flota</a>
+                                <a class="nav-link" th:href="@{/carsManagement}">Gestión de flota</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link" href="#">Chats entrantes</a>
+                                <a class="nav-link" th:href="@{/in-chats}">Chats entrantes</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link" href="#">Gestión de usuarios</a>
+                                <a class="nav-link" th:href="@{/userList}">Gestión de usuarios</a>
                             </li>
                         </th:block>
                     </ul>
@@ -53,7 +53,7 @@
                                     Username
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/profile}">Perfil</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <form th:action="@{/logout}" method="post">
