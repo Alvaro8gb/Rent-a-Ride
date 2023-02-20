@@ -7,7 +7,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-    
+    <header th:replace="fragments/nav.html :: nav"></header>
     <div class="container">
         <div class="row justify-content-center mt-5 mb-2">
             <div class="col-auto">
@@ -50,10 +50,8 @@
             </div>
         </div>
     </div>
+    <th:block th:include="fragments/footer"/>
 
-    <footer th:replace="fragments/footer.html :: footer">
-        Footer goes here
-    </footer>
 </body>
 
 </html>

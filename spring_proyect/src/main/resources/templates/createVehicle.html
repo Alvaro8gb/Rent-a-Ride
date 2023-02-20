@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <th:block th:include="fragments/head :: header" />
     <title>Rent A Ride - Crear vehiculo</title>
@@ -43,21 +44,21 @@
                 </div>
                 <div class="col">
                     <label for="cambio">Cambio</label>
-                        <select name="cambio" id="cambio" class="form-select  mt-1">
+                    <select name="cambio" id="cambio" class="form-select  mt-1">
                         <option value="" selected>Cambio</option>
                         <option value="manual">Manual</option>
                         <option value="automático">Automático</option>
-                        </select>  
+                    </select>
                 </div>
             </div>
-            
+
             <div class="row d-flex text-align-center mt-3">
                 <div class="col">
                     <label for="puertas">Puertas</label>
                     <select name="puertas" id="puertas" class="form-select  mt-1">
-                    <option value="" selected>Puertas...</option>
-                    <option value="3">3</option>
-                    <option value="5">5</option>
+                        <option value="" selected>Puertas...</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
                     </select>
                 </div>
                 <div class="col">
@@ -77,11 +78,13 @@
             <div class="row d-flex text-align-center mt-3">
                 <div class="col mt-2">
                     <label for="matricula">Matricula</label>
-                    <input type="text" class="form-control  mt-1" placeholder="0000-DDD" name="matricula" id="matricula">
+                    <input type="text" class="form-control  mt-1" placeholder="0000-DDD" name="matricula"
+                        id="matricula">
                 </div>
                 <div class="col mt-2">
                     <label for="autonomia">Autonomia diaria</label>
-                    <input type="text" class="form-control  mt-1" name="autonomia" id="autonomia" placeholder="400km/dia">
+                    <input type="text" class="form-control  mt-1" name="autonomia" id="autonomia"
+                        placeholder="400km/dia">
                 </div>
                 <div class="col">
                     <label for="img" class="form-label mt-1">Imagen</label>
@@ -107,34 +110,35 @@
                 <div class="col-12 text-center">
                     <a role="button" class="link-primary textColor1" data-bs-toggle="modal" data-bs-target="#loadData">
                         Cargar datos desde un fichero
-                    </a>  
+                    </a>
                 </div>
             </div>
         </form>
     </div>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="loadData" tabindex="-1" aria-labelledby="loadData" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Cargar datos desde un fichero</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="">
-                <div class="modal-body">
-                    <label for="data" class="form-label">Seleccione el fichero con el formato adecuado</label>
-                    <input class="form-control" type="file" name="data" id="data">
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn">Cargar datos</button>
-                </div>
-            </form>
-          </div>
-        </div>
-      </div>
 
-      <th:block th:replace="fragments/footer.html :: footer" />
+    <!-- Modal -->
+    <div class="modal fade" id="loadData" tabindex="-1" aria-labelledby="loadData" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cargar datos desde un fichero</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <label for="data" class="form-label">Seleccione el fichero con el formato adecuado</label>
+                        <input class="form-control" type="file" name="data" id="data">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn">Cargar datos</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
 </body>
+
 </html>

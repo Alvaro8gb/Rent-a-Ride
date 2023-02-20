@@ -35,7 +35,7 @@ public class RootController {
 
         model.addAttribute("chats", chats);
 
-        return "in_chats";
+        return "inChats";
     }
     
     @GetMapping("/login")
