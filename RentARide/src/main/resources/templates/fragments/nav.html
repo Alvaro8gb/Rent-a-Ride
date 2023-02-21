@@ -12,7 +12,7 @@
         <nav th:classappend="${#ctx.springRequestContext.requestUri} == '/' ? whiteNavbar : greenNavbar" class="navbar navbar-expand-md">
             <div class="container-fluid">
                 <!-- nombre del sitio; es un enlace que lleva a la página ppal -->
-                <a class="navbar-brand" th:href="@{templates/index.html}" href="/">
+                <a class="navbar-brand" th:href="@{/}">
                     <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="logo" width="45" height="45" class="d-inline-block align-text-top">
                 </a>
 

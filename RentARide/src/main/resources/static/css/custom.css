@@ -11,7 +11,7 @@
 }
 
 * {
-    font-family: Inter;
+    font-family: 'Inter';
 }
 
 .iwthumb {
@@ -42,6 +42,10 @@ img.preview {
 
 .textColor1{
     color: var(--dark-blue);
+}
+
+.textColor1:hover{
+    color: var(--dark-blue-hover);
 }
 
 .textColor2{

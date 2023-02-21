@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>es.ucm.fdi.iw</groupId>
-	<artifactId>spring_proyect</artifactId>                      <!-- cambiado -->
+	<artifactId>RentARide</artifactId>                      <!-- cambiado -->
 	<version>0.0.1-SNAPSHOT</version>     
-	<name>spring_proyect</name>                                  <!-- cambiado -->
+	<name>RentARide</name>                                  <!-- cambiado -->
 	<description>Rent-A-Car es una aplicación para conectar empresas de renting con clientes</description> <!-- cambiado -->
 	<properties>
 		<java.version>11</java.version>
