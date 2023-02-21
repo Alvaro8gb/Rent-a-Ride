@@ -16,9 +16,10 @@ public class Booking {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         
         private long id;
+
+        /*
         private Date in;
         private Date out;
         private Float price;
-        private User client;
-        private Car car;
+         */
 }
