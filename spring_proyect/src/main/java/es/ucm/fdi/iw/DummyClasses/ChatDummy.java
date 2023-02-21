@@ -1,16 +1,17 @@
 package es.ucm.fdi.iw.DummyClasses;
-import java.util.Random;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
 
 public class ChatDummy {
     private String name;
     private String msg;
 
     private static final Random random = new Random();
-    private static final String FILENAME = "spring_proyect/src/main/java/es/ucm/fdi/iw/DummyClasses/dummy_messages.txt";
+    private static final String FILENAME = "static/dummy/dummy_messages.txt";
     private static ArrayList<String> mensajes = new ArrayList<String>();
 
     private static final String[] NAMES = { "Juan", "María", "Pedro", "Ana", "Luis", "Laura", "David", "Lucía",
@@ -30,8 +31,13 @@ public class ChatDummy {
     }
 
     public static void leerMensajes() {
-        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
+        try ( BufferedReader br = new BufferedReader(
+            new InputStreamReader(
+                Objects.requireNonNull(
+                    ChatDummy.class.getClassLoader().getResourceAsStream(FILENAME))))){
+            
             String linea;
+
             while ((linea = br.readLine()) != null) {
                 mensajes.add(linea);
             }

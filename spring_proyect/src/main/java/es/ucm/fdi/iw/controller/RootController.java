@@ -17,28 +17,33 @@ import es.ucm.fdi.iw.DummyClasses.UserDummy;
 public class RootController {
 
 	private static final Logger log = LogManager.getLogger(RootController.class);
+    private static ArrayList<UserDummy> usersDummy;
+    private static ArrayList<ChatDummy> chatsDummy;
 
+    public RootController(){
+
+        generateDummy();
+    }
+
+    private static void generateDummy(){
+        usersDummy = new ArrayList<>();
+        chatsDummy = new ArrayList<>();
+       
+        ChatDummy.leerMensajes();
+
+        for( int i = 0; i < 10; i++){
+            chatsDummy.add(ChatDummy.generateChat());
+        }
+
+        for(int i = 0; i < 10; i++){
+            usersDummy.add(UserDummy.generateUser());
+        }
+    }
     @GetMapping("/profile")
     public String profile(Model model) {
         return "profile";
     }
 
-    @GetMapping("/inChats")
-    public String in_chats(Model model) {
-
-        ArrayList<ChatDummy> chats = new ArrayList<>();
-       
-        ChatDummy.leerMensajes();
-
-        for( int i = 0; i < 10; i++){
-            chats.add(ChatDummy.generateChat());
-        }
-
-        model.addAttribute("chats", chats);
-
-        return "inChats";
-    }
-    
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
@@ -64,14 +69,16 @@ public class RootController {
 
     @GetMapping("/userList")
     public String userList(Model model) {
-        ArrayList<UserDummy> users = new ArrayList<>();
-
-        for(int i = 0; i < 10; i++){
-            users.add(UserDummy.generateUser());
-        }
-
-        model.addAttribute("users", users);
+        
+        model.addAttribute("users", usersDummy);
         return "userList";
+    }
+
+    @GetMapping("/inChats")
+    public String inChats(Model model) {
+
+        model.addAttribute("chats", chatsDummy);
+        return "inChats";
     }
 
     @GetMapping("/carDetails")
