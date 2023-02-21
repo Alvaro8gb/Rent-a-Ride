@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="fragments/head :: header" />
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Listado de usuarios</title>
+</head>
 
 <body>
     <header th:replace="fragments/nav.html :: nav"></header>
@@ -45,7 +48,7 @@
             </table>
         </div>
     </div>
-    
+    <th:block th:replace="fragments/footer.html :: footer" />
 </body>
 
 </html>
