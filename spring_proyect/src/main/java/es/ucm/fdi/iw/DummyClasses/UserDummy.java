@@ -21,9 +21,9 @@ public class UserDummy {
 
     public UserDummy(String name, String last_name, String mail, String pass) {
         this.pass = pass;
+        this.name = name;
         this.last_name = last_name;
-        this.mail = name;
-        this.pass = pass;
+        this.mail = mail;
     }
 
     public String getName() {

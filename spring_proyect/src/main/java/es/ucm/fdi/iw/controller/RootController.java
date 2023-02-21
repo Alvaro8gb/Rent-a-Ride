@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import es.ucm.fdi.iw.DummyClasses.ChatDummy;
+import es.ucm.fdi.iw.DummyClasses.UserDummy;
 
 /**
  *  Non-authenticated requests only.
@@ -63,6 +64,13 @@ public class RootController {
 
     @GetMapping("/userList")
     public String userList(Model model) {
+        ArrayList<UserDummy> users = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++){
+            users.add(UserDummy.generateUser());
+        }
+
+        model.addAttribute("users", users);
         return "userList";
     }
 

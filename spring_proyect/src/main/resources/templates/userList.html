@@ -29,34 +29,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>angelhort</td>
-                        <td>angelhor@ucm.es</td>
-                        <td>
-                            <form action="">
-                                <div class="form-group text-center">
-                                    <button class="border-0 bg-transparent" type="submit"><i class="fa-solid fa-xl fa-trash"></i></button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>ggascon</td>
-                        <td>guille@ucm.es</td>
-                        <td>
-                            <form action="">
-                                <div class="form-group text-center">
-                                    <button class="border-0 bg-transparent" type="submit"><i class="fa-solid fa-xl fa-trash"></i></button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>alvaro8gb</td>
-                        <td>alvaro@ucm.es</td>
+                    <tr th:each="user, i: ${users}">
+                        <th th:text="${i.index}" scope="row">1</th>
+                        <td th:text="|${user.name} ${user.lastName}|">Nombre de usuario</td>
+                        <td th:text="${user.mail}">Correo del usuario</td>
                         <td>
                             <form action="">
                                 <div class="form-group text-center">
