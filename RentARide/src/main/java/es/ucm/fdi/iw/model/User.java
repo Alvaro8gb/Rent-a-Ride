@@ -57,8 +57,8 @@ public class User implements Transferable<User.Transfer> {
 	@JoinColumn(name = "recipient_id")	
 	private List<Message> received = new ArrayList<>();	
 
-    //@OneToMany(mappedBy = "usuario")
-    //private List<Booking> bookings;	
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;	
 
     /**
      * Checks whether this user has a given role.
