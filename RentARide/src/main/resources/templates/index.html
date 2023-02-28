@@ -4,11 +4,22 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>Rent A Ride - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/loader.css}" href="/css/loader.css" type="text/css" />
+    <script th:src="@{/js/jquery-3.6.3.min.js}" src="/js/jquery-3.6.3.min.js"></script>
+    <script th:src="@{/js/loading.js}" src="/js/loading.js"></script>
 </head>
 
-<body class="d-flex flex-column h-100">
-    <header th:replace="fragments/nav.html :: nav"></header>
+<body>
 
+  <div class="loader">
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+  </div>
+
+  <div class="d-flex flex-column h-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+    
     <main>
         <div class="container-fluid d-flex justify-content-center align-items-start homeTopContainer">
             <div class="row searchContainer">
