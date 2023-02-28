@@ -1,6 +1,7 @@
 package es.ucm.fdi.iw.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -8,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.Table;
 import javax.persistence.Column;
 
 import lombok.Data;
@@ -17,17 +17,15 @@ import lombok.AllArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "Booking")
 public class Booking implements Transferable<Booking.Transfer> {
-
+        
         @EmbeddedId
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private BookingID id;
 
         @Column(nullable = false)
-        private Date in;
+        private LocalDateTime in_date;
         
-        private Date out;
+        private LocalDateTime out_date;
 
         @Column(nullable = false)
         private Float priceByDay;
@@ -44,19 +42,21 @@ public class Booking implements Transferable<Booking.Transfer> {
         @AllArgsConstructor
         public static class Transfer {
                 private BookingID id;
-                private Date in;
-                private Date out;
+                private String in_date;
+                private String out_date;
                 private Float priceByDay;
         }
         
         @Override
         public Transfer toTransfer() {
-                return new Transfer(id,	in, out, priceByDay);
+                return new Transfer(id,	
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(in_date), 
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(out_date), 
+                priceByDay);
         }
             
         @Override
         public String toString() {
                 return toTransfer().toString();
         }
-
 }

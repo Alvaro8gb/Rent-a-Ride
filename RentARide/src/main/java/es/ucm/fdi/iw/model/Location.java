@@ -14,7 +14,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Location")
 public class Location {
 
     @Id

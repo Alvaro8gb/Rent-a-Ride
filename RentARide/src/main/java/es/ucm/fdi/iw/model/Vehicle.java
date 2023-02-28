@@ -9,7 +9,6 @@ import lombok.Data;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
@@ -18,7 +17,6 @@ import javax.persistence.EnumType;
 
 @Entity
 @Data
-@Table(name = "Vehicle")
 public class Vehicle {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,7 +36,7 @@ public class Vehicle {
     private String description;
 
     @Column(nullable=false)
-    private int year;
+    private int old_year;
 
     public enum Fuel {
         Gasolina,
