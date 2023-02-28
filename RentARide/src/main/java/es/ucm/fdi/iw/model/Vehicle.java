@@ -24,6 +24,7 @@ public class Vehicle {
     private long id;
 
     @ManyToOne
+    @JoinColumn(name="location")
 	private Location location;
 
     @OneToMany(mappedBy = "vehicle")
