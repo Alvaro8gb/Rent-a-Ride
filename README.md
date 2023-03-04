@@ -8,3 +8,12 @@ Enlace para figma [link](https://www.figma.com/file/UY1222Ks3zLpMzkwTa3BFu/IW?no
 - Estilos [css](./Presentacion/css/)
 - Imagenes [img](./Presentacion/img/)
 - Propuesta [index](./Presentacion/index.html)
+
+
+# Base de datos
+
+De momento se carga todo desde import.sql, mas adelante habra que hacer una prueba automatica que carge todo desde fichero csv 
+este fichero habra que crear una clase para que lo cree.
+
+# Logs
+Para debugear se lleva la INFO al fichero app.log

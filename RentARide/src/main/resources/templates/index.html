@@ -14,10 +14,10 @@
             <div class="row searchContainer">
                 <h1 class="col-md-12 mb-4 text-center searchTitle">Tenemos tu coche ideal ¡Búscalo!</h1>
                 
-                <form class="row" action="">
+                <form class="row" method="POST" th:action="@{/vehicle/search}">
                     <div class="col-md-4">
                         <label for="model" class="form-label">Modelo</label>
-                        <input type="text" id="model" name="model" class="form-control" placeholder="Porsche 911 GT3RS">
+                        <input type="text" id="vehicle" name="vehicle" class="form-control" placeholder="Porsche 911 GT3RS">
                     </div>
     
                     <div class="col-md-4">
@@ -31,12 +31,12 @@
     
                     <div class="col-md-2">
                         <label for="model" class="form-label">Fecha Inicio</label>
-                        <input type="date" id="model" name="model" class="form-control">
+                        <input type="date" id="startDate" name="startDate" class="form-control">
                     </div>
     
                     <div class="col-md-2">
                         <label for="model" class="form-label">Fecha Fin</label>
-                        <input type="date" id="model" name="model" class="form-control">
+                        <input type="date" id="endDate" name="endDate" class="form-control">
                     </div>
 
                     <div class="col-md-12 mt-4 text-center">
