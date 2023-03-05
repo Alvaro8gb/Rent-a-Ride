@@ -27,7 +27,9 @@ import javax.persistence.EnumType;
                     + "WHERE UPPER(v.vehicle) LIKE CONCAT('%', UPPER(:vehicle), '%')"),
             
     @NamedQuery(name="Vehicle.findAll",
-            query="SELECT v FROM Vehicle v ")
+            query="SELECT v FROM Vehicle v "),
+    @NamedQuery(name="Vehicle.allLocation",
+            query="SELECT l.name FROM Location l")
 })
 
 public class Vehicle {
@@ -90,6 +92,9 @@ public class Vehicle {
     @Column(nullable = false)
     private String imagePath;
 
+    @Column(nullable = false)
+    private float priceByDay;
+
     @Override
     public String toString() {
         StringBuilder strBuilder = new StringBuilder();
@@ -105,6 +110,7 @@ public class Vehicle {
         strBuilder.append(String.format("seats: %d\n", seats));
         strBuilder.append(String.format("autonomy: %d\n", autonomy));
         strBuilder.append(String.format("imagePath: %s\n", imagePath));
+        strBuilder.append(String.format("priceByDay: %s\n", priceByDay));
 
         return strBuilder.toString();
     }

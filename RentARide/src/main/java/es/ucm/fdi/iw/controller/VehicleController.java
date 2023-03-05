@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +49,13 @@ public class VehicleController {
         model.addAttribute("vehicles", vs);
 
         return "searchResult";
+    }
+
+    @GetMapping("{id}")
+    public String index(Model model, @PathVariable long id){
+        Vehicle target = entityManager.find(Vehicle.class, id);
+        model.addAttribute("vehicle", target);
+        return "carDetails";
     }
 
 }

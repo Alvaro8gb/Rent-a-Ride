@@ -23,9 +23,7 @@
                     <div class="col-md-4">
                         <label for="pickupPoint" class="form-label">Lugar de recogida</label>
                         <select id="pickupPoint" name="pickupPoint" class="form-select">
-                            <option selected>T4 barajas, Madrid</option>
-                            <option>Plaza del Sol, Madrid</option>
-                            <option>Estación de Autobuses Sur, Madrid</option>
+                            <option th:each="location:${locations}" th:text="${location}"></option>
                         </select>
                     </div>
     
@@ -52,7 +50,7 @@
                 <div class="row justify-content-center">
                   <div th:each="vehicle : ${vehicles}" class="col-md-3 m-0 mt-sm-2">
                     <div class="card sugerenceCard">
-                        <img th:src="@{/img/{name}(name=${vehicle.imagePath})}" class="card-img-top" alt="Imagen coche">
+                      <a th:href="@{/vehicle/{id}(id=${vehicle.id})}"><img th:src="@{/img/{name}(name=${vehicle.imagePath})}" class="card-img-top" alt="Imagen coche"></a>
                         <div class="card-body">
                           <h5 th:text="${vehicle.vehicle}" class="card-title mb-3">Vehicle</h5>
                           <p th:inline="text" class="card-text mb-1">

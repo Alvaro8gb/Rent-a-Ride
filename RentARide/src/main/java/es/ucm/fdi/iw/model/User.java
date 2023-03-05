@@ -24,7 +24,9 @@ import java.util.List;
         @NamedQuery(name="User.hasUsername",
                 query="SELECT COUNT(u) "
                         + "FROM User u "
-                        + "WHERE u.username = :username")
+                        + "WHERE u.username = :username"),
+        @NamedQuery(name="User.all",
+                query="SELECT u FROM User u")
 })
 @Table(name="IWUser")
 public class User implements Transferable<User.Transfer> {
@@ -46,7 +48,7 @@ public class User implements Transferable<User.Transfer> {
 
     private String firstName;
     private String lastName;
-
+    private String email;
     private boolean enabled;
     private String roles; // split by ',' to separate roles
 

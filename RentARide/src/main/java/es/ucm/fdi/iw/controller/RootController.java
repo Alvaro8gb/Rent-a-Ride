@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
 import es.ucm.fdi.iw.DummyClasses.ChatDummy;
@@ -69,9 +70,9 @@ public class RootController {
 	@GetMapping("/")
     public String index(Model model) {
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
-
+        List<String> locations = entityManager.createNamedQuery("Vehicle.allLocation", String.class).getResultList();
         model.addAttribute("vehicles", vs);
-
+        model.addAttribute("locations", locations);
         return "index";
     }
 
@@ -82,8 +83,8 @@ public class RootController {
 
     @GetMapping("/userList")
     public String userList(Model model) {
-        
-        model.addAttribute("users", usersDummy);
+        List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
+        model.addAttribute("users", users);
         return "userList";
     }
 
