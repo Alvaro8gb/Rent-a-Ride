@@ -1,12 +1,18 @@
 package es.ucm.fdi.iw.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import es.ucm.fdi.iw.model.Vehicle;
+
 import es.ucm.fdi.iw.DummyClasses.ChatDummy;
 import es.ucm.fdi.iw.DummyClasses.UserDummy;
 
@@ -19,6 +25,9 @@ public class RootController {
 	private static final Logger log = LogManager.getLogger(RootController.class);
     private static ArrayList<UserDummy> usersDummy;
     private static ArrayList<ChatDummy> chatsDummy;
+
+    @Autowired
+	private EntityManager entityManager;
 
     public RootController(){
 
@@ -59,6 +68,10 @@ public class RootController {
     }
 	@GetMapping("/")
     public String index(Model model) {
+        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
+
+        model.addAttribute("vehicles", vs);
+
         return "index";
     }
 

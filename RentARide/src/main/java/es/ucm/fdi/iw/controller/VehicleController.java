@@ -34,18 +34,19 @@ public class VehicleController {
                         @RequestParam(required=false) String pickupPoint,
                         @RequestParam(required=false) String startDate,
                         @RequestParam(required=false) String endDate) {
-
-        log.info(" vehicle {}", vehicle);
+        /*
+        log.info("vehicle {}", vehicle);
         log.info("pickupPoint {}", pickupPoint);
         log.info("startDate {}", startDate);
         log.info("endDate {}", endDate);
-
+        */
+        
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.byVechicle", Vehicle.class).
         setParameter("vehicle", vehicle).getResultList();
 
-        log.info(" Entity {}", vs);
+        model.addAttribute("vehicles", vs);
 
-        return "index";
+        return "searchResult";
     }
 
 }

@@ -3,9 +3,6 @@ package es.ucm.fdi.iw.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 import lombok.Data;
 
@@ -13,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.GeneratedValue;
+import javax.persistence.NamedQueries;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
@@ -24,9 +21,14 @@ import javax.persistence.EnumType;
 
 @Entity
 @Data
-@NamedQuery(name="Vehicle.byVechicle",
+@NamedQueries({
+    @NamedQuery(name="Vehicle.byVechicle",
             query="SELECT v FROM Vehicle v "
-                    + "WHERE v.vehicle LIKE CONCAT('%', :vehicle, '%')")
+                    + "WHERE UPPER(v.vehicle) LIKE CONCAT('%', UPPER(:vehicle), '%')"),
+            
+    @NamedQuery(name="Vehicle.findAll",
+            query="SELECT v FROM Vehicle v ")
+})
 
 public class Vehicle {
    
@@ -83,6 +85,28 @@ public class Vehicle {
     private int seats;
 
     @Column(nullable = false)
-    private int autonomy; 
+    private int autonomy;
+
+    @Column(nullable = false)
+    private String imagePath;
+
+    @Override
+    public String toString() {
+        StringBuilder strBuilder = new StringBuilder();
+
+        strBuilder.append(String.format("Vehicle: %s\n", vehicle));
+        strBuilder.append(String.format("description: %s\n", description));
+        strBuilder.append(String.format("oldYear: %s\n", oldYear));
+        strBuilder.append(String.format("fuel: %s\n", fuel));
+        strBuilder.append(String.format("cityConsumption: %f\n", cityConsumption));
+        strBuilder.append(String.format("roadConsumption: %f\n", roadConsumption));
+        strBuilder.append(String.format("transmission: %s\n", transmission));
+        strBuilder.append(String.format("doors: %d\n", doors));
+        strBuilder.append(String.format("seats: %d\n", seats));
+        strBuilder.append(String.format("autonomy: %d\n", autonomy));
+        strBuilder.append(String.format("imagePath: %s\n", imagePath));
+
+        return strBuilder.toString();
+    }
 
 }
