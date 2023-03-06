@@ -30,6 +30,6 @@ public class VehicleDummy {
     }
 
     private static float numberFloatBetween(int min, int max) {
-        return random.nextFloat(max - min + 1) + min;
+        return 0;
     }
 }
