@@ -21,6 +21,7 @@ test:
 clean:
     $(CLEAN_KARATE)
     $(CLEAN_APP_LOGS)
+    mvn clean
 
 
 # Regla para imprimir la ruta relativa del archivo Makefile
