@@ -79,6 +79,7 @@
                   <h1 class="modal-title fs-5" id="modalAlquilerLabel">Finalizar reserva</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
+                <form class="row" method="POST" th:action="@{/vehicle/{id}/booking(id=${vehicle.id})}">
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
@@ -95,11 +96,11 @@
                             </div>
                             <div class="col-3">
                                 <p class="mb-0">Fecha inicio</p>
-                                <input type="date" class="form-control">
+                                <input type="date" id="inDate" name="inDate" class="form-control">
                             </div>
                             <div class="col-3">
                                 <p class="mb-0">Fecha fin</p>
-                                <input type="date" class="form-control">
+                                <input type="date" id="outDate" name="outDate" class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -115,30 +116,49 @@
                         <div class="row justify-content-between">
                             <div class="col-3">
                                 <p class="mb-0">Precio por día</p>
-                                <p class="mt-0 fw-bold" th:text="|${vehicle.priceByDay} €|">145 €</p>
+                                <p class="mt-0 fw-bold" id="precioDiario" th:text="|${vehicle.priceByDay} €|">145 €</p>
+                                <input type="hidden" name="precio" th:value="${vehicle.priceByDay}">
                             </div>
                             <div class="col-4">
                                 <div class="row row-cols-auto">
                                     <div class="col mt-2">
-                                        <p class="mb-0 fs-5 fw-bold">Precio total</p>
+                                        <p class="mb-0 fs-5 fw-bold" >Precio total</p>
                                     </div>
                                     <div class="col">
-                                        <p class="mt-0 fs-3 textColor5 fw-bold">0 €</p>
+                                        <p class="mt-0 fs-3 textColor5 fw-bold" id="precioTotal">0 €</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    
                     </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn">Reservar</button>
+                  <button type="submit" class="btn">Reservar</button>
                 </div>
+            </form>
               </div>
             </div>
           </div>
     </div>
-
+    <script>
+        //Este script habra que extraerlo a un fichero, no esta hecho para evitar conflictos
+        function updateDateDifference() {
+            var startDateValue = document.getElementById('inDate').value;
+            var endDateValue = document.getElementById('outDate').value;
+            if (startDateValue && endDateValue) {
+                var startDate = new Date(document.getElementById('inDate').value);
+                var endDate = new Date(document.getElementById('outDate').value);
+                var timeDiff = endDate.getTime() - startDate.getTime();
+                var daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                var daysWithEuro = document.getElementById('precioDiario').textContent;
+                document.getElementById('precioTotal').innerHTML = daysDiff*parseFloat(daysWithEuro.replace(' €', '')) + " €";
+            }
+        }
+        document.getElementById('outDate').addEventListener('change', updateDateDifference);
+        document.getElementById('inDate').addEventListener('change', updateDateDifference);
+    </script>
 
     <th:block th:include="fragments/footer"/>
 </body>

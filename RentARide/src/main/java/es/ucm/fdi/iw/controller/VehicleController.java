@@ -1,8 +1,14 @@
 package es.ucm.fdi.iw.controller;
 
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ucm.fdi.iw.model.Booking;
+import es.ucm.fdi.iw.model.BookingID;
+import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
 
@@ -56,6 +65,26 @@ public class VehicleController {
         Vehicle target = entityManager.find(Vehicle.class, id);
         model.addAttribute("vehicle", target);
         return "carDetails";
+    }
+
+    @PostMapping("{id}/booking")
+    @Transactional
+    public String booking(Model model, @PathVariable long id,
+                        @RequestParam(required=false) String inDate,
+                        @RequestParam(required=false) String outDate,
+                        @RequestParam(required=false) Float precio,
+                        HttpSession session){
+        Vehicle vehicle = entityManager.find(Vehicle.class, id);
+        User requester = (User)session.getAttribute("u");
+        BookingID bookingID = new BookingID(id, requester.getId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+        LocalDate inDateTime = LocalDate.parse(inDate, formatter);
+        LocalDate outDateTime = LocalDate.parse(outDate, formatter);
+        User user = entityManager.find(User.class, requester.getId());
+        Booking target = new Booking(bookingID, inDateTime, outDateTime, precio, user, vehicle);
+        entityManager.persist(target);
+        entityManager.flush();
+        return "index";
     }
 
 }
