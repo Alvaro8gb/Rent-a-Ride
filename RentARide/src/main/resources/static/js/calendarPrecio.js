@@ -19,8 +19,6 @@ document.getElementById('outDate').addEventListener('change', updateDateDifferen
 document.getElementById('inDate').addEventListener('change', updateDateDifference);
 document.getElementById('inDate').addEventListener('change', function(){
     outDate.setAttribute("min", document.getElementById('inDate').value);
-    var startDate = new Date(document.getElementById('inDate').value);
-    var endDate = new Date(document.getElementById('outDate').value);
 });
 
 let currentDate = new Date().toISOString().substr(0, 10);
