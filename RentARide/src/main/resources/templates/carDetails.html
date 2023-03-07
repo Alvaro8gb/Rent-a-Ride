@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>Rent A Ride - Inicio</title>
@@ -7,7 +8,7 @@
 
 <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
-    
+
     <div class="container">
         <div class="row">
             <div class="col-5">
@@ -32,7 +33,9 @@
                     </div>
                     <div class="col-4">
                         <p class="mb-0">Consumo</p>
-                        <p class="fw-bold text-break" th:text="|${vehicle.roadConsumption} - ${vehicle.cityConsumption}L/100km|">12,3 - 15,7L/100km</p>
+                        <p class="fw-bold text-break"
+                            th:text="|${vehicle.roadConsumption} - ${vehicle.cityConsumption}L/100km|">12,3 -
+                            15,7L/100km</p>
                     </div>
                     <div class="col-3">
                         <p class="mb-0">Cambio</p>
@@ -54,7 +57,7 @@
         <div class="row mt-4">
             <div class="offset-6 col-6">
                 <div class="row">
-                    
+
                     <p class="mb-0"><i class="fa-solid fa-battery-full"></i> Autonomía diaria incluida</p>
                     <p class="fw-bold" th:text="|${vehicle.autonomy}km/día incluidos|">400km/día incluidos</p>
                 </div>
@@ -67,82 +70,88 @@
         <div class="row mt-4">
             <div class="col text-center">
                 <p class="fs-2 textColor5" th:text="|${vehicle.priceByDay} €/día|">145 €/día</p>
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalAlquiler">
+                <button type="button" id="reservar" class="btn" data-bs-toggle="modal"  data-bs-target="#modalAlquiler">
                     Reservar
-                    </button>                  
+                </button>
             </div>
         </div>
-        <div class="modal fade" id="modalAlquiler" tabindex="-1" aria-labelledby="modalAlquilerLabel" aria-hidden="true">
+        <div class="modal fade" id="modalAlquiler" tabindex="-1" aria-labelledby="modalAlquilerLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="modalAlquilerLabel">Finalizar reserva</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <form class="row" method="POST" th:action="@{/vehicle/{id}/booking(id=${vehicle.id})}">
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <h4>Resumen de la reserva</h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <p class="mb-0">Vehículo</p>
-                                <p class="mt-0 fw-bold" th:text="${vehicle.vehicle}">Mazda RX-7</p>
-                            </div>
-                            <div class="col-4">
-                                <p class="mb-0">Descripción</p>
-                                <p class="mt-0 text-break fw-bold" th:text="${vehicle.description}">RX-7 - 206kW/276 CV</p>
-                            </div>
-                            <div class="col-3">
-                                <p class="mb-0">Fecha inicio</p>
-                                <input type="date" id="inDate" name="inDate" class="form-control" min="" required>
-                            </div>
-                            <div class="col-3">
-                                <p class="mb-0">Fecha fin</p>
-                                <input type="date" id="outDate" name="outDate" class="form-control" min="" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <p class="mb-0">Plazas</p>
-                                <p class="mt-0 fw-bold" th:text="${vehicle.seats}">4</p>
-                            </div>
-                            <div class="col-2">
-                                <p class="mb-0">Puertas</p>
-                                <p class="mt-0 fw-bold" th:text="${vehicle.doors}">3</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-3">
-                                <p class="mb-0">Precio por día</p>
-                                <p class="mt-0 fw-bold" id="precioDiario" th:text="|${vehicle.priceByDay} €|">145 €</p>
-                                <input type="hidden" name="precio" th:value="${vehicle.priceByDay}">
-                            </div>
-                            <div class="col-4">
-                                <div class="row row-cols-auto">
-                                    <div class="col mt-2">
-                                        <p class="mb-0 fs-5 fw-bold" >Precio total</p>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalAlquilerLabel">Finalizar reserva</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <form class="row" method="POST" th:action="@{/vehicle/{id}/booking(id=${vehicle.id})}">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <h4>Resumen de la reserva</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <p class="mb-0">Vehículo</p>
+                                        <p class="mt-0 fw-bold" th:text="${vehicle.vehicle}">Mazda RX-7</p>
                                     </div>
-                                    <div class="col">
-                                        <p class="mt-0 fs-3 textColor5 fw-bold" id="precioTotal">0 €</p>
+                                    <div class="col-4">
+                                        <p class="mb-0">Descripción</p>
+                                        <p class="mt-0 text-break fw-bold" th:text="${vehicle.description}">RX-7 -
+                                            206kW/276 CV</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="mb-0">Fecha inicio</p>
+                                        <input type="date" id="inDate" name="inDate" class="form-control" min=""
+                                            required>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="mb-0">Fecha fin</p>
+                                        <input type="date" id="outDate" name="outDate" class="form-control" min=""
+                                            required>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <p class="mb-0">Plazas</p>
+                                        <p class="mt-0 fw-bold" th:text="${vehicle.seats}">4</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <p class="mb-0">Puertas</p>
+                                        <p class="mt-0 fw-bold" th:text="${vehicle.doors}">3</p>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-between">
+                                    <div class="col-3">
+                                        <p class="mb-0">Precio por día</p>
+                                        <p class="mt-0 fw-bold" id="precioDiario" th:text="|${vehicle.priceByDay} €|">
+                                            145 €</p>
+                                        <input type="hidden" name="precio" th:value="${vehicle.priceByDay}">
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="row row-cols-auto">
+                                            <div class="col mt-2">
+                                                <p class="mb-0 fs-5 fw-bold">Precio total</p>
+                                            </div>
+                                            <div class="col">
+                                                <p class="mt-0 fs-3 textColor5 fw-bold" id="precioTotal">0 €</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                    
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn" id="confirm-reservar">Reservar</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
-                  <button type="submit" class="btn">Reservar</button>
-                </div>
-            </form>
-              </div>
             </div>
-          </div>
+        </div>
     </div>
-    <th:block th:include="fragments/footer"/>
+    <th:block th:include="fragments/footer" />
     <script th:src="@{/js/calendarToGuapo.js}" src="js/calendarToGuapo.js"></script>
 </body>
+
 </html>

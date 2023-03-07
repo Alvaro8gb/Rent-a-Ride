@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import es.ucm.fdi.iw.model.Vehicle;
+
 /**
  * Security configuration.
  * 
@@ -50,11 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.ignoringAntMatchers("/api/**")
 				.and()
 	        .authorizeRequests()
-	            .antMatchers("/css/**", "/js/**", "/img/**", "/", "/error").permitAll()
+	            .antMatchers("/css/**", "/js/**", "/img/**", "/", "/error", "/vehicle/**").permitAll()
 				.antMatchers("/api/**").permitAll()            // <-- public api access
 				.antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
 	            .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
-	            //.anyRequest().authenticated()
+	            .anyRequest().authenticated()
 	            .and()
 			.formLogin()
 				.loginPage("/login")

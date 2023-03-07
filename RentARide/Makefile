@@ -6,6 +6,7 @@ SPRING_BOOT_TEST_INTERNAL = mvn test -Dtest=InternalRunner
 SPRING_BOOT_TEST_EXTERNAL = mvn test -Dtest=ExternalRunner
 CLEAN_KARATE = rm target/karate.log
 CLEAN_APP_LOGS = rm app.log
+CLEAN = mvn clean
 
 # Regla por defecto (la primera regla en el archivo Makefile)
 all: run
@@ -21,7 +22,8 @@ test:
 clean:
     $(CLEAN_KARATE)
     $(CLEAN_APP_LOGS)
-    mvn clean
+    $(CLEAN)
+    
 
 
 # Regla para imprimir la ruta relativa del archivo Makefile
