@@ -78,12 +78,12 @@ public class VehicleController {
                         HttpSession session){
         Vehicle vehicle = entityManager.find(Vehicle.class, id);
         User requester = (User)session.getAttribute("u");
-        BookingID bookingID = new BookingID(id, requester.getId());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
         LocalDate inDateTime = LocalDate.parse(inDate, formatter);
         LocalDate outDateTime = LocalDate.parse(outDate, formatter);
+        BookingID bookingID = new BookingID(id, requester.getId(), inDateTime, outDateTime);
         User user = entityManager.find(User.class, requester.getId());
-        Booking target = new Booking(bookingID, inDateTime, outDateTime, precio, user, vehicle);
+        Booking target = new Booking(bookingID, precio, user, vehicle);
         entityManager.persist(target);
         entityManager.flush();
         return "index";

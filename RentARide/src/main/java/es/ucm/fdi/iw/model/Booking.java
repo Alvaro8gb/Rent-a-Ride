@@ -25,11 +25,6 @@ public class Booking implements Transferable<Booking.Transfer> {
         private BookingID id;
 
         @Column(nullable = false)
-        private LocalDate in_date;
-        
-        private LocalDate out_date;
-
-        @Column(nullable = false)
         private Float priceByDay;
 
         @ManyToOne
@@ -44,17 +39,12 @@ public class Booking implements Transferable<Booking.Transfer> {
         @AllArgsConstructor
         public static class Transfer {
                 private BookingID id;
-                private String in_date;
-                private String out_date;
                 private Float priceByDay;
         }
         
         @Override
         public Transfer toTransfer() {
-                return new Transfer(id,	
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(in_date), 
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(out_date), 
-                priceByDay);
+                return new Transfer(id, priceByDay);
         }
             
         @Override
