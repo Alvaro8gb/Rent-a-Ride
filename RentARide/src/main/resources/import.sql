@@ -6,13 +6,13 @@ INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Nam
 VALUES (2, TRUE, 'USER', 'b',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Pepe', 'Martinez', 'pepeM@gmail.com');
 
-INSERT INTO location (id, name)
+INSERT INTO location (id, name, contact_number)
 VALUES
-(1, 'Madrid'),
-(2, 'Barcelona'),
-(3, 'Sevilla'),
-(4, 'Valencia'),
-(5, 'Málaga');
+(1, 'Madrid', 675883445),
+(2, 'Barcelona', 644223004),
+(3, 'Sevilla', 668234075),
+(4, 'Valencia', 664098237),
+(5, 'Málaga', 644991205);
 
 INSERT INTO vehicle (ID, AUTONOMY, CITY_CONSUMPTION, DESCRIPTION, DOORS, FUEL, VEHICLE, OLD_YEAR, ROAD_CONSUMPTION, SEATS, TRANSMISSION, IMAGE_PATH, LOCATION, PRICE_BY_DAY) VALUES
 (1, 800, 8.6, 'compact executive car produced by Audi since 1996.', 4, 'Gasolina', 'Audi A3', 2015, 6.2, 5, 'Automatico', 'audiA3.png', 1, 100),
