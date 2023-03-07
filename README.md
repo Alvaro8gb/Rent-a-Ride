@@ -17,3 +17,8 @@ este fichero habra que crear una clase para que lo cree.
 
 # Logs
 Para debugear se lleva la INFO al fichero app.log
+
+## DB
+
+[designer_link](https://dbdesigner.page.link/XSEH3FhGSRpSoBXG9)
+
