@@ -21,4 +21,4 @@ Para debugear se lleva la INFO al fichero app.log
 ## DB
 
 [designer_link](https://dbdesigner.page.link/XSEH3FhGSRpSoBXG9)
-
+![Db shema](Presentacion\img\db.jpg)
