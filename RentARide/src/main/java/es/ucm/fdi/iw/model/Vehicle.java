@@ -24,7 +24,8 @@ import javax.persistence.EnumType;
 @NamedQueries({
     @NamedQuery(name="Vehicle.byVechicle",
             query="SELECT v FROM Vehicle v "
-                    + "WHERE UPPER(v.vehicle) LIKE CONCAT('%', UPPER(:vehicle), '%')"),
+                    + "JOIN Location l ON (l.id = v.location)"
+                    + "WHERE UPPER(v.vehicle) LIKE CONCAT('%', UPPER(:vehicle), '%') AND l.name=:location"),
             
     @NamedQuery(name="Vehicle.findAll",
             query="SELECT v FROM Vehicle v "),

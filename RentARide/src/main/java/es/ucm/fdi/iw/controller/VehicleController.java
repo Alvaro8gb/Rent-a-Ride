@@ -52,8 +52,10 @@ public class VehicleController {
         log.info("endDate {}", endDate);
         */
         
-        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.byVechicle", Vehicle.class).
-        setParameter("vehicle", vehicle).getResultList();
+        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.byVechicle", Vehicle.class)
+        .setParameter("vehicle", vehicle)
+        .setParameter("location", pickupPoint)
+        .getResultList();
 
         model.addAttribute("vehicles", vs);
 
