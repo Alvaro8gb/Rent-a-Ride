@@ -24,6 +24,9 @@ public class Location {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private int contactNumber;
+
     @OneToMany(mappedBy="location")
 	private List<Vehicle> vehicles;
     
