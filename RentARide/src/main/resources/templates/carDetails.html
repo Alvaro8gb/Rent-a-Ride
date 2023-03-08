@@ -10,6 +10,8 @@
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <div class="container">
+        <th:block th:replace="fragments/flash :: flash" />
+
         <div class="row">
             <div class="col-5">
                 <img th:src="@{/img/{name}(name=${vehicle.imagePath})}" alt="" class="mt-4 img-fluid">
@@ -83,7 +85,7 @@
                         <h1 class="modal-title fs-5" id="modalAlquilerLabel">Finalizar reserva</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
-                    <form class="row" method="POST" th:action="@{/vehicle/{id}/booking(id=${vehicle.id})}">
+                    <form class="row" method="POST" th:action="@{/booking/book/{id}(id=${vehicle.id})}">
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <div class="row">
