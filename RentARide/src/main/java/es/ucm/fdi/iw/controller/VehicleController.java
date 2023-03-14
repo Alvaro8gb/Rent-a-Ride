@@ -66,6 +66,11 @@ public class VehicleController {
     public String index(Model model, @PathVariable long id){
         Vehicle target = entityManager.find(Vehicle.class, id);
         model.addAttribute("vehicle", target);
+
+        if ( target == null){
+            model.addAttribute("status", 400);
+            return "error";
+        }
         return "carDetails";
     }
 
