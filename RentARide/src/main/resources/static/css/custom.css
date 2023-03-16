@@ -52,6 +52,10 @@ img.preview {
     color: var(--light-blue);
 }
 
+.textColor2:hover{
+    color: var(--light-blue-hover);
+}
+
 .textColor3{
     color: var(--greened-blue);
 }
@@ -272,4 +276,35 @@ nav li .dropdown-item {
 .pageTitle {
     font-size: 48px;
     font-weight: 600;
+}
+
+.vehicleDetailLabel {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.vehicleDetailValue {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.vehicleTitle {
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.vehicleDetailImage {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.vehicleDescription {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.vehicleDayPrice {
+    font-size: 52px;
+    font-weight: 400;
 }

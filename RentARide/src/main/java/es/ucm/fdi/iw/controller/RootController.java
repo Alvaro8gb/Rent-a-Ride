@@ -30,8 +30,7 @@ public class RootController {
     @Autowired
 	private EntityManager entityManager;
 
-    public RootController(){
-
+    public RootController() {
         generateDummy();
     }
 

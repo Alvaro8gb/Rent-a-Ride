@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import es.ucm.fdi.iw.model.Vehicle;
 
 /**
  * Security configuration.
@@ -52,8 +51,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.ignoringAntMatchers("/api/**")
 				.and()
 	        .authorizeRequests()
-	            .antMatchers("/css/**", "/js/**", "/webfonts/**","/img/**", "/", "/error", "/vehicle/**").permitAll()
+				// Endpoints required in order to load the page
+	            .antMatchers("/css/**").permitAll()
+				.antMatchers("/js/**").permitAll()
+				.antMatchers("/webfonts/**").permitAll()
+				.antMatchers("/img/**").permitAll()
+				.antMatchers("/error").permitAll()
 				.antMatchers("/api/**").permitAll()            // <-- public api access
+
+				// Custom endpoints
+				.antMatchers("/signup").permitAll()
+				.antMatchers("/").permitAll()
+				.antMatchers("/vehicle/**").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
 	            .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
 	            .anyRequest().authenticated()

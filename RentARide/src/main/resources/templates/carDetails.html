@@ -12,46 +12,46 @@
     <div class="container">
         <th:block th:replace="fragments/flash :: flash" />
 
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-5">
-                <img th:src="@{/img/{name}(name=${vehicle.imagePath})}" alt="" class="mt-4 img-fluid">
+                <img th:src="@{/img/{name}(name=${vehicle.imagePath})}" alt="" class="mt-4 vehicleDetailImage img-fluid">
             </div>
             <div class="offset-1 col-6 mt-5">
                 <div class="row">
-                    <h2 class="mt-5" th:text="${vehicle.vehicle}">Mazda RX-7</h2>
-                    <p class="text-break" th:text="${vehicle.description}">RX-7 - 206 kW/276 CV</p>
+                    <h2 class="mt-5 vehicleTitle" th:text="${vehicle.vehicle}">Mazda RX-7</h2>
+                    <p class="text-break vehicleDescription" th:text="${vehicle.description}">RX-7 - 206 kW/276 CV</p>
                 </div>
-                <div class="row mt-5">
-                    <p class="fw-bold fs-5">Detalles del vehículo</p>
+                <div class="row mt-3">
+                    <p class="vehicleDetailValue">Detalles del vehículo</p>
                 </div>
                 <div class="row mt-3">
                     <div class="col-2">
-                        <p class="mb-0">Año</p>
-                        <p class="fw-bold" th:text="${vehicle.oldYear}">1992</p>
+                        <p class="mb-0 vehicleDetailLabel">Año</p>
+                        <p class="vehicleDetailValue" th:text="${vehicle.oldYear}">1992</p>
                     </div>
                     <div class="col-3">
-                        <p class="mb-0">Combustible</p>
-                        <p class="fw-bold" th:text="${vehicle.fuel}">Gasolina</p>
+                        <p class="mb-0 vehicleDetailLabel">Combustible</p>
+                        <p class="vehicleDetailValue" th:text="${vehicle.fuel}">Gasolina</p>
                     </div>
                     <div class="col-4">
-                        <p class="mb-0">Consumo</p>
-                        <p class="fw-bold text-break"
+                        <p class="mb-0 vehicleDetailLabel">Consumo</p>
+                        <p class="vehicleDetailValue text-break"
                             th:text="|${vehicle.roadConsumption} - ${vehicle.cityConsumption}L/100km|">12,3 -
                             15,7L/100km</p>
                     </div>
                     <div class="col-3">
-                        <p class="mb-0">Cambio</p>
-                        <p class="fw-bold" th:text="${vehicle.transmission}">Manual</p>
+                        <p class="mb-0 vehicleDetailLabel">Cambio</p>
+                        <p class="vehicleDetailValue" th:text="${vehicle.transmission}">Manual</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-2">
-                        <p class="mb-0">Plazas</p>
-                        <p class="fw-bold" th:text="${vehicle.seats}">4</p>
+                        <p class="mb-0 vehicleDetailLabel">Plazas</p>
+                        <p class="vehicleDetailValue" th:text="${vehicle.seats}">4</p>
                     </div>
                     <div class="col-2">
-                        <p class="mb-0">Puertas</p>
-                        <p class="fw-bold" th:text="${vehicle.doors}">3</p>
+                        <p class="mb-0 vehicleDetailLabel">Puertas</p>
+                        <p class="vehicleDetailValue" th:text="${vehicle.doors}">3</p>
                     </div>
                 </div>
             </div>
@@ -60,19 +60,19 @@
             <div class="offset-6 col-6">
                 <div class="row">
 
-                    <p class="mb-0"><i class="fa-solid fa-battery-full"></i> Autonomía diaria incluida</p>
-                    <p class="fw-bold" th:text="|${vehicle.autonomy}km/día incluidos|">400km/día incluidos</p>
+                    <p class="mb-0 vehicleDetailLabel"><i class="fa-solid fa-battery-full"></i> Autonomía diaria incluida</p>
+                    <p class="vehicleDetailValue" th:text="|${vehicle.autonomy}km/día incluidos|">400km/día incluidos</p>
                 </div>
                 <div class="row">
-                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i> Ubicación de recogida</p>
-                    <p class="fw-bold" th:text="${vehicle.location.name}">T4 Barajas, Madrid</p>
+                    <p class="mb-0 vehicleDetailLabel"><i class="fa-solid fa-location-dot"></i> Ubicación de recogida</p>
+                    <p class="vehicleDetailValue" th:text="${vehicle.location.name}">T4 Barajas, Madrid</p>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col text-center">
-                <p class="fs-2 textColor5" th:text="|${vehicle.priceByDay} €/día|">145 €/día</p>
-                <button type="button" id="reservar" class="btn" data-bs-toggle="modal"  data-bs-target="#modalAlquiler">
+                <p class="vehicleDayPrice textColor5" th:text="|${vehicle.priceByDay} €/día|">145 €/día</p>
+                <button type="button" id="reservar" class="btn" style="width: 15em;" data-bs-toggle="modal" data-bs-target="#modalAlquiler">
                     Reservar
                 </button>
             </div>
@@ -152,6 +152,7 @@
             </div>
         </div>
     </div>
+
     <th:block th:include="fragments/footer" />
     <script th:src="@{/js/calendarPrecio.js}" src="js/calendarPrecio.js"></script>
 </body>
