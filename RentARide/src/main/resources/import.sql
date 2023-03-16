@@ -1,3 +1,7 @@
+INSERT INTO CONFIGURATION(CONFIG_KEY, CONFIG_VALUE) VALUES
+('APP_NAME', 'Rent A Ride'),
+('APP_LOGO', 'logo.png');
+
 -- insert admin (username a, password aa)
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email)
 VALUES (1, TRUE, 'ADMIN,USER', 'a',
