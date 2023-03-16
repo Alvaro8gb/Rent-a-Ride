@@ -3,7 +3,7 @@
 
 <head>
     <th:block th:replace="fragments/head :: header" />
-    <title>Rent A Ride - Inicio</title>
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Detalles del vehículo</title>
 </head>
 
 <body class="d-flex flex-column h-100">

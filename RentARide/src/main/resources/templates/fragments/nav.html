@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <!-- nombre del sitio; es un enlace que lleva a la página ppal -->
                 <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="logo" width="45" height="45" class="d-inline-block align-text-top">
+                    <img th:src="@{/img/{imgName}(imgName=${@environment.getProperty('APP_LOGO')})}" alt="logo" width="45" height="45" class="d-inline-block align-text-top">
                 </a>
 
                 <!-- menu hamburguesa si no cabe todo -->

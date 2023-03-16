@@ -3,6 +3,7 @@
 
 <head>
     <th:block th:replace="fragments/head :: header"/>
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Iniciar Sesión</title>
     <style>
         .backgroundColor2:hover{
             background-color: #13707a;

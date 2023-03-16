@@ -2,6 +2,7 @@
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Registro</title>
 </head>
 
 <body>
