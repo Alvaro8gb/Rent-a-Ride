@@ -14,17 +14,13 @@ all: run
 # Regla para arrancar la aplicación
 run:
     $(SPRING_BOOT_RUN)
-
 test:
+	$(SPRING_BOOT_TEST_INTERNAL)
 	$(SPRING_BOOT_TEST_EXTERNAL)
-    $(SPRING_BOOT_TEST_INTERNAL)
-
 clean:
-    $(CLEAN_KARATE)
-    $(CLEAN_APP_LOGS)
-    $(CLEAN)
-    
-
+	$(CLEAN_KARATE)
+	$(CLEAN_APP_LOGS)
+	$(CLEAN)
 
 # Regla para imprimir la ruta relativa del archivo Makefile
 #print_relative_path:

@@ -34,7 +34,7 @@ public class ChatDummy {
         try ( BufferedReader br = new BufferedReader(
             new InputStreamReader(
                 Objects.requireNonNull(
-                    ChatDummy.class.getClassLoader().getResourceAsStream(FILENAME))))){
+                    ChatDummy.class.getClassLoader().getResourceAsStream(FILENAME)), "utf-8"))){
             
             String linea;
 
