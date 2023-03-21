@@ -1,12 +1,10 @@
 -- insert admin (username a, password aa)
-<<<<<<< Updated upstream
 INSERT INTO IWUser (id, enabled, roles, username, password)
 VALUES (1, TRUE, 'ADMIN,USER', 'a',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W');
 INSERT INTO IWUser (id, enabled, roles, username, password)
 VALUES (2, TRUE, 'USER', 'b',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W');
-=======
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI, image_Path)
 VALUES (1, TRUE, 'ADMIN,USER', 'a',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'admin', 'admin', 'admin@gmail.com', '78655489F', 'gatito.jpg');
@@ -33,7 +31,6 @@ INSERT INTO vehicle (ID, AUTONOMY, CITY_CONSUMPTION, DESCRIPTION, DOORS, FUEL, V
 (9, 345, 7.6, 'subcompact executive car.', 5, 'Gasolina', 'Mercedes A-Class', 2015, 5.1, 5, 'Automatico', 'mercedesClaseA.png', 3, 170),
 (10, 800, 8.4, 'light commercial vehicle.', 3, 'Diesel', 'Mercedes Sprinter', 2021, 10.2, 7, 'Automatico', 'mercedesVan.png', 4, 180),
 (12, 326, 22, 'electric compact crossover', 5, 'Electrico', 'Tesla Model Y', 2020, 20, 5, 'Automatico', 'teslaY.png', 5, 190);
->>>>>>> Stashed changes
 
 -- start id numbering from a value that is larger than any assigned above
 ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;
