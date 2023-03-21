@@ -36,5 +36,18 @@ INSERT INTO vehicle (ID, AUTONOMY, CITY_CONSUMPTION, DESCRIPTION, DOORS, FUEL, V
 (10, 800, 8.4, 'light commercial vehicle.', 3, 'Diesel', 'Mercedes Sprinter', 2021, 10.2, 7, 'Automatico', 'mercedesVan.png', 4, 180),
 (12, 326, 22, 'electric compact crossover', 5, 'Electrico', 'Tesla Model Y', 2020, 20, 5, 'Automatico', 'teslaY.png', 5, 190);
 
+INSERT INTO booking (USER_ID, VEHICLE_ID, IN_DATE, OUT_DATE, PRICE)
+VALUES
+(1, 1, '2023-03-21', '2023-03-22', 50),
+(2, 2, '2023-03-21', '2023-03-23', 80),
+(1, 3, '2023-03-21', '2023-03-24', 100),
+(2, 4, '2023-03-21', '2023-03-25', 120),
+(1, 5, '2023-03-21', '2023-03-26', 150),
+(2, 6, '2023-03-21', '2023-03-27', 200),
+(1, 7, '2023-03-21', '2023-03-28', 250),
+(2, 8, '2023-03-21', '2023-03-29', 300),
+(1, 9, '2023-03-21', '2023-03-30', 350),
+(2, 10, '2023-03-21', '2023-03-31', 400);
+
 -- start id numbering from a value that is larger than any assigned above
 ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;

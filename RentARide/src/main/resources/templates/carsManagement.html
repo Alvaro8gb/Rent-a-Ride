@@ -4,6 +4,8 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Gestión de flota</title>
+    <script th:src="@{/js/booking.js}" src="/js/booking.js"></script>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -20,6 +22,7 @@
                     </label>
                 </div>
             </div>
+
             <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
                 <div class="row">
                     <p class="fw-bold fs-1 text-center mb-5">Gestión de Flota</p>
@@ -32,57 +35,37 @@
                         </form>
                     </div>
                 </div>
-                <div class="row mb-2 border lightBlueBorder rounded">
-                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <img class="img-fluid" th:src="@{/img/car1.png}" src="/img/car1.png" alt="Car photo">
-                    </div>
-                    <div class="my-auto col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <p class="my-auto fw-bold fs-5">Audi A3 Sportback</p>
-                        <p>0345MYD</p>
-                    </div>
-                    <div class="my-auto col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <div class="row">
-                            <a th:href="@{/}" class="textColor1 text-decoration-none">Modificar</a>
+
+                <div th:each="vehicle : ${vehicles}">
+                    <!-- Listado de coches -->
+                    <div class="row mb-2 border lightBlueBorder rounded">
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <img class="img-fluid" th:src="@{/img/{name}(name=${vehicle.imagePath})}"
+                                alt="Imagen coche">
                         </div>
-                        <div class="row">
-                            <a th:href="@{/}" class="textColor1 text-decoration-none">Consultar reserva</a>
+                        <div class="my-auto col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                            <p class="my-auto fw-bold fs-5" th:text="${vehicle.vehicle}"> Modelo de coche</p>
+                            <!-- <p th:text="${vehicle.license}">Matricula</p> -->
                         </div>
-                    </div>
-                </div>
-                <div class="row mb-2 border lightBlueBorder rounded">
-                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <img class="img-fluid" th:src="@{/img/car2.png}" src="/img/car2.png" alt="Car photo">
-                    </div>
-                    <div class="my-auto col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <p class="my-auto fw-bold fs-5">Volkswagen Golf</p>
-                        <p>0345MYD</p>
-                    </div>
-                    <div class="my-auto col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <div class="row">
-                            <a th:href="@{/}" class="textColor1 text-decoration-none">Modificar</a>
-                        </div>
-                        <div class="row">
-                            <a th:href="@{/}" class="textColor1 text-decoration-none">Consultar reserva</a>
+                        <div class="my-auto col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                            <div class="row">
+                                <a  href="#" class="textColor1 text-decoration-none">Modificar</a>
+                            </div>
+                            <div class="row">
+                                <a href="#viewBooking" onclick="viewBooking('1')"class="textColor1 text-decoration-none" >Consultar reserva</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-2 border lightBlueBorder rounded">
-                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <img class="img-fluid" th:src="@{/img/car2.png}" src="/img/car2.png" alt="Car photo">
-                    </div>
-                    <div class="my-auto col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        <p class="my-auto fw-bold fs-5">Audi A3 Sportback</p>
-                        <p>0345MYD</p>
-                    </div>
-                    <div class="my-auto col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <div class="row">
-                            <a th:href="@{/}" class="textColor1 text-decoration-none">Modificar</a>
-                        </div>
-                        <div class="row">
-                            <a th:href="@{/}" class="textColor1 text-decoration-none">Consultar reserva</a>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewBooking" tabindex="-1" aria-labelledby="viewBookingLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" id="modal-content">
+                Info booking
+
             </div>
         </div>
     </div>

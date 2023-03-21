@@ -3,6 +3,7 @@ package es.ucm.fdi.iw.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import java.time.LocalDate;
 import java.util.List;
 import lombok.Data;
 
@@ -115,6 +116,18 @@ public class Vehicle {
         strBuilder.append(String.format("priceByDay: %s\n", priceByDay));
 
         return strBuilder.toString();
+    }
+
+    public boolean isAvailable(){
+        LocalDate current_date = LocalDate.now();
+
+        for(Booking b: bookings){
+            if( !(current_date.isAfter(b.getId().getIn_date()) && current_date.isBefore(b.getId().getOut_date()))){
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

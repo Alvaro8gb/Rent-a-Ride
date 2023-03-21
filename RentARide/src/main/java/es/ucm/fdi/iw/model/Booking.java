@@ -25,7 +25,7 @@ public class Booking implements Transferable<Booking.Transfer> {
         private BookingID id;
 
         @Column(nullable = false)
-        private Float priceByDay;
+        private Float price;
 
         @ManyToOne
         @MapsId("userID")
@@ -39,12 +39,12 @@ public class Booking implements Transferable<Booking.Transfer> {
         @AllArgsConstructor
         public static class Transfer {
                 private BookingID id;
-                private Float priceByDay;
+                private Float price;
         }
         
         @Override
         public Transfer toTransfer() {
-                return new Transfer(id, priceByDay);
+                return new Transfer(id, price);
         }
             
         @Override

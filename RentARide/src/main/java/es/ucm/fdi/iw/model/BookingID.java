@@ -17,7 +17,6 @@ public class BookingID implements Serializable {
     private long userID;
 
     private LocalDate in_date;
-    
     private LocalDate out_date;
 
 }
