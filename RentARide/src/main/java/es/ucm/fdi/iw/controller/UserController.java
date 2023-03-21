@@ -306,5 +306,12 @@ public class UserController {
 
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
-	}	
+	}
+
+	@GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
+		User u = (User)session.getAttribute("u");
+		model.addAttribute("user", u);
+        return "profile";
+    }
 }

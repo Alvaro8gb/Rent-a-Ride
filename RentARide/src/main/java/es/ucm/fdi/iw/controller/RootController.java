@@ -39,10 +39,6 @@ public class RootController {
             usersDummy.add(UserDummy.generateUser());
         }
     }
-    @GetMapping("/profile")
-    public String profile(Model model) {
-        return "profile";
-    }
 
     @GetMapping("/login")
     public String login(Model model) {
