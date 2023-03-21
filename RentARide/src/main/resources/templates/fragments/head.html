@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org/%22%3E">
 
 <head>
-    <title>Rent A Ride</title>
+    <title>${@environment.getProperty('APP_NAME')}"</title>
     <th:block th:fragment="header">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
         <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3.css}" href="css/bootstrap-5.1.3.css" type="text/css" />
         <link rel="stylesheet" th:href="@{/css/custom.css}" href="css/custom.css" type="text/css" />
         <link rel="icon" th:href="@{/img/favicon.ico}" href="/img/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" th:href="@{/css/all.css}" href="css/all.css"/>
+        <link rel="stylesheet" th:href="@{/css/all.css}" href="/css/all.css"/>
         <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" rel="stylesheet">
         <script type="text/javascript">
             const config = {

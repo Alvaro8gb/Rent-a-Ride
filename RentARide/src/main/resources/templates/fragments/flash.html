@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Flash fragment - rest is empty</title>
+</head>
+
+<body>
+    <th:block th:fragment="flash" th:if="${successMessage} OR ${errorMessage}">
+        <div class="row justify-content-center mt-4" id="flash">
+            <div class="col-8 text-center">
+                <div th:if="${successMessage}" class="alert alert-success" role="alert" th:text="${successMessage}">
+                    Alert message
+                </div>
+        
+                <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}">
+                    Alert message
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            setTimeout(function() {
+                // Fade out flash message after 0.5s
+                var flashMessage = document.getElementById('flash');
+                flashMessage.style.transition = 'opacity 0.5s';
+                flashMessage.remove();
+		    }, 2000);
+        </script>
+    </th:block>
+</body>
+
+</html>

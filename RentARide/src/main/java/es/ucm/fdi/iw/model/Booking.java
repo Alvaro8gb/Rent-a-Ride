@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,15 +18,11 @@ import lombok.AllArgsConstructor;
 
 @Data
 @Entity
+@AllArgsConstructor
 public class Booking implements Transferable<Booking.Transfer> {
         
         @EmbeddedId
         private BookingID id;
-
-        @Column(nullable = false)
-        private LocalDateTime in_date;
-        
-        private LocalDateTime out_date;
 
         @Column(nullable = false)
         private Float priceByDay;
@@ -42,17 +39,12 @@ public class Booking implements Transferable<Booking.Transfer> {
         @AllArgsConstructor
         public static class Transfer {
                 private BookingID id;
-                private String in_date;
-                private String out_date;
                 private Float priceByDay;
         }
         
         @Override
         public Transfer toTransfer() {
-                return new Transfer(id,	
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(in_date), 
-                DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(out_date), 
-                priceByDay);
+                return new Transfer(id, priceByDay);
         }
             
         @Override

@@ -7,18 +7,35 @@ import java.util.List;
 import lombok.Data;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.GeneratedValue;
+import javax.persistence.NamedQueries;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.JoinColumn;
 
+
 @Entity
 @Data
+@NamedQueries({
+    @NamedQuery(name="Vehicle.byVechicle",
+            query="SELECT v FROM Vehicle v "
+                    + "JOIN Location l ON (l.id = v.location)"
+                    + "WHERE UPPER(v.vehicle) LIKE CONCAT('%', UPPER(:vehicle), '%') AND l.name=:location"),
+            
+    @NamedQuery(name="Vehicle.findAll",
+            query="SELECT v FROM Vehicle v "),
+    @NamedQuery(name="Vehicle.allLocation",
+            query="SELECT l.name FROM Location l")
+})
+
 public class Vehicle {
+   
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique=true, nullable=false)
@@ -32,13 +49,13 @@ public class Vehicle {
     private List<Booking> bookings;
 
     @Column(nullable=false)
-    private String model;
+    private String vehicle;
 
     @Column(nullable=false)
     private String description;
 
     @Column(nullable=false)
-    private int old_year;
+    private int oldYear;
 
     public enum Fuel {
         Gasolina,
@@ -73,5 +90,31 @@ public class Vehicle {
 
     @Column(nullable = false)
     private int autonomy;
+
+    @Column(nullable = false)
+    private String imagePath;
+
+    @Column(nullable = false)
+    private float priceByDay;
+
+    @Override
+    public String toString() {
+        StringBuilder strBuilder = new StringBuilder();
+
+        strBuilder.append(String.format("Vehicle: %s\n", vehicle));
+        strBuilder.append(String.format("description: %s\n", description));
+        strBuilder.append(String.format("oldYear: %s\n", oldYear));
+        strBuilder.append(String.format("fuel: %s\n", fuel));
+        strBuilder.append(String.format("cityConsumption: %f\n", cityConsumption));
+        strBuilder.append(String.format("roadConsumption: %f\n", roadConsumption));
+        strBuilder.append(String.format("transmission: %s\n", transmission));
+        strBuilder.append(String.format("doors: %d\n", doors));
+        strBuilder.append(String.format("seats: %d\n", seats));
+        strBuilder.append(String.format("autonomy: %d\n", autonomy));
+        strBuilder.append(String.format("imagePath: %s\n", imagePath));
+        strBuilder.append(String.format("priceByDay: %s\n", priceByDay));
+
+        return strBuilder.toString();
+    }
 
 }

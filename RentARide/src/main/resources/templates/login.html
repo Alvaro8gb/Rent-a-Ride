@@ -3,6 +3,7 @@
 
 <head>
     <th:block th:replace="fragments/head :: header"/>
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Iniciar Sesión</title>
     <style>
         .backgroundColor2:hover{
             background-color: #13707a;
@@ -43,8 +44,10 @@
                             <button class="btn btn-lg btn-primary btn-block backgroundColor2" type="submit" style="border-color: #177E89;" >Iniciar Sesión</button>
                         </div>
                     </div>
+                    
                     <hr class="border border-dark border-1 mt-5">
                     <p class="fs-6">¿Aún no tienes cuenta? <a th:href="@{signup}" class="textColor1 text-decoration-none">¡Crea una ahora!</a></p>
+                    <small><a class="text-decoration-none textColor2" th:href="@{/}">Volver a inicio</a></small>
                 </form>
             </div>
         </div>
