@@ -19,7 +19,7 @@ run:
 verify:
 	$(VERIFY)
 
-# Regla para ejeutar los tests
+# Regla para ejecutar los tests
 test:
 	$(SPRING_BOOT_TEST_INTERNAL)
 	$(SPRING_BOOT_TEST_EXTERNAL)

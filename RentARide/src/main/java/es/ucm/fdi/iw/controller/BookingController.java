@@ -82,7 +82,7 @@ public class BookingController {
     @ResponseBody
     public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{ // Transferable<Booking.Transfer>
         Booking book = new Booking(new BookingID(1, 2, null, null), (float)43, null, null);
-
+        // cambiar por consulta a BD
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = objectMapper.writeValueAsString(book.toTransfer());
         

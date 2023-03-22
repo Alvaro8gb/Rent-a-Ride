@@ -46,7 +46,7 @@ public class Booking implements Transferable<Booking.Transfer> {
         public Transfer toTransfer() {
                 return new Transfer(id, price);
         }
-            
+        
         @Override
         public String toString() {
                 return toTransfer().toString();
