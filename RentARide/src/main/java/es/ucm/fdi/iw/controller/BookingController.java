@@ -3,8 +3,6 @@ package es.ucm.fdi.iw.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
@@ -29,10 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.BookingID;
-import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
-import es.ucm.fdi.iw.model.Booking.Transfer;
 
 
 /**
@@ -81,11 +77,14 @@ public class BookingController {
     @GetMapping(path="/{idVehicle}", produces = "application/json")
     @ResponseBody
     public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{ // Transferable<Booking.Transfer>
-        Booking book = new Booking(new BookingID(1, 2, null, null), (float)43, null, null);
         // cambiar por consulta a BD
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(book.toTransfer());
+  
+        Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
+        Booking book = vehicle.getBookings().size() > 0? vehicle.getBookings().get(0): null;
         
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = book == null? "{\"data\": \"False\"}":objectMapper.writeValueAsString(book.toTransfer());
+
         log.info("booking {} {}", idVehicle, jsonString);
 
         return jsonString;
