@@ -24,9 +24,15 @@
         <div class="row justify-content-center">
             <div class="col-auto">
                 <p class="fs-3 fw-bolder mb-0" th:text="|${user.firstName} ${user.lastName}|">Juan Carlos Martínez</p>
-                <p class="mt-0">Cliente</p>
-                <button class="border-0 bg-transparent" title="Modificar" type="submit" data-bs-toggle="modal"
-                    data-bs-target="#modalModificarUsuario"><i class="fa-solid fa-xl fa-pencil"></i></button>
+                <div class="row">
+                    <div class="col">
+                        <p class="mt-0">Cliente</p>
+                    </div>
+                    <div class="col text-end">
+                        <button class="border-0 bg-transparent" title="Modificar" type="submit" data-bs-toggle="modal"
+                        data-bs-target="#modalModificarUsuario"><i class="fa-solid fa-lg fa-pencil"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -73,19 +79,19 @@
                                     <div class="col text-start">
                                         <label for="nombre">Nombre</label>
                                         <input type="text" class="form-control mt-1" th:value="${user.firstName}"
-                                            name="nombre_perfil" id="nombre_perfil" requiered>
+                                            name="nombre_perfil" id="nombre_perfil" required>
                                     </div>
                                     <div class="col text-start">
                                         <label for="primer_apellido">Apellido</label>
                                         <input type="text" class="form-control mt-1" th:value="${user.lastName}"
-                                            name="apellido_perfil" id="apellido_perfil" requiered> 
+                                            name="apellido_perfil" id="apellido_perfil" required> 
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col text-start">
                                         <label for="correo">Correo</label>
                                         <input type="email" class="form-control mt-1" th:value="${user.email}"
-                                            name="correo_perfil" id="correo_perfil" requiered>
+                                            name="correo_perfil" id="correo_perfil" required>
                                     </div>
                                     <div class="col text-start">
                                         <label for="usuario">Nombre de usuario</label>
@@ -101,7 +107,7 @@
                                 <div class="row mt-3 justify-content-center">
                                     <div class="col-auto text-start">
                                         <label for="img" class="form-label mt-1">Imagen</label>
-                                        <input class="form-control" type="file" id="imagen_perfil" name="imagen_perfil" requiered>
+                                        <input class="form-control" type="file" id="imagen_perfil" name="imagen_perfil">
                                     </div>
                                 </div>
                                 <br>

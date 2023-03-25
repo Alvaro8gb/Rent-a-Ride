@@ -71,13 +71,13 @@
                                                                     <label
                                                                         for="nombre">Nombre</label>
                                                                     <input type="text" class="form-control mt-1"
-                                                                        th:value="${user.firstName}" name="nombre" id="nombre">
+                                                                        th:value="${user.firstName}" name="nombre" id="nombre" required>
                                                                 </div>
                                                                 <div class="col text-start">
                                                                     <label for="primer_apellido">Apellido</label>
                                                                     <input type="text" class="form-control mt-1"
                                                                         th:value="${user.lastName}" name="primer_apellido"
-                                                                        id="primer_apellido">
+                                                                        id="primer_apellido" required>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-3">
@@ -85,19 +85,19 @@
                                                                     <label for="correo">Correo</label>
                                                                     <input type="email" class="form-control mt-1"
                                                                         th:value="${user.email}" name="correo"
-                                                                        id="correo">
+                                                                        id="correo" required>
                                                                 </div>
                                                                 <div class="col text-start">
                                                                     <label for="dni">DNI</label>
                                                                     <input type="text" class="form-control mt-1"
                                                                         th:value="${user.DNI}" name="dni"
-                                                                        id="dni">
+                                                                        id="dni" required>
                                                                 </div>
                                                                 <div class="col text-start">
                                                                     <label for="usuario">Nombre de usuario</label>
                                                                     <input type="text" class="form-control mt-1"
                                                                         th:value="${user.username}" name="usuario"
-                                                                        id="usuario">
+                                                                        id="usuario" required>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-3">
@@ -105,7 +105,7 @@
                                                                     <label for="roles">Roles</label>
                                                                     <input type="text" class="form-control mt-1"
                                                                         th:value="${user.roles}" name="roles"
-                                                                        id="roles">
+                                                                        id="roles" required>
                                                                 </div>
                                                             </div><br>
                                                         </div>

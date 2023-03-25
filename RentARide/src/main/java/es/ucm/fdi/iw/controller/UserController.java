@@ -323,7 +323,6 @@ public class UserController {
 		User requester = (User)session.getAttribute("u");
         User user = entityManager.find(User.class, requester.getId());
         String roles = user.getRoles();
-        System.out.println(roles);
          //Comprobar si roll admin
         if(roles.contains("ADMIN")){
             User target = entityManager.find(User.class, id);
@@ -350,21 +349,30 @@ public class UserController {
 								@RequestParam("imagen_perfil") MultipartFile imagen,  
 								HttpSession session){
 		try{
-			User u = (User)session.getAttribute("u");
-			User user = entityManager.find(User.class, u.getId());
-			String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
-			File archivo = new File(path);
-			imagen.transferTo(archivo);
-			u.setDNI(dni);
-			u.setEmail(correo);
-			u.setLastName(apellido);
-			u.setFirstName(nombre);
-			u.setImagePath(imagen.getOriginalFilename());	
-			user.setDNI(dni);
-			user.setEmail(correo);
-			user.setLastName(apellido);
-			user.setFirstName(nombre);
-			user.setImagePath(imagen.getOriginalFilename());	
+			User sessionUser = (User)session.getAttribute("u");
+			User user = entityManager.find(User.class, sessionUser.getId());
+			if(!imagen.isEmpty()){
+				String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
+				imagen.transferTo(new File(path));
+				sessionUser.setImagePath(imagen.getOriginalFilename());	
+				user.setImagePath(imagen.getOriginalFilename());
+			}
+			if(!dni.isEmpty()){
+				sessionUser.setDNI(dni);
+				user.setDNI(dni);
+			}
+			if(!correo.isEmpty()){
+				sessionUser.setEmail(correo);
+				user.setEmail(correo);
+			}
+			if(!apellido.isEmpty()){
+				sessionUser.setLastName(apellido);
+				user.setLastName(apellido);
+			}
+			if(!nombre.isEmpty()){
+				sessionUser.setFirstName(nombre);
+				user.setFirstName(nombre);
+			}
 			redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
 		} catch(Exception e){
 			redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
