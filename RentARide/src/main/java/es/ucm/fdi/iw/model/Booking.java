@@ -38,17 +38,22 @@ public class Booking implements Transferable<Booking.Transfer> {
         @Getter
         @AllArgsConstructor
         public static class Transfer {
-                private BookingID id;
+                private BookingID.Transfer id;
                 private Float price;
+
         }
         
         @Override
         public Transfer toTransfer() {
-                return new Transfer(id, price);
+                return new Transfer(id.toTransfer(), price);
         }
         
         @Override
         public String toString() {
                 return toTransfer().toString();
+        }
+
+        public Booking(){
+                
         }
 }
