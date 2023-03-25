@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import javax.imageio.ImageIO;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -314,4 +316,59 @@ public class UserController {
 		model.addAttribute("user", u);
         return "profile";
     }
+
+	@PostMapping("/{id}/delete")
+	@Transactional
+	public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session){
+		User requester = (User)session.getAttribute("u");
+        User user = entityManager.find(User.class, requester.getId());
+        String roles = user.getRoles();
+        System.out.println(roles);
+         //Comprobar si roll admin
+        if(roles.contains("ADMIN")){
+            User target = entityManager.find(User.class, id);
+			if(target != null && id != user.getId()){
+				entityManager.remove(target);
+            	entityManager.flush();
+				redirAttrs.addFlashAttribute("successMessage", "El usuario se ha eliminado con éxito");
+			}
+			else{
+				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
+			}
+            
+        }
+        return "redirect:/userList";
+	}
+
+	@PostMapping("/profile/modify")
+	@Transactional
+	public String profileMod(RedirectAttributes redirAttrs,
+								@RequestParam("dni_perfil") String dni,
+								@RequestParam("correo_perfil") String correo,
+								@RequestParam("apellido_perfil") String apellido,
+								@RequestParam("nombre_perfil") String nombre,
+								@RequestParam("imagen_perfil") MultipartFile imagen,  
+								HttpSession session){
+		try{
+			User u = (User)session.getAttribute("u");
+			User user = entityManager.find(User.class, u.getId());
+			String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
+			File archivo = new File(path);
+			imagen.transferTo(archivo);
+			u.setDNI(dni);
+			u.setEmail(correo);
+			u.setLastName(apellido);
+			u.setFirstName(nombre);
+			u.setImagePath(imagen.getOriginalFilename());	
+			user.setDNI(dni);
+			user.setEmail(correo);
+			user.setLastName(apellido);
+			user.setFirstName(nombre);
+			user.setImagePath(imagen.getOriginalFilename());	
+			redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
+		} catch(Exception e){
+			redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
+		}																										  
+		return "redirect:/user/profile";
+	}
 }
