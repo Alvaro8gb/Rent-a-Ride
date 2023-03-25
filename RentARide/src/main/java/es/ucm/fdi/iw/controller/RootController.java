@@ -33,7 +33,7 @@ public class RootController {
 	private EntityManager entityManager;
 
     public RootController() {
-        generateDummy();
+        //generateDummy();
     }
 
     private static void generateDummy(){

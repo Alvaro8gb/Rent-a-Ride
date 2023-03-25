@@ -28,11 +28,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import javax.imageio.ImageIO;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,7 +45,13 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  *  User management.
@@ -69,6 +75,10 @@ public class UserController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	private final String mensajeErrorImagen = "La imagen proporcionada no es válida";
+	private final String mensajeErrorDNI = "El DNI proporcionado no es válido";
+	private final String mensajeErrorEmail = "El correo proporcionado no es válido";
 
     /**
      * Exception to use when denying access to unauthorized users.
@@ -348,35 +358,75 @@ public class UserController {
 								@RequestParam("nombre_perfil") String nombre,
 								@RequestParam("imagen_perfil") MultipartFile imagen,  
 								HttpSession session){
-		try{
-			User sessionUser = (User)session.getAttribute("u");
-			User user = entityManager.find(User.class, sessionUser.getId());
-			if(!imagen.isEmpty()){
-				String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
-				imagen.transferTo(new File(path));
-				sessionUser.setImagePath(imagen.getOriginalFilename());	
-				user.setImagePath(imagen.getOriginalFilename());
+		String err = checkData(dni, correo, imagen);
+		if(err == null){
+			try{
+				User sessionUser = (User)session.getAttribute("u");
+				User user = entityManager.find(User.class, sessionUser.getId());
+				if(!imagen.isEmpty()){
+					String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
+					imagen.transferTo(new File(path));
+					sessionUser.setImagePath(imagen.getOriginalFilename());	
+					user.setImagePath(imagen.getOriginalFilename());
+				}
+				if(!dni.isEmpty()){
+					sessionUser.setDNI(dni);
+					user.setDNI(dni);
+				}
+				if(!correo.isEmpty()){
+					sessionUser.setEmail(correo);
+					user.setEmail(correo);
+				}
+				if(!apellido.isEmpty()){
+					sessionUser.setLastName(apellido);
+					user.setLastName(apellido);
+				}
+				if(!nombre.isEmpty()){
+					sessionUser.setFirstName(nombre);
+					user.setFirstName(nombre);
+				}
+				redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
+			} catch(Exception e){
+				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
 			}
-			if(!dni.isEmpty()){
-				sessionUser.setDNI(dni);
-				user.setDNI(dni);
-			}
-			if(!correo.isEmpty()){
-				sessionUser.setEmail(correo);
-				user.setEmail(correo);
-			}
-			if(!apellido.isEmpty()){
-				sessionUser.setLastName(apellido);
-				user.setLastName(apellido);
-			}
-			if(!nombre.isEmpty()){
-				sessionUser.setFirstName(nombre);
-				user.setFirstName(nombre);
-			}
-			redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
-		} catch(Exception e){
-			redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
-		}																										  
+		}
+		else{
+			redirAttrs.addFlashAttribute("errorMessage", err);
+		}							
 		return "redirect:/user/profile";
+	}
+
+	private String checkData(String dni, String correo, MultipartFile imagen){
+		Pattern patternDNI = Pattern.compile("^\\d{8}[a-zA-Z]$");
+		Matcher matcherDNI = patternDNI.matcher(dni);
+		if(matcherDNI.matches()){
+			Pattern patternEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+			Matcher matcherEmail = patternEmail.matcher(correo);
+			if(matcherEmail.matches()){
+				try {
+					if(!(imagen == null || imagen.isEmpty())){
+						BufferedImage image = ImageIO.read(imagen.getInputStream());
+						if (image == null) {
+							return mensajeErrorImagen;
+						}
+			
+						String format = imagen.getContentType();
+						if (format == null || !format.toLowerCase().startsWith("image/")) {
+							return mensajeErrorImagen;
+						}
+					}		
+					return null;
+
+				} catch (IOException e) {
+					return mensajeErrorImagen;
+				}
+			}
+			else{
+				return mensajeErrorEmail;
+			}
+		}
+		else{
+			return mensajeErrorDNI;
+		}
 	}
 }
