@@ -18,8 +18,8 @@
             </div>
             <div class="offset-1 col-6 mt-5">
                 <div class="row">
-                    <h2 class="mt-5 vehicleTitle" th:text="${vehicle.vehicle}">Mazda RX-7</h2>
-                    <p class="text-break vehicleDescription" th:text="${vehicle.description}">RX-7 - 206 kW/276 CV</p>
+                    <h2 class="mt-5 vehicleTitle" th:text="${vehicle.brand}">Mazda RX-7</h2>
+                    <p class="text-break vehicleDescription" th:text="${vehicle.modelName}">RX-7 - 206 kW/276 CV</p>
                 </div>
                 <div class="row mt-3">
                     <p class="vehicleDetailValue">Detalles del vehículo</p>
@@ -36,7 +36,7 @@
                     <div class="col-4">
                         <p class="mb-0 vehicleDetailLabel">Consumo</p>
                         <p class="vehicleDetailValue text-break"
-                            th:text="|${vehicle.roadConsumption} - ${vehicle.cityConsumption}L/100km|">12,3 -
+                            th:text="|${vehicle.consumption}L/100km|">12,3 -
                             15,7L/100km</p>
                     </div>
                     <div class="col-3">
@@ -94,11 +94,11 @@
                                 <div class="row">
                                     <div class="col-2">
                                         <p class="mb-0">Vehículo</p>
-                                        <p class="mt-0 fw-bold" th:text="${vehicle.vehicle}">Mazda RX-7</p>
+                                        <p class="mt-0 fw-bold" th:text="${vehicle.brand}">Mazda RX-7</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="mb-0">Descripción</p>
-                                        <p class="mt-0 text-break fw-bold" th:text="${vehicle.description}">RX-7 -
+                                        <p class="mt-0 text-break fw-bold" th:text="${vehicle.modelName}">RX-7 -
                                             206kW/276 CV</p>
                                     </div>
                                     <div class="col-3">

@@ -27,7 +27,6 @@ import java.util.List;
                         + "WHERE u.username = :username"),
         @NamedQuery(name="User.all",
                 query="SELECT u FROM User u WHERE u.enabled = TRUE")
-        
 })
 @Table(name="IWUser")
 public class User implements Transferable<User.Transfer> {

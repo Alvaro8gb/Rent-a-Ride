@@ -17,7 +17,7 @@
         </div>
         <div class="row justify-content-center mt-5 mb-2">
             <div class="col-auto">
-                <img th:src="@{/img/{name}(name=${user.imagePath})}" width="234" height="234" alt="Imagen de perfil"
+                <img th:src="@{/user/{id}/pic(id=${session.u.id})}" width="234" height="234" alt="Imagen de perfil"
                     class="d-inline-block img-fluid">
             </div>
         </div>

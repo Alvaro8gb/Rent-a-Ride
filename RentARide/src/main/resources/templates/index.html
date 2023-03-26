@@ -5,6 +5,7 @@
     <th:block th:replace="fragments/head :: header" />
     <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Inicio</title>
     <!-- <script th:src="@{/js/loading.js}" src="/js/loading.js"></script> -->
+    <script th:src="@{/js/calendarIndex.js}" src="js/calendarIndex.js"></script>
 </head>
 
 <body>
@@ -61,7 +62,7 @@
                     <div class="card sugerenceCard">
                       <a th:href="@{/vehicle/{id}(id=${vehicle.id})}"><img th:src="@{/img/{name}(name=${vehicle.imagePath})}" class="card-img-top" alt="Imagen coche"></a>
                         <div class="card-body">
-                          <h5 th:text="${vehicle.vehicle}" class="card-title mb-3">Vehicle</h5>
+                          <h5 th:text="${vehicle.brand}" class="card-title mb-3">Vehicle</h5>
                           <p th:inline="text" class="card-text mb-1">
                             <i class="fa-solid fa-fw fa-battery-full"></i>
                               [[${vehicle.autonomy}]] km/día incluidos
@@ -81,7 +82,6 @@
         <th:block th:replace="fragments/chat.html :: chat" />
     </main>
     <th:block th:replace="fragments/footer.html :: footer" />
-    <script th:src="@{/js/calendarIndex.js}" src="js/calendarIndex.js"></script>
 </body>
 
 </html>

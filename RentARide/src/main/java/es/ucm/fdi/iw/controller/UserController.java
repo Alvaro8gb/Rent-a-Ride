@@ -330,13 +330,12 @@ public class UserController {
     }
 
 	@PostMapping("/{id}/delete")
-	@Transactional
-	public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session){
-		User requester = (User)session.getAttribute("u");
+    @Transactional
+    public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session){
+        User requester = (User)session.getAttribute("u");
         User user = entityManager.find(User.class, requester.getId());
         String roles = user.getRoles();
          //Comprobar si roll admin
-		Boolean reservaActiva = false;
         if(roles.contains("ADMIN")){
             User target = entityManager.find(User.class, id);
 			if(target.getBookings().size() > 0){
@@ -360,7 +359,7 @@ public class UserController {
             
         }
         return "redirect:/userList";
-	}
+    }
 
 	@PostMapping("/profile/modify")
 	@Transactional
@@ -377,10 +376,10 @@ public class UserController {
 				User sessionUser = (User)session.getAttribute("u");
 				User user = entityManager.find(User.class, sessionUser.getId());
 				if(!imagen.isEmpty()){
-					String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
-					imagen.transferTo(new File(path));
-					sessionUser.setImagePath(imagen.getOriginalFilename());	
-					user.setImagePath(imagen.getOriginalFilename());
+					File f = localData.getFile("user", user.getId()+".jpg");
+					imagen.transferTo(new File(f.getAbsolutePath()));
+					sessionUser.setImagePath(user.getId()+".jpg");	
+					user.setImagePath(user.getId()+".jpg");
 				}
 				if(!dni.isEmpty()){
 					sessionUser.setDNI(dni);

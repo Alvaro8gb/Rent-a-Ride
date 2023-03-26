@@ -22,4 +22,10 @@ public class AdminController {
     public String index(Model model) {
         return "admin";
     }
+
+    
+    @GetMapping("/search")
+    public String search(Model model){
+        return "";
+    }
 }
