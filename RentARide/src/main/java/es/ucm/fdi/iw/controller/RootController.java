@@ -60,10 +60,7 @@ public class RootController {
     public String createVehicle(Model model) {
         return "createVehicle";
     }
-    @GetMapping("/signup")
-    public String signup(Model model) {
-        return "signup";
-    }
+  
 	@GetMapping("/")
     public String index(Model model) {
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();

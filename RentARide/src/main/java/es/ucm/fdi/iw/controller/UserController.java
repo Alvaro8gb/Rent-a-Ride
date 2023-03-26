@@ -1,6 +1,7 @@
 package es.ucm.fdi.iw.controller;
 
 import es.ucm.fdi.iw.LocalData;
+import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
@@ -41,6 +42,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.*;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -334,11 +336,22 @@ public class UserController {
         User user = entityManager.find(User.class, requester.getId());
         String roles = user.getRoles();
          //Comprobar si roll admin
+		Boolean reservaActiva = false;
         if(roles.contains("ADMIN")){
             User target = entityManager.find(User.class, id);
-			if(target != null && id != user.getId()){
-				entityManager.remove(target);
-            	entityManager.flush();
+			if(target.getBookings().size() > 0){
+				LocalDate today = LocalDate.now();
+				
+				for(int i = 0; i < target.getBookings().size(); i++){
+					if(target.getBookings().get(i).getId().getOut_date().compareTo(today) > 0){
+						reservaActiva = true;
+						System.out.println("tiene una reserva activa XDFD");
+					}
+				}
+			}
+			if(target != null && id != user.getId() && !reservaActiva){
+				target.setEnabled(false);
+            	entityManager.persist(target);
 				redirAttrs.addFlashAttribute("successMessage", "El usuario se ha eliminado con éxito");
 			}
 			else{
@@ -395,6 +408,62 @@ public class UserController {
 		}							
 		return "redirect:/user/profile";
 	}
+	@GetMapping("/signup")
+    public String signup(Model model) {
+        return "signup";
+    }
+	@PostMapping("/signup")
+	@Transactional
+	public String singUp(RedirectAttributes redirAttrs,
+						@RequestParam("dni") String dni,
+						@RequestParam("correo") String email,
+						@RequestParam("primer_apellido") String lastName,
+						@RequestParam("segundo_apellido") String lastName1,
+						@RequestParam("nombre") String firstName,
+						@RequestParam("usuario") String username,
+						@RequestParam("password") String pass,
+						@RequestParam("conf_pass") String conf_pass,
+						HttpSession session){
+		User target = new User();
+		
+		
+		try{
+			Pattern patternDNI = Pattern.compile("^\\d{8}[a-zA-Z]$");
+			Matcher matcherDNI = patternDNI.matcher(dni);
+			if(matcherDNI.matches()){
+				Pattern patternEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+				Matcher matcherEmail = patternEmail.matcher(email);
+				if(matcherEmail.matches()){
+					Pattern patternPass = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$");
+					Matcher matcherPass = patternPass.matcher(dni);
+					if(matcherPass.matches()){
+						if(pass == conf_pass){
+							target.setDNI(dni);
+							target.setEmail(email);
+							target.setLastName(lastName + " " + lastName1);
+							target.setFirstName(firstName);
+							target.setUsername(username);
+							target.setPassword(encodePassword(pass));
+							entityManager.persist(target);
+							entityManager.flush();
+							redirAttrs.addFlashAttribute("successMessage", "Usuario registrado con éxito");
+						}
+						
+					}else  redirAttrs.addFlashAttribute("errorMessage", "Contraseña introducida no cumple los requisitos");
+				}else{
+					redirAttrs.addFlashAttribute("errorMessage", mensajeErrorEmail);
+				} 
+			}else{ 
+				redirAttrs.addFlashAttribute("errorMessage", mensajeErrorDNI);
+			}
+		}catch(Exception e){
+			redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
+		}
+	
+		
+
+		return "redirect:/signup";
+	}
 
 	private String checkData(String dni, String correo, MultipartFile imagen){
 		Pattern patternDNI = Pattern.compile("^\\d{8}[a-zA-Z]$");
@@ -429,4 +498,5 @@ public class UserController {
 			return mensajeErrorDNI;
 		}
 	}
+
 }

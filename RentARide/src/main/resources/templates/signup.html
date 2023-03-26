@@ -15,7 +15,7 @@
                 <div class="row text-center mb-5 mt-5">
                     <p class="fs-1 form-signin-heading text-center textColor3 fw-semibold">¡Únete a nosotros!</p>
                 </div>
-                <form class="form-signin text-center mx-5" th:action="@{/login}" method="POST">
+                <form class="form-signin text-center mx-5" th:action="@{/user/signup}" method="POST">
                     <div class="row mt-3">
                         <div class="col text-start">
                             <label for="nombre">Nombre</label>
@@ -35,6 +35,10 @@
                             <input type="email" class="form-control mt-1" placeholder="email@gmail.com" name="correo" id="correo">
                         </div>
                         <div class="col text-start">
+                            <label for="dni">DNI</label>
+                            <input type="dni" class="form-control mt-1" placeholder="15358957A" name="dni" id="dni">
+                        </div>
+                        <div class="col text-start">
                             <label for="usuario">Nombre de usuario</label>
                             <input type="text" class="form-control mt-1" placeholder="juan.martinez89" name="usuario" id="usuario">
                         </div>
@@ -49,18 +53,20 @@
                             <label for="conf_pass">Repetir contraseña</label>
                             <input type="text" class="form-control mt-1" placeholder="Repetir Contraseña" name="conf_pass" id="conf_pass">
                         </div>
-                    </div> <br>
+                    </div> 
+                    <br>
                     <div class="row d-flex justify-content-center mt-5">
                         <div class="col text-center">
-                            <button class="btn btn-lg">Registrarme</button>
+                            <button class="btn btn-lg" type="submit">Registrarme</button>
                         </div>
                     </div>
+                </form>
                     <hr class="border border-dark border-1 mt-5">
                     <div class="row d-flex justify-content-center text-center">
                         <p>¿Ya tienes cuenta? <a th:href="@{/login}" class="textColor1 text-decoration-none">¡Inicia sesion ahora!</a></p>
                         <small><a class="text-decoration-none textColor2" th:href="@{/}">Volver a inicio</a></small>
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>

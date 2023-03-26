@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/**").permitAll()            // <-- public api access
 
 				// Custom endpoints
-				.antMatchers("/signup").permitAll()
+				.antMatchers("/user/signup").permitAll()
 				.antMatchers("/").permitAll()
 				.antMatchers("/vehicle/**").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
