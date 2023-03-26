@@ -25,6 +25,7 @@ public class VehicleDummy {
         vehicle.setAutonomy(numberIntBetween(300, 800));
         */
         return vehicle;
+        
     }
 
     private static int numberIntBetween(int min, int max) {

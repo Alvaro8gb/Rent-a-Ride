@@ -77,7 +77,6 @@ public class BookingController {
     @GetMapping(path="/{idVehicle}", produces = "application/json")
     @ResponseBody
     public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{ // Transferable<Booking.Transfer>
-        // cambiar por consulta a BD
   
         Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
         Booking book = vehicle.getBookings().size() > 0? vehicle.getBookings().get(0): null;

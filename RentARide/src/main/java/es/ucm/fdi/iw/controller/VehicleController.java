@@ -26,10 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.ucm.fdi.iw.model.Booking;
-import es.ucm.fdi.iw.model.BookingID;
-import es.ucm.fdi.iw.model.Location;
-import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 import es.ucm.fdi.iw.model.Vehicle.Fuel;
 import es.ucm.fdi.iw.model.Vehicle.Transmission;
@@ -61,7 +57,7 @@ public class VehicleController {
         */
         
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.byVechicle", Vehicle.class)
-        .setParameter("vehicle", vehicle)
+        .setParameter("modelName", vehicle)
         .setParameter("location", pickupPoint)
         .getResultList();
 
@@ -83,74 +79,7 @@ public class VehicleController {
 
         return "carDetails";
     }
-
-    @PostMapping("/create")
-    @Transactional
-    public String create(Model model, @RequestParam(required=true) String marca,
-                                      @RequestParam(required=true) String modelo,
-                                      @RequestParam(required=true) String anio,
-                                      @RequestParam(required=true) String combustible,
-                                      @RequestParam(required=true) float consumo,
-                                      @RequestParam(required=true) String cambio,
-                                      @RequestParam(required=true) int puertas,
-                                      @RequestParam(required=true) int plazas,
-                                      @RequestParam(required=true) int cv,
-                                      @RequestParam(required=true) String matricula,
-                                      @RequestParam(required=true) int autonomia,
-                                      @RequestParam(required=true) String img,
-                                      @RequestParam(required=true) String recogida,
-                                      @RequestParam(required=true) float precio) {
-        
-        Location location = entityManager.createNamedQuery("Location.byName", Location.class)
-                                            .setParameter("name", recogida)
-                                            .getSingleResult();
-        
-        Vehicle vehicle = new Vehicle();
-
-        
-        vehicle.setBrand(marca);
-        vehicle.setModelName(modelo);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate inDateTime = LocalDate.parse(anio, formatter);
-        vehicle.setOldYear(inDateTime);
-        vehicle.setFuel(Fuel.valueOf(combustible));
-        vehicle.setConsumption(consumo);
-        vehicle.setTransmission(Transmission.valueOf(cambio));
-        vehicle.setDoors(puertas);
-        vehicle.setSeats(plazas);
-        vehicle.setCv(cv);
-        vehicle.setLicense(matricula);
-        vehicle.setAutonomy(autonomia);
-        vehicle.setImagePath(img);
-        vehicle.setPriceByDay(precio);
-        vehicle.setLocation(location);
-
-        entityManager.persist(vehicle);
-        entityManager.flush();
-
-        return "createVehicle";
-    }
-
-    @PostMapping("{id}/booking")
-    @Transactional
-    public String booking(Model model, @PathVariable long id,
-                        @RequestParam(required=false) String inDate,
-                        @RequestParam(required=false) String outDate,
-                        @RequestParam(required=false) Float precio,
-                        HttpSession session){
-        Vehicle vehicle = entityManager.find(Vehicle.class, id);
-        User requester = (User)session.getAttribute("u");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Poner ISO
-        LocalDate inDateTime = LocalDate.parse(inDate, formatter);
-        LocalDate outDateTime = LocalDate.parse(outDate, formatter);
-        BookingID bookingID = new BookingID(id, requester.getId(), inDateTime, outDateTime);
-        User user = entityManager.find(User.class, requester.getId());
-        Booking target = new Booking(bookingID, precio, user, vehicle);
-        entityManager.persist(target);
-        entityManager.flush();
-        return "index";
-    }
-
+    
     @GetMapping(path = "/searchByName", produces = "application/json")
     @Transactional
 	@ResponseBody
@@ -173,4 +102,5 @@ public class VehicleController {
         
         return jsonString;
     }
+   
 }

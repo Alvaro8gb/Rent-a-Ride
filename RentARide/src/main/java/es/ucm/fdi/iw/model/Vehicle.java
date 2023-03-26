@@ -123,7 +123,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
         private long id;
         private String brand;
         private String modelName;
-        private int oldYear;
+        private LocalDate oldYear;
         private Fuel fuel;
         private float consumption;
         private Transmission transmission;
@@ -139,7 +139,9 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     
     @Override
     public Transfer toTransfer() {
-        return new Transfer(id, brand, modelName, oldYear, fuel, consumption, transmission, doors, seats, cv, license, autonomy, imagePath, priceByDay);
+        return new Transfer(id, brand, modelName, oldYear, 
+        fuel, consumption, transmission, doors, seats, 
+        cv, license, autonomy, imagePath, priceByDay);
     }
 
     @Override
