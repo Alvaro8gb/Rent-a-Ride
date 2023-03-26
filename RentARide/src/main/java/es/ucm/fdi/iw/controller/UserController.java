@@ -41,6 +41,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.*;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -328,26 +329,37 @@ public class UserController {
     }
 
 	@PostMapping("/{id}/delete")
-	@Transactional
-	public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session){
-		User requester = (User)session.getAttribute("u");
+    @Transactional
+    public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session){
+        User requester = (User)session.getAttribute("u");
         User user = entityManager.find(User.class, requester.getId());
         String roles = user.getRoles();
          //Comprobar si roll admin
+        Boolean reservaActiva = false;
         if(roles.contains("ADMIN")){
             User target = entityManager.find(User.class, id);
-			if(target != null && id != user.getId()){
-				entityManager.remove(target);
-            	entityManager.flush();
-				redirAttrs.addFlashAttribute("successMessage", "El usuario se ha eliminado con éxito");
-			}
-			else{
-				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
-			}
-            
+            if(target.getBookings().size() > 0){
+                LocalDate today = LocalDate.now();
+
+                for(int i = 0; i < target.getBookings().size(); i++){
+                    if(target.getBookings().get(i).getId().getOut_date().compareTo(today) > 0){
+                        reservaActiva = true;
+                        System.out.println("tiene una reserva activa XDFD");
+                    }
+                }
+            }
+            if(target != null && id != user.getId() && !reservaActiva){
+                target.setEnabled(false);
+                entityManager.persist(target);
+                redirAttrs.addFlashAttribute("successMessage", "El usuario se ha eliminado con éxito");
+            }
+            else{
+                redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
+            }
+
         }
         return "redirect:/userList";
-	}
+    }
 
 	@PostMapping("/profile/modify")
 	@Transactional
@@ -364,10 +376,10 @@ public class UserController {
 				User sessionUser = (User)session.getAttribute("u");
 				User user = entityManager.find(User.class, sessionUser.getId());
 				if(!imagen.isEmpty()){
-					String path = System.getProperty("user.dir") + "/RentARide/src/main/resources/static/img/" + imagen.getOriginalFilename();
-					imagen.transferTo(new File(path));
-					sessionUser.setImagePath(imagen.getOriginalFilename());	
-					user.setImagePath(imagen.getOriginalFilename());
+					File f = localData.getFile("user", user.getId()+".jpg");
+					imagen.transferTo(new File(f.getAbsolutePath()));
+					sessionUser.setImagePath(user.getId()+".jpg");	
+					user.setImagePath(user.getId()+".jpg");
 				}
 				if(!dni.isEmpty()){
 					sessionUser.setDNI(dni);

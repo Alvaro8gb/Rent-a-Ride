@@ -60,7 +60,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     private String modelName;
 
     @Column(nullable=false)
-    private int oldYear;
+    private LocalDate oldYear;
 
     public enum Fuel {
         Gasolina,

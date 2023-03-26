@@ -11,7 +11,7 @@
     <div class="container" style="width: 60%;">
         <h2 class="pageTitle text-center mt-5">Crear nuevo vehículo</h2>
 
-        <form class="createVehicleForm" th:action="@{/createVehicle}" method="post">
+        <form class="createVehicleForm" th:action="@{/vehicle/create}" method="post">
             <div class="row d-flex text-align-center mt-3">
                 <div class="col">
                     <label for="marca">Marca</label>
@@ -23,18 +23,18 @@
                 </div>
                 <div class="col">
                     <label for="año">Año</label>
-                    <input type="text" name="año" id="año" class="form-control  mt-1" placeholder="Fecha">
+                    <input type="date" name="anio" id="anio" class="form-control  mt-1" placeholder="Fecha">
                 </div>
             </div>
             <div class="row d-flex mt-3 text-align-center">
                 <div class="col">
                     <label for="combustible">Combustible</label>
                     <select name="combustible" id="combustible" class="form-select mt-1">
-                        <option value="gasolina">Gasolina</option>
-                        <option value="diesel">Diesel</option>
-                        <option value="electrico">Electrico</option>
-                        <option value="hibrido">Hibrido</option>
-                        <option value="gas">Gas</option>
+                        <option value="Gasolina">Gasolina</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Electrico">Electrico</option>
+                        <option value="Hibrido">Hibrido</option>
+                        <option value="Gas">Gas</option>
                     </select>
                 </div>
                 <div class="col">
@@ -44,8 +44,8 @@
                 <div class="col">
                     <label for="cambio">Cambio</label>
                     <select name="cambio" id="cambio" class="form-select  mt-1">
-                        <option value="manual">Manual</option>
-                        <option value="automático">Automático</option>
+                        <option value="Manual">Manual</option>
+                        <option value="Automático">Automático</option>
                     </select>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="col">
                     <label for="cv">CV</label>
-                    <input type="text" name="cv" id="cv" class="form-control mt-1" placeholder="231 CV">
+                    <input type="number" name="cv" id="cv" class="form-control mt-1" placeholder="231">
                 </div>
             </div>
             <div class="row d-flex text-align-center mt-3">
@@ -91,12 +91,16 @@
                 <div class="col-4">
                     <label for="recogida" class="form-label">Punto de recogida</label>
                     <select name="recogida" id="recogida" class="form-select  mt-1">
-                        <option value="" selected>Direccion</option>
-                        <option value="madrid">Madrid</option>
-                        <option value="barcelona">Barcelona</option>
-                        <option value="valencia">Valencia</option>
-                        <option value="murcia">Murcia</option>
+                        <option value="Sevilla" selected>Sevilla</option>
+                        <option value="Madrid">Madrid</option>
+                        <option value="Barcelona">Barcelona</option>
+                        <option value="Valencia">Valencia</option>
+                        <option value="Málaga">Málaga</option>
                     </select>
+                </div>
+                <div class="col-4">
+                    <label for="precio" class="form-label mt-1">Precio por día</label>
+                    <input class="form-control" type="number" step=".01" min="0" id="precio" name="precio" placeholder="234,23€">
                 </div>
             </div>
             <div class="row d-flex justify-content-center mt-3">
