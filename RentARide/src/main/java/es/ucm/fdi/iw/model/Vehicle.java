@@ -55,7 +55,7 @@ public class Vehicle {
     private String modelName;
 
     @Column(nullable=false)
-    private int oldYear;
+    private LocalDate oldYear;
 
     public enum Fuel {
         Gasolina,
