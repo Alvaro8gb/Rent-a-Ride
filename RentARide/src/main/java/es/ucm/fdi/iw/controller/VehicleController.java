@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.BookingID;
@@ -95,6 +99,27 @@ public class VehicleController {
         entityManager.flush();
         return "index";
     }
-   
 
+    @GetMapping(path = "/searchByName", produces = "application/json")
+    @Transactional
+	@ResponseBody
+    public String searchByName(@RequestParam("filtro") String filtro, Model model, @PathVariable long id) throws JsonProcessingException{
+        List<Vehicle> l = entityManager.createQuery("Vehicle.searchWithFilter", Vehicle.class).setParameter("filtro", filtro).getResultList();
+
+        String jsonString = "{'data' : [";
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        int i = 0;
+        for(Vehicle v : l){
+            jsonString += objectMapper.writeValueAsString(v.toTransfer());
+            if(i != l.size() - 1){
+                jsonString += ", ";
+            }
+            i++;
+        }
+
+        jsonString += "]}";
+        
+        return jsonString;
+    }
 }
