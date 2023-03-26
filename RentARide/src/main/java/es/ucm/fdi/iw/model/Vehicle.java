@@ -26,7 +26,7 @@ import javax.persistence.EnumType;
     @NamedQuery(name="Vehicle.byVechicle",
             query="SELECT v FROM Vehicle v "
                     + "JOIN Location l ON (l.id = v.location)"
-                    + "WHERE UPPER(v.vehicle) LIKE CONCAT('%', UPPER(:vehicle), '%') AND l.name=:location"),
+                    + "WHERE UPPER(v.modelName) LIKE CONCAT('%', UPPER(:modelName), '%') AND l.name=:location"),
             
     @NamedQuery(name="Vehicle.findAll",
             query="SELECT v FROM Vehicle v "),
@@ -49,10 +49,10 @@ public class Vehicle {
     private List<Booking> bookings;
 
     @Column(nullable=false)
-    private String vehicle;
+    private String brand;
 
     @Column(nullable=false)
-    private String description;
+    private String modelName;
 
     @Column(nullable=false)
     private int oldYear;
@@ -69,10 +69,7 @@ public class Vehicle {
     private Fuel fuel;
 
     @Column(nullable = false)
-    private float cityConsumption;
-
-    @Column(nullable = false)
-    private float roadConsumption;
+    private float consumption;
 
     public enum Transmission {
         Automatico,
@@ -89,6 +86,12 @@ public class Vehicle {
     private int seats;
 
     @Column(nullable = false)
+    private int cv;
+
+    @Column(nullable = false)
+    private String license;
+
+    @Column(nullable = false)
     private int autonomy;
 
     @Column(nullable = false)
@@ -100,7 +103,8 @@ public class Vehicle {
     @Override
     public String toString() {
         StringBuilder strBuilder = new StringBuilder();
-
+        
+        /*
         strBuilder.append(String.format("Vehicle: %s\n", vehicle));
         strBuilder.append(String.format("description: %s\n", description));
         strBuilder.append(String.format("oldYear: %s\n", oldYear));
@@ -113,6 +117,7 @@ public class Vehicle {
         strBuilder.append(String.format("autonomy: %d\n", autonomy));
         strBuilder.append(String.format("imagePath: %s\n", imagePath));
         strBuilder.append(String.format("priceByDay: %s\n", priceByDay));
+        */
 
         return strBuilder.toString();
     }
