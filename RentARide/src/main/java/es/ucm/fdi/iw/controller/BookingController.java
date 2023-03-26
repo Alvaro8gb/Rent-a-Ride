@@ -83,7 +83,7 @@ public class BookingController {
         Booking book = vehicle.getBookings().size() > 0? vehicle.getBookings().get(0): null;
         
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = book == null? "{\"data\": \"False\"}":objectMapper.writeValueAsString(book.toTransfer());
+        String jsonString = book == null? "{\"data\": false}" : "{\"data\": " +objectMapper.writeValueAsString(book.toTransfer()) +"}";
 
         log.info("booking {} {}", idVehicle, jsonString);
 

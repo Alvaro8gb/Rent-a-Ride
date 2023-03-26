@@ -65,12 +65,14 @@ public class VehicleController {
     @GetMapping("{id}")
     public String index(Model model, @PathVariable long id){
         Vehicle target = entityManager.find(Vehicle.class, id);
-        model.addAttribute("vehicle", target);
 
         if ( target == null){
             model.addAttribute("status", 400);
             return "error";
         }
+
+        model.addAttribute("vehicle", target);
+
         return "carDetails";
     }
 
@@ -83,7 +85,7 @@ public class VehicleController {
                         HttpSession session){
         Vehicle vehicle = entityManager.find(Vehicle.class, id);
         User requester = (User)session.getAttribute("u");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Poner ISO
         LocalDate inDateTime = LocalDate.parse(inDate, formatter);
         LocalDate outDateTime = LocalDate.parse(outDate, formatter);
         BookingID bookingID = new BookingID(id, requester.getId(), inDateTime, outDateTime);
@@ -93,5 +95,6 @@ public class VehicleController {
         entityManager.flush();
         return "index";
     }
+   
 
 }

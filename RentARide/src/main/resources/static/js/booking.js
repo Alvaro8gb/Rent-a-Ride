@@ -1,14 +1,14 @@
 function processBooking(json){
     console.log(json);
+    let car = json["data"];
 
-    if (json["data"] == "False"){
+    if (!car){
         $("#content-booking").text("No info");
     }
     else{
-        $("#id-car").text(json["id"]["vehicleID"]);
-        $("#precio-book").text(json["price"] + "€");
-        $("#in-date").text(json["id"]["in_date"]);    
-        $("#out-date").text(json["id"]["in_date"]);    
+        $("#precio-book").text(car["price"] + "€");
+        $("#in-date").text(car["id"]["in_date"]);    
+        $("#out-date").text(car["id"]["in_date"]);    
 
     }
 
