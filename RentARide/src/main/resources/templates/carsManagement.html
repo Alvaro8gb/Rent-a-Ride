@@ -36,7 +36,7 @@
             </div>
             
             <!-- Search button-->
-            <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+            <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9" id="paginaGestionFlota">
                 <div class="row">
                     <p class="fw-bold fs-1 text-center mb-5">Gestión de Flota</p>
                 </div>
@@ -45,12 +45,11 @@
                         <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" id="searchV" placeholder="Buscar vehiculo..."
                                 aria-label="Search" value="">
-                            <button type="button" onclick="searchFilter()" id="button-search" class="btn justify-content-right">Buscar</button>
                         </form>
                     </div>
                 </div>
 
-                <div th:each="vehicle : ${vehicles}">
+                <div th:each="vehicle : ${vehicles}" class="tarjetaVehiculo">
                     <!-- Listado de coches -->
                     <div class="row mb-2 border lightBlueBorder rounded">
                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
@@ -58,15 +57,15 @@
                                 alt="Imagen coche">
                         </div>
                         <div class="my-auto col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <p class="my-auto fw-bold fs-5" th:text="${vehicle.brand}"> Modelo de coche</p>
-                            <!-- <p th:text="${vehicle.license}">Matricula</p> -->
+                            <p class="my-auto fw-bold fs-5" th:text="|${vehicle.brand} ${vehicle.modelName}|"> Modelo de coche</p>
+                            <p th:text="${vehicle.license}">Matricula</p>
                         </div>
                         <div class="my-auto col-sm-3 col-md-3 col-lg-3 col-xl-3">
                             <div class="row">
                                 <a href="#" class="textColor1 text-decoration-none">Modificar</a>
                             </div>
                             <div class="row">
-                                <a href="#viewBooking" th:onclick="viewBooking([[(${vehicle.id})]])" ;
+                                <a href="#viewBooking" th:onclick="viewBooking([[(${vehicle.id})]])"
                                     class="textColor1 text-decoration-none">Consultar reserva</a>
                             </div>
                         </div>

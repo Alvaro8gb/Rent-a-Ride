@@ -141,7 +141,8 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     
     @Override
     public Transfer toTransfer() {
-        return new Transfer(id, brand, modelName, DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(oldYear), 
+        String oY = DateTimeFormatter.ISO_LOCAL_DATE.format(oldYear);
+        return new Transfer(id, brand, modelName, oY, 
         fuel, consumption, transmission, doors, seats, 
         cv, license, autonomy, imagePath, priceByDay);
     }

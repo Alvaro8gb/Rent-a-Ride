@@ -87,7 +87,7 @@ public class VehicleController {
     public String searchByName(@RequestParam("filtro") String filtro, Model model) throws JsonProcessingException{
         List<Vehicle> l = entityManager.createNamedQuery("Vehicle.searchWithFilter", Vehicle.class).setParameter("filtro", filtro).getResultList();
 
-        String jsonString = "{'data' : [";
+        String jsonString = "{\"data\" : [";
         ObjectMapper objectMapper = new ObjectMapper();
         
         int i = 0;
@@ -100,7 +100,6 @@ public class VehicleController {
         }
 
         jsonString += "]}";
-        
         return jsonString;
     }
    
