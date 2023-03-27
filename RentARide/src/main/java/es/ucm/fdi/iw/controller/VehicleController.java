@@ -1,20 +1,15 @@
 package es.ucm.fdi.iw.controller;
 
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.JndiDataSourceAutoConfiguration;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.ucm.fdi.iw.model.Location;
 import es.ucm.fdi.iw.model.Vehicle;
 import es.ucm.fdi.iw.model.Vehicle.Fuel;
 import es.ucm.fdi.iw.model.Vehicle.Transmission;
@@ -103,4 +99,48 @@ public class VehicleController {
         return jsonString;
     }
    
+    @PostMapping("/create")
+    @Transactional
+    public String create(Model model, @RequestParam(required=true) String marca,
+                                      @RequestParam(required=true) String modelo,
+                                      @RequestParam(required=true) int anio,
+                                      @RequestParam(required=true) String combustible,
+                                      @RequestParam(required=true) float consumo,
+                                      @RequestParam(required=true) String cambio,
+                                      @RequestParam(required=true) int puertas,
+                                      @RequestParam(required=true) int plazas,
+                                      @RequestParam(required=true) int cv,
+                                      @RequestParam(required=true) String matricula,
+                                      @RequestParam(required=true) int autonomia,
+                                      @RequestParam(required=true) String img,
+                                      @RequestParam(required=true) String recogida,
+                                      @RequestParam(required=true) float precio) {
+        
+        Location location = entityManager.createNamedQuery("Location.byName", Location.class)
+                                            .setParameter("name", recogida)
+                                            .getSingleResult();
+        
+        Vehicle vehicle = new Vehicle();
+
+        
+        vehicle.setBrand(marca);
+        vehicle.setModelName(modelo);
+        vehicle.setOldYear(anio);
+        vehicle.setFuel(Fuel.valueOf(combustible));
+        vehicle.setConsumption(consumo);
+        vehicle.setTransmission(Transmission.valueOf(cambio));
+        vehicle.setDoors(puertas);
+        vehicle.setSeats(plazas);
+        vehicle.setCv(cv);
+        vehicle.setLicense(matricula);
+        vehicle.setAutonomy(autonomia);
+        vehicle.setImagePath(img);
+        vehicle.setPriceByDay(precio);
+        vehicle.setLocation(location);
+
+        entityManager.persist(vehicle);
+        entityManager.flush();
+
+        return "createVehicle";
+    }
 }
