@@ -336,6 +336,7 @@ public class UserController {
         User user = entityManager.find(User.class, requester.getId());
         String roles = user.getRoles();
          //Comprobar si roll admin
+		Boolean reservaActiva = true;
         if(roles.contains("ADMIN")){
             User target = entityManager.find(User.class, id);
 			if(target.getBookings().size() > 0){

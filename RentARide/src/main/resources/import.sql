@@ -19,16 +19,16 @@ VALUES
 (5, 'Málaga', 644991205);
 
 INSERT INTO vehicle (ID, CV, LICENSE, AUTONOMY, CONSUMPTION, DOORS, FUEL, MODEL_NAME, BRAND, OLD_YEAR, SEATS, TRANSMISSION, IMAGE_PATH, LOCATION, PRICE_BY_DAY) VALUES
-(1, 100, '8673GVZ', 800, 8.6, 4, 'Gasolina', 'A3', 'Audi', 2015, 5, 'Automatico', 'audiA3.png', 1, 100),
-(2, 200, '8673GVZ', 750, 9.1, 4, 'Gasolina', 'A4', 'Audi',  2014, 5, 'Automatico', 'audiA4.png', 2, 110),
-(3, 300, '8673GVZ', 320, 19.0, 5, 'Electrico', 'iX3', 'BMW', 2022,  5, 'Automatico', 'bmwIX40.png', 3, 120),
-(4, 100, '8673GVZ', 280, 12.7, 2, 'Gasolina', 'Z4', 'BMW', 2020, 2, 'Automatico', 'bmwZ4.png', 4, 130),
-(6, 100, '8673GVZ', 780, 3.6, 5, 'Diesel', 'C4', 'Citroën', 2018, 5, 'Manual', 'citroenC4.png', 5, 140),
-(7, 100, '8673GVZ', 640, 6.2, 5, 'Gasolina', 'Corsa', 'Opel', 2020, 5, 'Manual', 'corsa.png', 1, 150),
-(8, 100, '8673GVZ', 305, 12.5, 2, 'Gasolina', 'RX-7', 'Mazda', 2000, 2, 'Manual', 'mazdaRX7.png', 2, 160),
-(9, 100, '8673GVZ', 345, 7.6, 5, 'Gasolina', 'A-Class', 'Mercedes', 2015, 5, 'Automatico', 'mercedesClaseA.png', 3, 170),
-(10,100, '8673GVZ',  800, 8.4, 3, 'Diesel', 'Sprinter', 'Mercedes', 2021,  7, 'Automatico', 'mercedesVan.png', 4, 180),
-(12,100, '8673GVZ',  326, 22, 5, 'Electrico', 'Model Y', 'Tesla', 2020, 5, 'Automatico', 'teslaY.png', 5, 190);
+(1, 100, '8673GVZ', 800, 8.6, 4, 'Gasolina', 'A3', 'Audi', '2020-12-25', 5, 'Automatico', 'audiA3.png', 1, 100),
+(2, 200, '8673GVZ', 750, 9.1, 4, 'Gasolina', 'A4', 'Audi',  '2020-12-25', 5, 'Automatico', 'audiA4.png', 2, 110),
+(3, 300, '8673GVZ', 320, 19.0, 5, 'Electrico', 'iX3', 'BMW', '2020-12-25',  5, 'Automatico', 'bmwIX40.png', 3, 120),
+(4, 100, '8673GVZ', 280, 12.7, 2, 'Gasolina', 'Z4', 'BMW', '2020-12-25', 2, 'Automatico', 'bmwZ4.png', 4, 130),
+(6, 100, '8673GVZ', 780, 3.6, 5, 'Diesel', 'C4', 'Citroën', '2020-12-25', 5, 'Manual', 'citroenC4.png', 5, 140),
+(7, 100, '8673GVZ', 640, 6.2, 5, 'Gasolina', 'Corsa', 'Opel', '2020-12-25', 5, 'Manual', 'corsa.png', 1, 150),
+(8, 100, '8673GVZ', 305, 12.5, 2, 'Gasolina', 'RX-7', 'Mazda', '2020-12-25', 2, 'Manual', 'mazdaRX7.png', 2, 160),
+(9, 100, '8673GVZ', 345, 7.6, 5, 'Gasolina', 'A-Class', 'Mercedes', '2020-12-25', 5, 'Automatico', 'mercedesClaseA.png', 3, 170),
+(10,100, '8673GVZ',  800, 8.4, 3, 'Diesel', 'Sprinter', 'Mercedes', '2020-12-25',  7, 'Automatico', 'mercedesVan.png', 4, 180),
+(12,100, '8673GVZ',  326, 22, 5, 'Electrico', 'Model Y', 'Tesla', '2020-12-25', 5, 'Automatico', 'teslaY.png', 5, 190);
 
 INSERT INTO booking (USER_ID, VEHICLE_ID, IN_DATE, OUT_DATE, PRICE)
 VALUES

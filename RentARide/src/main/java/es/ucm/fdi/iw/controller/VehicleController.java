@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.JndiDataSourceAutoConfiguration;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,8 +84,8 @@ public class VehicleController {
     @GetMapping(path = "/searchByName", produces = "application/json")
     @Transactional
 	@ResponseBody
-    public String searchByName(@RequestParam("filtro") String filtro, Model model, @PathVariable long id) throws JsonProcessingException{
-        List<Vehicle> l = entityManager.createQuery("Vehicle.searchWithFilter", Vehicle.class).setParameter("filtro", filtro).getResultList();
+    public String searchByName(@RequestParam("filtro") String filtro, Model model) throws JsonProcessingException{
+        List<Vehicle> l = entityManager.createNamedQuery("Vehicle.searchWithFilter", Vehicle.class).setParameter("filtro", filtro).getResultList();
 
         String jsonString = "{'data' : [";
         ObjectMapper objectMapper = new ObjectMapper();
@@ -95,7 +96,7 @@ public class VehicleController {
             if(i != l.size() - 1){
                 jsonString += ", ";
             }
-            i++;
+            i++;            
         }
 
         jsonString += "]}";

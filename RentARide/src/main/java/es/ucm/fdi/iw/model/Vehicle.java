@@ -21,6 +21,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import java.time.format.DateTimeFormatter;
+
 
 
 @Entity
@@ -123,7 +125,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
         private long id;
         private String brand;
         private String modelName;
-        private LocalDate oldYear;
+        private String oldYear;
         private Fuel fuel;
         private float consumption;
         private Transmission transmission;
@@ -139,7 +141,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     
     @Override
     public Transfer toTransfer() {
-        return new Transfer(id, brand, modelName, oldYear, 
+        return new Transfer(id, brand, modelName, DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(oldYear), 
         fuel, consumption, transmission, doors, seats, 
         cv, license, autonomy, imagePath, priceByDay);
     }
