@@ -62,7 +62,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     private String modelName;
 
     @Column(nullable=false)
-    private LocalDate oldYear;
+    private int oldYear;
 
     public enum Fuel {
         Gasolina,
@@ -125,7 +125,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
         private long id;
         private String brand;
         private String modelName;
-        private String oldYear;
+        private int oldYear;
         private Fuel fuel;
         private float consumption;
         private Transmission transmission;
@@ -141,7 +141,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     
     @Override
     public Transfer toTransfer() {
-        return new Transfer(id, brand, modelName, DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(oldYear), 
+        return new Transfer(id, brand, modelName, oldYear, 
         fuel, consumption, transmission, doors, seats, 
         cv, license, autonomy, imagePath, priceByDay);
     }
