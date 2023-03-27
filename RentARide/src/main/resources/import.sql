@@ -1,14 +1,18 @@
--- insert admin (username a, password aa)
 INSERT INTO CONFIGURATION(CONFIG_KEY, CONFIG_VALUE) VALUES
 ('APP_NAME', 'Rent A Ride'),
 ('APP_LOGO', 'logo.png');
 
+-- insert admin (username a, password aa)
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI, image_Path)
 VALUES (1, TRUE, 'ADMIN,USER', 'a',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'admin', 'admin', 'admin@gmail.com', '78655489F', 'gatito.jpg');
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI, image_Path)
 VALUES (2, TRUE, 'USER', 'b',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Pepe', 'Martinez', 'pepeM@gmail.com', '23400978T', 'profile_sample.png');
+INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI, image_Path)
+VALUES (3, TRUE, 'GESTOR,USER', 'c',
+    '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Julian', 'Casas', 'juli@gmail.com', '23432478T', 'profile_sample.png');
+
 
 INSERT INTO location (id, name, contact_number)
 VALUES

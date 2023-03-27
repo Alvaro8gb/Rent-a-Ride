@@ -81,6 +81,7 @@ public class UserController {
 	private final String mensajeErrorImagen = "La imagen proporcionada no es válida";
 	private final String mensajeErrorDNI = "El DNI proporcionado no es válido";
 	private final String mensajeErrorEmail = "El correo proporcionado no es válido";
+	private final String mensajeErrorPassword = "Las contraseñas no coinciden o no cumple los requisitos";
 
     /**
      * Exception to use when denying access to unauthorized users.
@@ -399,22 +400,24 @@ public class UserController {
 					user.setFirstName(nombre);
 				}
 				redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
-			} catch(Exception e){
+			} catch(Exception e) {
+				e.printStackTrace();
 				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
 			}
-		}
-		else{
+		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}							
 		return "redirect:/user/profile";
 	}
+
 	@GetMapping("/signup")
     public String signup(Model model) {
         return "signup";
     }
+
 	@PostMapping("/signup")
 	@Transactional
-	public String singUp(RedirectAttributes redirAttrs,
+	public String signup(RedirectAttributes redirAttrs,
 						@RequestParam("dni") String dni,
 						@RequestParam("correo") String email,
 						@RequestParam("primer_apellido") String lastName,
@@ -423,46 +426,42 @@ public class UserController {
 						@RequestParam("usuario") String username,
 						@RequestParam("password") String pass,
 						@RequestParam("conf_pass") String conf_pass,
-						HttpSession session){
-		User target = new User();
-		
-		
-		try{
-			Pattern patternDNI = Pattern.compile("^\\d{8}[a-zA-Z]$");
-			Matcher matcherDNI = patternDNI.matcher(dni);
-			if(matcherDNI.matches()){
-				Pattern patternEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
-				Matcher matcherEmail = patternEmail.matcher(email);
-				if(matcherEmail.matches()){
-					Pattern patternPass = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$");
-					Matcher matcherPass = patternPass.matcher(dni);
-					if(matcherPass.matches()){
-						if(pass == conf_pass){
-							target.setDNI(dni);
-							target.setEmail(email);
-							target.setLastName(lastName + " " + lastName1);
-							target.setFirstName(firstName);
-							target.setUsername(username);
-							target.setPassword(encodePassword(pass));
-							entityManager.persist(target);
-							entityManager.flush();
-							redirAttrs.addFlashAttribute("successMessage", "Usuario registrado con éxito");
-						}
-						
-					}else  redirAttrs.addFlashAttribute("errorMessage", "Contraseña introducida no cumple los requisitos");
-				}else{
-					redirAttrs.addFlashAttribute("errorMessage", mensajeErrorEmail);
-				} 
-			}else{ 
-				redirAttrs.addFlashAttribute("errorMessage", mensajeErrorDNI);
-			}
-		}catch(Exception e){
-			redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
-		}
-	
-		
+						HttpSession session) {
 
-		return "redirect:/signup";
+		User newUser = new User();
+		
+		Pattern patternDNI = Pattern.compile("^\\d{8}[a-zA-Z]$");
+		Matcher matcherDNI = patternDNI.matcher(dni);
+		if (matcherDNI.matches()) {
+			Pattern patternEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+			Matcher matcherEmail = patternEmail.matcher(email);
+			if (matcherEmail.matches()) {
+				Pattern patternPass = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$");
+				Matcher matcherPass = patternPass.matcher(pass);
+				if (matcherPass.matches()) {
+					if (pass.equals(conf_pass)) {
+						newUser.setDNI(dni);
+						newUser.setEmail(email);
+						newUser.setLastName(lastName + " " + lastName1);
+						newUser.setFirstName(firstName);
+						newUser.setUsername(username);
+						newUser.setPassword(encodePassword(pass));
+						newUser.setImagePath("default-pic.png");
+						newUser.setRoles("USER");
+						newUser.setEnabled(true);
+						entityManager.persist(newUser);
+						entityManager.flush();
+						redirAttrs.addFlashAttribute("successMessage", "Usuario registrado con éxito");
+					}
+					
+				} else
+					redirAttrs.addFlashAttribute("errorMessage", mensajeErrorPassword);
+			} else
+				redirAttrs.addFlashAttribute("errorMessage", mensajeErrorEmail);
+		} else 
+			redirAttrs.addFlashAttribute("errorMessage", mensajeErrorDNI);
+
+		return "redirect:/user/signup";
 	}
 
 	private String checkData(String dni, String correo, MultipartFile imagen){

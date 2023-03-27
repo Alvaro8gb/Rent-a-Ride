@@ -15,7 +15,10 @@
                 <div class="row text-center mb-5 mt-5">
                     <p class="fs-1 form-signin-heading text-center textColor3 fw-semibold">¡Únete a nosotros!</p>
                 </div>
-                <form class="form-signin text-center mx-5" th:action="@{/user/signup}" method="POST">
+
+                <th:block th:replace="fragments/flash :: flash" />
+
+                <form th:action="@{/user/signup}" method="POST" class="form-signin text-center mx-5">
                     <div class="row mt-3">
                         <div class="col text-start">
                             <label for="nombre">Nombre</label>
@@ -29,6 +32,7 @@
                             <input type="text" class="form-control mt-1" placeholder="Garcia" name="segundo_apellido" id="segundo_apellido">
                         </div>
                     </div>
+
                     <div class="row mt-3">
                         <div class="col text-start">
                             <label for="correo">Correo</label>
@@ -42,31 +46,31 @@
                             <label for="usuario">Nombre de usuario</label>
                             <input type="text" class="form-control mt-1" placeholder="juan.martinez89" name="usuario" id="usuario">
                         </div>
-                        
                     </div>
+
                     <div class="row mt-3 mb-3">
                         <div class="col text-start">
                             <label for="password">Contraseña</label>
-                            <input type="text" class="form-control mt-1" placeholder="Contraseña" name="password" id="password">
+                            <input type="password" class="form-control mt-1" placeholder="Contraseña" name="password" id="password">
                         </div>
                         <div class="col text-start">
                             <label for="conf_pass">Repetir contraseña</label>
-                            <input type="text" class="form-control mt-1" placeholder="Repetir Contraseña" name="conf_pass" id="conf_pass">
+                            <input type="password" class="form-control mt-1" placeholder="Repetir Contraseña" name="conf_pass" id="conf_pass">
                         </div>
                     </div> 
-                    <br>
+                    
                     <div class="row d-flex justify-content-center mt-5">
                         <div class="col text-center">
                             <button class="btn btn-lg" type="submit">Registrarme</button>
                         </div>
                     </div>
                 </form>
-                    <hr class="border border-dark border-1 mt-5">
-                    <div class="row d-flex justify-content-center text-center">
-                        <p>¿Ya tienes cuenta? <a th:href="@{/login}" class="textColor1 text-decoration-none">¡Inicia sesion ahora!</a></p>
-                        <small><a class="text-decoration-none textColor2" th:href="@{/}">Volver a inicio</a></small>
-                    </div>
-                
+
+                <hr class="border border-dark border-1 mt-5">
+                <div class="row d-flex justify-content-center text-center">
+                    <p>¿Ya tienes cuenta? <a th:href="@{/login}" class="textColor1 text-decoration-none">¡Inicia sesion ahora!</a></p>
+                    <small><a class="text-decoration-none textColor2" th:href="@{/}">Volver a inicio</a></small>
+                </div>
             </div>
         </div>
     </div>

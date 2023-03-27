@@ -28,6 +28,7 @@
                         </li>
                         
                         <th:block th:if="${session.u}">
+                            <th:block th:if="${session.u.hasRole('GESTOR') or session.u.hasRole('ADMIN')}">
                             <li class="nav-item px-3">
                                 <a class="nav-link" th:href="@{/createVehicle}">Crear Vehículo</a>
                             </li>
@@ -37,9 +38,10 @@
                             <li class="nav-item px-3">
                                 <a class="nav-link" th:href="@{/inChats}">Chats entrantes</a>
                             </li>
-                            <li class="nav-item px-3">
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN')}">
                                 <a class="nav-link" th:href="@{/userList}">Gestión de usuarios</a>
                             </li>
+                            </th:block>
                         </th:block>
                     </ul>
                 </div>
@@ -79,6 +81,10 @@
                                     <input type="hidden" name="password" value="aa">
                                     <button type="submit" class="btn btn-outline-danger btn-sm">b</button>
                                 </form>
+                            </li>
+
+                            <li class="nav-item align-self-center">
+                                <a class="nav-link" th:href="@{/user/signup}">¡Únete a nosotros!</a>
                             </li>
                         </th:block>
                     </ul>

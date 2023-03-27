@@ -32,7 +32,8 @@ import java.util.List;
 public class User implements Transferable<User.Transfer> {
 
     public enum Role {
-        USER,			// normal users 
+        USER,			// normal users
+        GESTOR,         // company employee
         ADMIN,          // admin users
     }
 
