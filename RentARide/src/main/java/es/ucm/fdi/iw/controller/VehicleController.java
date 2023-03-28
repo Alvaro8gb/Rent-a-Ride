@@ -1,7 +1,13 @@
 package es.ucm.fdi.iw.controller;
 
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -12,16 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Location;
 import es.ucm.fdi.iw.model.Vehicle;
 import es.ucm.fdi.iw.model.Vehicle.Fuel;
@@ -36,7 +45,8 @@ import es.ucm.fdi.iw.model.Vehicle.Transmission;
 public class VehicleController {
 
 	private static final Logger log = LogManager.getLogger(VehicleController.class);
-
+    @Autowired
+    private LocalData localData;
     @Autowired
 	private EntityManager entityManager;
 
@@ -75,6 +85,20 @@ public class VehicleController {
         model.addAttribute("vehicle", target);
 
         return "carDetails";
+    }
+
+        @GetMapping("{id}/pic")
+    public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
+        File f = localData.getFile("vehicle", ""+id+".png");
+        InputStream in = new BufferedInputStream(f.exists() ?
+            new FileInputStream(f) : VehicleController.defaultPic());
+        return os -> FileCopyUtils.copy(in, os);
+    }
+
+    private static InputStream defaultPic() {
+	    return new BufferedInputStream(Objects.requireNonNull(
+            VehicleController.class.getClassLoader().getResourceAsStream(
+                "static/img/default-vehicle.png")));
     }
     
     @GetMapping(path = "/searchByName", produces = "application/json")

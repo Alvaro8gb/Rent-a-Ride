@@ -14,11 +14,11 @@
 
         <div class="row align-items-center">
             <div class="col-5">
-                <img th:src="@{/img/{name}(name=${vehicle.imagePath})}" alt="" class="mt-4 vehicleDetailImage img-fluid">
+                <img th:src="@{/vehicle/{id}/pic(id=${vehicle.id})}" alt="" class="mt-4 vehicleDetailImage img-fluid">
             </div>
             <div class="offset-1 col-6 mt-5">
                 <div class="row">
-                    <h2 class="mt-5 vehicleTitle" th:text="${vehicle.brand}">Mazda RX-7</h2>
+                    <h2 class="mt-5 vehicleTitle" th:text="|${vehicle.brand} ${vehicle.modelName}|">Mazda RX-7</h2>
                     <p class="text-break vehicleDescription" th:text="${vehicle.modelName}">RX-7 - 206 kW/276 CV</p>
                 </div>
                 <div class="row mt-3">
