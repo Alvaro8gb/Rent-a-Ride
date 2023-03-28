@@ -305,16 +305,7 @@ public class UserController {
 		entityManager.flush(); // to get Id before commit
 		
 		ObjectMapper mapper = new ObjectMapper();
-		/*
-		// construye json: método manual
-		ObjectNode rootNode = mapper.createObjectNode();
-		rootNode.put("from", sender.getUsername());
-		rootNode.put("to", u.getUsername());
-		rootNode.put("text", text);
-		rootNode.put("id", m.getId());
-		String json = mapper.writeValueAsString(rootNode);
-		*/
-		// persiste objeto a json usando Jackson
+
 		String json = mapper.writeValueAsString(m.toTransfer());
 
 		log.info("Sending a message to {} with contents '{}'", id, json);
@@ -545,5 +536,7 @@ public class UserController {
 			return mensajeErrorDNI;
 		}
 	}
+
+	
 
 }

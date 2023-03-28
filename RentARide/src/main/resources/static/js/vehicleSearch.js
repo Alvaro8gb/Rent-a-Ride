@@ -37,6 +37,7 @@ $(document).ready(function(){
                 '</div>' +
             '</div>');
             });
+            
             $('.tarjetaVehiculo').remove();
             $('#paginaGestionFlota').append(tarjetasCoche);
         })
