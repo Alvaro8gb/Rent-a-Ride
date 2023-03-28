@@ -38,7 +38,7 @@ import java.time.format.DateTimeFormatter;
     @NamedQuery(name="Vehicle.allLocation",
             query="SELECT l.name FROM Location l"),
     @NamedQuery(name="Vehicle.searchWithFilter",
-    query="SELECT v FROM Vehicle v WHERE UPPER(CONCAT(v.brand, v.modelName)) LIKE CONCAT('%', UPPER(:filtro), '%')")
+    query="SELECT v FROM Vehicle v WHERE UPPER(CONCAT(v.brand, ' ' ,v.modelName)) LIKE CONCAT('%', UPPER(:filtro), '%')")
 })
 
 public class Vehicle implements Transferable<Vehicle.Transfer>{
