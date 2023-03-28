@@ -363,6 +363,72 @@ public class UserController {
         return "redirect:/userList";
     }
 
+	@PostMapping("/{id}/modify")
+	@Transactional
+	public String specificUserMod(RedirectAttributes redirAttrs,
+									@PathVariable long id,
+									@RequestParam("dni_gestion_u") String dni,
+									@RequestParam("correo_gestion_u") String correo,
+									@RequestParam("apellido_gestion_u") String apellido,
+									@RequestParam("nombre_gestion_u") String nombre,
+									@RequestParam("usuario_gestion_u") String cuenta,
+									@RequestParam("roles_gestion_u") String roles,
+									@RequestParam("imagen_gestion_u") MultipartFile imagen,  
+									HttpSession session){
+		String err = checkData(dni, correo, imagen);
+		if(err == null){
+			try {
+				User requester = (User)session.getAttribute("u");
+				User target = entityManager.find(User.class, id);
+				if(requester.getRoles().toUpperCase().contains("ADMIN")){
+					User aux = entityManager.createNamedQuery("User.byUserName", User.class).setParameter("username", cuenta).getSingleResult();
+					if(!cuenta.isEmpty() && aux == null){
+						target.setUsername(cuenta);
+						if(!imagen.isEmpty()){
+							File f = localData.getFile("user", target.getId()+".jpg");
+							imagen.transferTo(new File(f.getAbsolutePath()));
+							target.setImagePath(target.getId()+".jpg");
+						}
+						if(!dni.isEmpty()){
+							target.setDNI(dni);
+						}
+						if(!correo.isEmpty()){
+							target.setEmail(correo);
+						}
+						if(!apellido.isEmpty()){
+							target.setLastName(apellido);
+						}
+						if(!nombre.isEmpty()){
+							target.setFirstName(nombre);
+						}
+						if(!roles.isEmpty()){
+							target.setRoles(roles);
+						}
+						if (requester.getId() == target.getId()) {
+							session.setAttribute("u", target);
+						}
+						redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
+					}
+					else{
+						redirAttrs.addFlashAttribute("errorMessage", "El Nombre de usuario '" + cuenta + "' ya existe. Por favor, modifícalo");
+					}
+					
+				}
+				else{
+					redirAttrs.addFlashAttribute("errorMessage", "No tienes permiso para realizar la acción");
+				}
+
+			} catch (Exception e) {
+				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
+			}
+
+		}
+		else{
+			redirAttrs.addFlashAttribute("errorMessage", err);
+		}
+		return "redirect:/userList";
+	}
+
 	@PostMapping("/profile/modify")
 	@Transactional
 	public String profileMod(RedirectAttributes redirAttrs,
@@ -375,33 +441,28 @@ public class UserController {
 		String err = checkData(dni, correo, imagen);
 		if(err == null){
 			try{
-				User sessionUser = (User)session.getAttribute("u");
-				User user = entityManager.find(User.class, sessionUser.getId());
+				User requester = (User)session.getAttribute("u");
+				User target = entityManager.find(User.class, requester.getId());
 				if(!imagen.isEmpty()){
-					File f = localData.getFile("user", user.getId()+".jpg");
+					File f = localData.getFile("user", target.getId()+".jpg");
 					imagen.transferTo(new File(f.getAbsolutePath()));
-					sessionUser.setImagePath(user.getId()+".jpg");	
-					user.setImagePath(user.getId()+".jpg");
+					target.setImagePath(target.getId()+".jpg");
 				}
 				if(!dni.isEmpty()){
-					sessionUser.setDNI(dni);
-					user.setDNI(dni);
+					target.setDNI(dni);
 				}
 				if(!correo.isEmpty()){
-					sessionUser.setEmail(correo);
-					user.setEmail(correo);
+					target.setEmail(correo);
 				}
 				if(!apellido.isEmpty()){
-					sessionUser.setLastName(apellido);
-					user.setLastName(apellido);
+					target.setLastName(apellido);
 				}
 				if(!nombre.isEmpty()){
-					sessionUser.setFirstName(nombre);
-					user.setFirstName(nombre);
+					target.setFirstName(nombre);
 				}
+				session.setAttribute("u", target);
 				redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
 			} catch(Exception e) {
-				e.printStackTrace();
 				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
 			}
 		} else {
