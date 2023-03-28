@@ -102,9 +102,6 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     private int autonomy;
 
     @Column(nullable = false)
-    private String imagePath;
-
-    @Column(nullable = false)
     private float priceByDay;
 
     public boolean isAvailable(){
@@ -134,7 +131,6 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
         private int cv;
         private String license;
         private int autonomy;
-        private String imagePath;
         private float priceByDay;
 
     }
@@ -143,7 +139,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     public Transfer toTransfer() {
         return new Transfer(id, brand, modelName, oldYear, 
         fuel, consumption, transmission, doors, seats, 
-        cv, license, autonomy, imagePath, priceByDay);
+        cv, license, autonomy, priceByDay);
     }
 
     @Override

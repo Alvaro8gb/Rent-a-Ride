@@ -136,7 +136,6 @@ public class VehicleController {
                                       @RequestParam(required=true) int cv,
                                       @RequestParam(required=true) String matricula,
                                       @RequestParam(required=true) int autonomia,
-                                      @RequestParam(required=true) String img,
                                       @RequestParam(required=true) String recogida,
                                       @RequestParam(required=true) float precio) {
         
@@ -158,7 +157,6 @@ public class VehicleController {
         vehicle.setCv(cv);
         vehicle.setLicense(matricula);
         vehicle.setAutonomy(autonomia);
-        vehicle.setImagePath(img);
         vehicle.setPriceByDay(precio);
         vehicle.setLocation(location);
 

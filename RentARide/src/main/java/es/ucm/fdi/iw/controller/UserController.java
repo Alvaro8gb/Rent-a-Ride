@@ -387,7 +387,6 @@ public class UserController {
 						if(!imagen.isEmpty()){
 							File f = localData.getFile("user", target.getId()+".jpg");
 							imagen.transferTo(new File(f.getAbsolutePath()));
-							target.setImagePath(target.getId()+".jpg");
 						}
 						if(!dni.isEmpty()){
 							target.setDNI(dni);
@@ -446,7 +445,6 @@ public class UserController {
 				if(!imagen.isEmpty()){
 					File f = localData.getFile("user", target.getId()+".jpg");
 					imagen.transferTo(new File(f.getAbsolutePath()));
-					target.setImagePath(target.getId()+".jpg");
 				}
 				if(!dni.isEmpty()){
 					target.setDNI(dni);
@@ -507,7 +505,6 @@ public class UserController {
 						newUser.setFirstName(firstName);
 						newUser.setUsername(username);
 						newUser.setPassword(encodePassword(pass));
-						newUser.setImagePath("default-pic.png");
 						newUser.setRoles("USER");
 						newUser.setEnabled(true);
 						entityManager.persist(newUser);
