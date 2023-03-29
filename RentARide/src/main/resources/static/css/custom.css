@@ -308,3 +308,7 @@ nav li .dropdown-item {
     font-size: 52px;
     font-weight: 400;
 }
+
+input:invalid{
+    color:red; 
+}

@@ -58,10 +58,7 @@ public class User implements Transferable<User.Transfer> {
     private String email;
     private boolean enabled;
     private String roles; // split by ',' to separate roles
-
-    @Column(nullable = false)
-    private String imagePath;
-
+    
 	@OneToMany
 	@JoinColumn(name = "sender_id")
 	private List<Message> sent = new ArrayList<>();

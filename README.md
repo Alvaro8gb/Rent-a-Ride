@@ -9,12 +9,14 @@ Enlace para figma [link](https://www.figma.com/file/UY1222Ks3zLpMzkwTa3BFu/IW?no
 - Gestion de coches (70%)
 - Gestion de chats (solo front, web sockets estamos en ello) (50%) vistas: chats_entratantes + chat desplegable
 - Gestión de flota (80%)
- a. Vista de calendario administracion(0%)
- b. Busquedas en gestion de flota (70%)
+    1. Vista de calendario administracion (0%)
+    2. Busquedas en gestion de flota (70%)
+- Gestion de incidentes(0%)
 
 ## Imagenes de coches y usuarios 
 Al ser editables no estan en el static del proyecto
 Estan ubicadas en la capeta [iwdata](./RentARide/iwdata/)
+
 ## Docs
 
 - Estilos [css](./Presentacion/css/)

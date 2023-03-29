@@ -495,7 +495,6 @@ public class UserController {
 						newUser.setFirstName(firstName);
 						newUser.setUsername(username);
 						newUser.setPassword(encodePassword(pass));
-						newUser.setImagePath("default-pic.png");
 						newUser.setRoles("USER");
 						newUser.setEnabled(true);
 						entityManager.persist(newUser);
