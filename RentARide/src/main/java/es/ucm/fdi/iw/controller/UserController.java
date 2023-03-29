@@ -363,6 +363,38 @@ public class UserController {
         return "redirect:/userList";
     }
 
+	private void changeUserInfo(User target, User requester, HttpSession session, String dni, String correo, String nombre, String apellido, String cuenta, String roles, MultipartFile imagen){
+		if(imagen != null && !imagen.isEmpty()){
+			try {
+				File f = localData.getFile("user", target.getId()+".jpg");
+				imagen.transferTo(new File(f.getAbsolutePath()));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		if(cuenta != null && !cuenta.isEmpty()){
+			target.setUsername(cuenta);
+		}
+		if(dni != null && !dni.isEmpty()){
+			target.setDNI(dni);
+		}
+		if(correo != null && !correo.isEmpty()){
+			target.setEmail(correo);
+		}
+		if(apellido != null && !apellido.isEmpty()){
+			target.setLastName(apellido);
+		}
+		if(nombre != null && !nombre.isEmpty()){
+			target.setFirstName(nombre);
+		}
+		if(roles != null && !roles.isEmpty()){
+			target.setRoles(roles);
+		}
+		if(requester.getId() == target.getId()) {
+			session.setAttribute("u", target);
+		}
+	}
+
 	@PostMapping("/{id}/modify")
 	@Transactional
 	public String specificUserMod(RedirectAttributes redirAttrs,
@@ -377,51 +409,28 @@ public class UserController {
 									HttpSession session){
 		String err = checkData(dni, correo, imagen);
 		if(err == null){
-			try {
-				User requester = (User)session.getAttribute("u");
-				User target = entityManager.find(User.class, id);
-				if(requester.getRoles().toUpperCase().contains("ADMIN")){
+			User requester = (User)session.getAttribute("u");
+			User target = entityManager.find(User.class, id);
+			if(requester.getRoles().toUpperCase().contains("ADMIN")){
+				try {
 					User aux = entityManager.createNamedQuery("User.byUserName", User.class).setParameter("username", cuenta).getSingleResult();
-					if(!cuenta.isEmpty() && aux == null){
-						target.setUsername(cuenta);
-						if(!imagen.isEmpty()){
-							File f = localData.getFile("user", target.getId()+".jpg");
-							imagen.transferTo(new File(f.getAbsolutePath()));
-							target.setImagePath(target.getId()+".jpg");
+					if(aux != null){
+						if(target.getId() == aux.getId()){
+							changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles, imagen);
+							redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
 						}
-						if(!dni.isEmpty()){
-							target.setDNI(dni);
+						else{
+							redirAttrs.addFlashAttribute("errorMessage", "El Nombre de usuario '" + cuenta + "' ya existe. Por favor, modifícalo");
 						}
-						if(!correo.isEmpty()){
-							target.setEmail(correo);
-						}
-						if(!apellido.isEmpty()){
-							target.setLastName(apellido);
-						}
-						if(!nombre.isEmpty()){
-							target.setFirstName(nombre);
-						}
-						if(!roles.isEmpty()){
-							target.setRoles(roles);
-						}
-						if (requester.getId() == target.getId()) {
-							session.setAttribute("u", target);
-						}
-						redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
 					}
-					else{
-						redirAttrs.addFlashAttribute("errorMessage", "El Nombre de usuario '" + cuenta + "' ya existe. Por favor, modifícalo");
-					}
-					
+				} catch (Exception e) {
+					changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles, imagen);
+					redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
 				}
-				else{
-					redirAttrs.addFlashAttribute("errorMessage", "No tienes permiso para realizar la acción");
-				}
-
-			} catch (Exception e) {
-				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
 			}
-
+			else{
+				redirAttrs.addFlashAttribute("errorMessage", "No tienes permiso para realizar la acción");
+			}
 		}
 		else{
 			redirAttrs.addFlashAttribute("errorMessage", err);
@@ -440,31 +449,10 @@ public class UserController {
 								HttpSession session){
 		String err = checkData(dni, correo, imagen);
 		if(err == null){
-			try{
-				User requester = (User)session.getAttribute("u");
-				User target = entityManager.find(User.class, requester.getId());
-				if(!imagen.isEmpty()){
-					File f = localData.getFile("user", target.getId()+".jpg");
-					imagen.transferTo(new File(f.getAbsolutePath()));
-					target.setImagePath(target.getId()+".jpg");
-				}
-				if(!dni.isEmpty()){
-					target.setDNI(dni);
-				}
-				if(!correo.isEmpty()){
-					target.setEmail(correo);
-				}
-				if(!apellido.isEmpty()){
-					target.setLastName(apellido);
-				}
-				if(!nombre.isEmpty()){
-					target.setFirstName(nombre);
-				}
-				session.setAttribute("u", target);
-				redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
-			} catch(Exception e) {
-				redirAttrs.addFlashAttribute("errorMessage", "La operación ha fracasado");
-			}
+			User requester = (User)session.getAttribute("u");
+			User target = entityManager.find(User.class, requester.getId());
+			changeUserInfo(target, requester, session, dni, correo, nombre, apellido, null, null, imagen);
+			redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
 		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}							
