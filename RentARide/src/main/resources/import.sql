@@ -6,10 +6,10 @@ INSERT INTO CONFIGURATION(CONFIG_KEY, CONFIG_VALUE) VALUES
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI)
 VALUES (1, TRUE, 'ADMIN,USER', 'a',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'admin', 'admin', 'admin@gmail.com', '78655489F');
-INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI, image_Path)
+INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI)
 VALUES (2, TRUE, 'USER', 'b',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Pepe', 'Martinez', 'pepeM@gmail.com', '23400978T');
-INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI, image_Path)
+INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI)
 VALUES (3, TRUE, 'GESTOR,USER', 'c',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Julian', 'Casas', 'juli@gmail.com', '23432478T');
 
