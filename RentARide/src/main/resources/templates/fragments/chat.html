@@ -7,11 +7,10 @@
 
 <body>
 
-    <button class="chatIcon" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false"
-                    aria-controls="chat"><i class="fa-solid fa-headset fa-xl"></i></button>
-    <th:block th:if="${session.u}">
+    <th:block th:fragment="chat">
 
-        <th:block th:fragment="chat">
+        <th:block th:if="${session.u}">
+
             <div class="container collapse chat" id="chat">
                 <div class="row chatHeader py-3">
                     <div class="col-12">
@@ -20,48 +19,61 @@
                 </div>
 
                 <div class="row chatBody p-3 d-flex h-100">
-                    <div class="col-12 chatMessage my-2 py-2 chatSender">
+                    <div class="col-12 chatMessage my-2 py-2 chatReceiver">
                         Hola
                     </div>
 
-                    <div class="col-12 chatMessage my-2 py-2 chatReceiver">
-                        ¿Qué tal?
-                    </div>
-
-                    <div class="col-12 chatMessage my-2 py-2 chatSender">
-                        Pues nada bien, esto es una prueba con un texto larguisimo para ver si se desborda el contenedor
-                        o no!
-                    </div>
                 </div>
 
                 <div class="row chatInput py-3">
-                    <form class="row" action="">
-                        <div class="col-10">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0" name="message" id="message"
-                                    placeholder="Escribe tu mensaje">
-                                <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
-                                    <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
-                                    <input type="file" class="d-none form-control" name="attachment" id="attachment">
-                                </span>
-                            </div>
-                        </div>
 
-                        <div class="col-2">
-                            <button type="submit" method="POST" th:action="@{/user/{id}/msg(id=${session.u.id})}" class="btn" ><i class="fa-solid fa-paper-plane fa-xl"></i></button>
+                    <div class="col-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-0" name="message" id="message"
+                                placeholder="Escribe tu mensaje">
+                            <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
+                                <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
+                                <!--<input type="file" class="d-none form-control" name="attachment" id="attachment">-->
+                            </span>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="col-2">
+                        <button id="sendmsg" class="btn btn-secondary" th:onclick="sendMsg(1)"
+                            type="submit">Enviar</button>
+                    </div>
                 </div>
             </div>
 
-            
+            <button class="chatIcon" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false"
+            aria-controls="chat"><i class="fa-solid fa-headset fa-xl"></i></button>
+
         </th:block>
+
+        <th:block th:unless="${session.u}">
+
+            <div class="modal fade" id="registrateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Registrarse</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Para acceder a todas las funcionalidades del sitio, debes registrarte.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="chatIcon" data-toggle="modal" data-target="#registrateModal"><i class="fa-solid fa-headset fa-xl"></i></button>
+        
+        </th:block>
+
         
 
-    </th:block>
-
-    <th:block th:unless="${session.u}">
-        <script> alert('Registrate!')</script>
     </th:block>
 
 </body>
