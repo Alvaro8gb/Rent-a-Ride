@@ -89,4 +89,9 @@ public class BookingController {
         return jsonString;
     }
 
+    @GetMapping("list")
+    public String list(Model model) {
+        return "listBookings";
+    }
+
 }
