@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Column;
 
 import lombok.Data;
@@ -18,7 +20,13 @@ import lombok.AllArgsConstructor;
 
 @Data
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Booking.bydate", 
+                query="SELECT b FROM Booking b "
+                        + "WHERE (b.id.in_date = :in_date) or (b.id.out_date = :out_date)")
+})
 @AllArgsConstructor
+
 public class Booking implements Transferable<Booking.Transfer> {
         
         @EmbeddedId
