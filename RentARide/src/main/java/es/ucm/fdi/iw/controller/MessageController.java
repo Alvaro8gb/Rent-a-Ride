@@ -33,13 +33,16 @@ public class MessageController {
 	
 	@Autowired 
 	private EntityManager entityManager;
-		
+	
+	/*
 	@GetMapping("/")
 	public String getMessages(Model model, HttpSession session) {
 		model.addAttribute("users", entityManager.createQuery(
 			"SELECT u FROM User u").getResultList());
 		return "messages";
 	}
+
+	*/
 
 	@GetMapping(path = "/received", produces = "application/json")
 	@Transactional // para no recibir resultados inconsistentes

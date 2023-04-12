@@ -28,7 +28,22 @@ import lombok.AllArgsConstructor;
 	@NamedQuery(name="Message.countUnread",
 	query="SELECT COUNT(m) FROM Message m "
 			+ "WHERE m.recipient.id = :userId AND m.dateRead = null")
+			,
+	
+	@NamedQuery(name="Message.allClients",
+	query="SELECT m FROM Message m "
+			+ "WHERE m.dateRead = null and m.recipient.id = 2 " /* El id queda reservado al gestor */
+			+ "ORDER BY m.dateSent")
+	
+			/*
+	@NamedQuery(name = "Message.lastUnreadReceived",
+	query = "SELECT sender, text, MAX(dateSent) FROM Message m"
+			+ "WHERE m.recipient.role = :userId AND m.dateRead IS NULL "
+			+ "GROUP BY m.recipient.id")
+	*/
 })
+
+
 @Data
 public class Message implements Transferable<Message.Transfer> {
 	

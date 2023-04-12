@@ -386,7 +386,7 @@ public class UserController {
 							redirAttrs.addFlashAttribute("errorMessage", "El Nombre de usuario '" + cuenta + "' ya existe. Por favor, modifícalo");
 						}
 					}
-				} catch (Exception e) {
+				}catch (Exception e) {
 					changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles, imagen);
 					redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
 				}

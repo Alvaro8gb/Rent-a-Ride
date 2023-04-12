@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
-import es.ucm.fdi.iw.DummyClasses.ChatDummy;
-import es.ucm.fdi.iw.DummyClasses.UserDummy;
 
 /**
  *  Non-authenticated requests only.
@@ -26,29 +26,12 @@ import es.ucm.fdi.iw.DummyClasses.UserDummy;
 public class RootController {
 
 	private static final Logger log = LogManager.getLogger(RootController.class);
-    private static ArrayList<UserDummy> usersDummy;
-    private static ArrayList<ChatDummy> chatsDummy;
 
     @Autowired
 	private EntityManager entityManager;
 
     public RootController() {
         //generateDummy();
-    }
-
-    private static void generateDummy(){
-        usersDummy = new ArrayList<>();
-        chatsDummy = new ArrayList<>();
-       
-        ChatDummy.leerMensajes();
-
-        for( int i = 0; i < 10; i++){
-            chatsDummy.add(ChatDummy.generateChat());
-        }
-
-        for(int i = 0; i < 10; i++){
-            usersDummy.add(UserDummy.generateUser());
-        }
     }
 
     @GetMapping("/login")
@@ -67,6 +50,7 @@ public class RootController {
         List<String> locations = entityManager.createNamedQuery("Vehicle.allLocation", String.class).getResultList();
         model.addAttribute("vehicles", vs);
         model.addAttribute("locations", locations);
+        model.addAttribute("idReceiver", 2);
         return "index";
     }
 
@@ -87,9 +71,11 @@ public class RootController {
     }
 
     @GetMapping("/inChats")
-    public String inChats(Model model) {
+    public String inChats( Model model){
+	    List<Message> msgs = entityManager.createNamedQuery("Message.allClients", Message.class).getResultList();
 
-        model.addAttribute("chats", chatsDummy);
+        model.addAttribute("msgs", msgs);
+        
         return "inChats";
     }
 

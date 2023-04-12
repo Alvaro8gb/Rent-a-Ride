@@ -7,11 +7,22 @@ INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Nam
 VALUES (1, TRUE, 'ADMIN,USER', 'a',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'admin', 'admin', 'admin@gmail.com', '78655489F');
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI)
-VALUES (2, TRUE, 'USER', 'b',
-    '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Pepe', 'Martinez', 'pepeM@gmail.com', '23400978T');
+VALUES (2, TRUE, 'GESTOR,USER', 'b',
+    '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Gestor', 'Gestor', 'juli@gmail.com', '23432478T');
 INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Name, email, DNI)
-VALUES (3, TRUE, 'GESTOR,USER', 'c',
-    '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Julian', 'Casas', 'juli@gmail.com', '23432478T');
+VALUES (3, TRUE, 'USER', 'c',
+    '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Cliente', 'Cliente', 'pepeM@gmail.com', '23400978T');
+
+/* El id 3 queda reservado para los mensajes sin receptor*/
+
+INSERT INTO Message (id, date_read, text, recipient_id, sender_id)
+VALUES
+  (1, NULL, 'Hola usuario 2, ¿cómo estás?', 3, 2),
+  (2, NULL, 'Mi coche se ha partido en dos', 2, 3),
+  (3, NULL, 'No olvides la reunión mañana', 2, 1),
+  (4, NULL, '¡Feliz cumpleaños!', 1, 2),
+  (5, NULL, 'Recuerda enviar el informe hoy', 2, 1),
+  (6, NULL, 'Le he hechado gasolina en vez de diesel pasa algo?', 2, 3);
 
 
 INSERT INTO location (id, name, contact_number)

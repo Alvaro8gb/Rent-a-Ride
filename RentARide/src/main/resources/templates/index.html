@@ -6,6 +6,8 @@
     <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Inicio</title>
     <script th:src="@{/js/loading.js}" src="/js/loading.js"></script> 
     <script th:src="@{/js/calendarIndex.js}" src="js/calendarIndex.js"></script>
+    <script th:src="@{/js/chat.js}"> </script> 
+
 </head>
 
 <body>
@@ -82,7 +84,6 @@
         <th:block th:replace="fragments/chat.html :: chat" />
     </main>
     <th:block th:replace="fragments/footer.html :: footer" />
-    <script th:src="@{/js/chat.js}"> </script> 
 </body>
 
 </html>

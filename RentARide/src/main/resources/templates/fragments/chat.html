@@ -14,13 +14,13 @@
             <div class="container collapse chat" id="chat">
                 <div class="row chatHeader py-3">
                     <div class="col-12">
-                        ¿En qué te podemos ayudarte?
+                        Chat de [[${@environment.getProperty('APP_NAME')}]]
                     </div>
                 </div>
 
                 <div class="row chatBody p-3 d-flex h-100">
                     <div class="col-12 chatMessage my-2 py-2 chatReceiver">
-                        Hola
+                        ¿En qué te podemos ayudarte?
                     </div>
 
                 </div>
@@ -39,8 +39,10 @@
                     </div>
 
                     <div class="col-2">
-                        <button id="sendmsg" class="btn btn-secondary" th:onclick="sendMsg(1)"
-                            type="submit">Enviar</button>
+                        <button id="sendmsg" class="btn btn-secondary" 
+                                th:onclick="'sendMsg(' + ${idReceiver} + ')'"> 
+                            Enviar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -71,8 +73,6 @@
             <button class="chatIcon" data-toggle="modal" data-target="#registrateModal"><i class="fa-solid fa-headset fa-xl"></i></button>
         
         </th:block>
-
-        
 
     </th:block>
 
