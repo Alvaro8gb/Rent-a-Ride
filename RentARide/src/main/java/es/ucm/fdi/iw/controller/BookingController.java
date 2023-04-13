@@ -2,9 +2,13 @@ package es.ucm.fdi.iw.controller;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
@@ -94,10 +98,11 @@ public class BookingController {
     @GetMapping("list")
     public String list(Model model) {
         int threeWeeks = 21;
-        HashMap<String, List<Booking>> res = new HashMap<String, List<Booking>>();
+        SortedMap<LocalDate, List<Booking>> res = new TreeMap<>();
         LocalDate date = LocalDate.now();
         int dia = date.getDayOfWeek().getValue();
-        switch(dia){
+
+        switch(dia) {
             case 1:
                 date = date.minusDays(7);
                 break;
@@ -120,17 +125,23 @@ public class BookingController {
                 date = date.minusDays(13);
                 break;
         }
-        for(int i = 0; i < threeWeeks; i++){
+
+        for(int i = 0; i < threeWeeks; i++) {
             List<Booking> data = entityManager.createNamedQuery("Booking.bydate", Booking.class)
             .setParameter("in_date", date)
             .setParameter("out_date", date)
             .getResultList();
-            if(data.size() != 0){
-                res.put(date.toString() + ":" + date.getDayOfWeek().getValue(), data);
-            }
+
+            if (data.size() != 0)
+                res.put(date, data);
+            else
+                res.put(date, null);
+
             date = date.plusDays(1);
         }
+
         model.addAttribute("bookings", res);
+        
         return "listBookings";
     }
 

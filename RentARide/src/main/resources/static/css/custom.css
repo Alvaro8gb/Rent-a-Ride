@@ -8,6 +8,9 @@
     --white-hover: #c7c7c7;
     --dark-blue-hover: #064847;
     --light-blue-hover: #066d78;
+    --green-event: #95D066;
+    --red-event: #D06666;
+    --greyed: #838383;
 }
 
 * {
@@ -86,6 +89,10 @@ img.preview {
 
 .backgroundColor5{
     background-color: var(--light-green);
+}
+
+.greyed {
+    color: var(--greyed);
 }
 
 nav li .dropdown-item {
@@ -311,4 +318,57 @@ nav li .dropdown-item {
 
 input:invalid{
     color:red; 
+}
+
+.calendarEvent .card-body {
+    margin-left: 2em;
+}
+
+.calendarEvent .card-title {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.calendarEventDay {
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.calendarEventDate {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.calendarDateRange {
+    font-weight: 300;
+    font-size: 32px;
+}
+
+.calendarDatePagination {
+    background: transparent;
+    font-size: 40px;
+}
+
+.calendarDatePagination:hover {
+    transform: scale(1.1); 
+}
+
+.calendarEvent .card-text {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.calendarEventStrip {
+    height: 100%;
+    width: 1em;
+    margin-left: 1em;
+    position: absolute;
+}
+
+.bookingStart {
+    background: var(--green-event);
+}
+
+.bookingEnd {
+    background: var(--red-event);
 }
