@@ -4,7 +4,8 @@ ws.receive = (m) => {
     $(".chatBody").append(
         '<div class="col-12 chatMessage my-2 py-2 chatReceiver">'+
         'Mensaje recibido: '+ m["text"] +
-        '</div>');   
+        '</div>');
+    console.log("Adios");   
 } 
 
 
@@ -20,7 +21,6 @@ function sendMsg(idReceptor) {
         '<div class="col-12 chatMessage my-2 py-2 chatSender">'+
         msg + '</div>');  
     
-    // petición en sí
 
     return go(config.rootUrl + "/user/"+ idReceptor + "/msg", 'POST', params)
         .then(response => console.log(response) )

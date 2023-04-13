@@ -14,7 +14,8 @@ all: run
 # Regla para arrancar la aplicación
 run:
 	$(SPRING_BOOT_RUN)
-
+setup: 
+	cp -r  ./iwdata/ /tmp/
 # Regla para ejecutar todas las verificaciones de código
 verify:
 	$(VERIFY)
@@ -31,6 +32,10 @@ clean:
 clean-logs:
 	$(CLEAN_KARATE)
 	$(CLEAN_APP_LOGS)
+
+deploy:
+	echo "Recuerda cambiar el app.properties y poner el puerto 80"
+	make setup
 
 # Regla para imprimir la ruta relativa del archivo Makefile
 #print_relative_path:
