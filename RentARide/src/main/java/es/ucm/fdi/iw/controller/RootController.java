@@ -50,6 +50,9 @@ public class RootController {
         List<String> locations = entityManager.createNamedQuery("Vehicle.allLocation", String.class).getResultList();
         model.addAttribute("vehicles", vs);
         model.addAttribute("locations", locations);
+
+        //TO-DO: Logica de seleccion de recepto de mensajes que sera un gestor, ver gestores activos y seleccionar uno
+        //como hay creado siempre un gestor se le asigna a el todos los mensajes  
         model.addAttribute("idReceiver", 2);
         return "index";
     }
