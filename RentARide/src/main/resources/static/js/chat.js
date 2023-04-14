@@ -1,22 +1,14 @@
 
 class Chat {
-    constructor(title, idReceptor) {
+    constructor(title, idReceptor, username, msgs) {
         this.title = title;
         this.idReceptor = idReceptor;
-
+        this.username = username;
+        console.log(username);
+        this.msgs = msgs;
     }
 
-    header() {
-        return `
-        <div class="row chatHeader py-3">
-            <div class="col-12">
-                ${this.title}
-            </div>
-        </div>
-        `
-    }
-
-    html(msgs) {
+    html() {
         let container = `<div class="container chat" id="chat">`;
 
         // HEADER
@@ -33,7 +25,13 @@ class Chat {
 
         container += `<div class="row chatBody p-3 d-flex h-100">`;
 
-        container += Chat.msgRecd("Hola"); // Recorrer mensajes
+        for (let i = 0; i < this.msgs.length; i++) {
+
+            let msg = this.msgs[i];
+            if (msg.to == this.username) container += Chat.msgSend(msg.text);
+            else container += Chat.msgRecv(msg.text);
+            
+        }
 
         container += `</div>`;
 
@@ -68,7 +66,7 @@ class Chat {
         </div>`;
     }
 
-    static msgRecd(text) {
+    static msgRecv(text) {
         return `
         <div class="col-12 chatMessage my-2 py-2 chatReceiver">
             ${text}
@@ -80,7 +78,7 @@ class Chat {
 
 ws.receive = (m) => {
     console.log("Mensaje Recibido: \n" + m);
-    $(".chatBody").append(Chat.msgRecd(m["text"]));
+    $(".chatBody").append(Chat.msgRecv(m["text"]));
 }
 
 function sendMsg(idReceptor) {
@@ -94,16 +92,41 @@ function sendMsg(idReceptor) {
 
     $(".chatBody").append(Chat.msgSend(msg));
 
-    return go(config.rootUrl + "/user/" + idReceptor + "/msg", 'POST', params)
+    return go(config.rootUrl + "/message/user/" + idReceptor, 'POST', params)
         .then(response => console.log(response))
         .catch(e => console.log(e));
 
 }
 
-function viewChat(idReceptor) {
+function acceptMsg(idMessage, idReceptor, username) {
 
-    const chat = new Chat("Mensajes de usuario " + idReceptor, idReceptor);
+    console.log("Acepting message : " + idMessage);
+
+
+    let response = go(config.rootUrl + "/message/" + idMessage, 'POST', {})
+        .then(response => console.log(response))
+        .catch(e => console.log(e));
+
+
+    location.reload();
+
+    return go(config.rootUrl + "/message/user/" + idReceptor, 'POST', { message: "El gestor " + username + " ha aceptado tu solicitud" })
+        .then(response => console.log(response))
+        .catch(e => console.log(e));
+}
+
+function generateChat(response, idReceptor, username) {
+
+    const msgs = response["msgs"];
+
+    const chat = new Chat("Mensajes de usuario " + idReceptor, idReceptor, username, msgs);
 
     $("#chatcontainer").html(chat.html());
+}
+function viewChat(idUser, username) {
+
+    return go(config.rootUrl + "/message/receivedfrom/" + idUser, 'GET', {})
+        .then(response => generateChat(response, idUser, username))
+        .catch(e => console.log(e));
 
 }

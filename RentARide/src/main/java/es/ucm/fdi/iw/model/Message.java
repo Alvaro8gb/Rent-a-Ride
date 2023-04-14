@@ -30,9 +30,10 @@ import lombok.AllArgsConstructor;
 			+ "WHERE m.recipient.id = :userId AND m.dateRead = null")
 			,
 	
-	@NamedQuery(name="Message.allClients",
+	@NamedQuery(name="Message.chat",
 	query="SELECT m FROM Message m "
-			+ "WHERE m.dateRead = null and m.recipient.id = 2 " /* El id queda reservado al gestor */
+			+ "WHERE m.dateRead = null and ((m.recipient.id = :idReceptor and m.sender.id = :idSender) or"
+			+ " (m.recipient.id = :idSender and m.sender.id = :idReceptor)) "
 			+ "ORDER BY m.dateSent")
 	
 			/*

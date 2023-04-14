@@ -1,7 +1,7 @@
 package es.ucm.fdi.iw.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,9 +51,8 @@ public class RootController {
         model.addAttribute("vehicles", vs);
         model.addAttribute("locations", locations);
 
-        //TO-DO: Logica de seleccion de recepto de mensajes que sera un gestor, ver gestores activos y seleccionar uno
-        //como hay creado siempre un gestor se le asigna a el todos los mensajes  
-        model.addAttribute("idReceiver", 2);
+        // Se envia mensaje a la cola 
+        model.addAttribute("idReceiver", 0);
         return "index";
     }
 
@@ -71,15 +70,6 @@ public class RootController {
         List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
         model.addAttribute("users", users);
         return "userList";
-    }
-
-    @GetMapping("/inChats")
-    public String inChats( Model model){
-	    List<Message> msgs = entityManager.createNamedQuery("Message.allClients", Message.class).getResultList();
-
-        model.addAttribute("msgs", msgs);
-        
-        return "inChats";
     }
 
     @GetMapping("/carDetails")

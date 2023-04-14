@@ -36,7 +36,7 @@
                                 <a class="nav-link" th:href="@{/carsManagement}">Gestión de flota</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/inChats}">Chats entrantes</a>
+                                <a class="nav-link" th:href="@{/message/inChats}">Chats entrantes</a>
                             </li>
                             <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN')}">
                                 <a class="nav-link" th:href="@{/userList}">Gestión de usuarios</a>

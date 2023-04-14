@@ -15,15 +15,15 @@ VALUES (3, TRUE, 'USER', 'c',
 
 /* El id 3 queda reservado para los mensajes sin receptor*/
 
-INSERT INTO Message (id, date_read, text, recipient_id, sender_id)
+INSERT INTO Message (id, date_sent, date_read, text, recipient_id, sender_id)
 VALUES
-  (1, NULL, 'Hola usuario 2, ¿cómo estás?', 3, 2),
-  (2, NULL, 'Mi coche se ha partido en dos', 2, 3),
-  (3, NULL, 'No olvides la reunión mañana', 2, 1),
-  (4, NULL, '¡Feliz cumpleaños!', 1, 2),
-  (5, NULL, 'Recuerda enviar el informe hoy', 2, 1),
-  (6, NULL, 'Le he hechado gasolina en vez de diesel pasa algo?', 2, 3);
-
+  (1, NOW(), NULL, 'Hola usuario 3, ¿cómo estás?', 3, 2),
+  (2, NOW(), NULL, 'Mi coche se ha partido en dos', 2, 3),
+  (3, NOW(), NULL, 'No olvides la reunión mañana', 2, 1),
+  (4, NOW(), NULL, '¡Feliz cumpleaños!', 1, 2),
+  (5, NOW(), NULL, 'Gracias', 2, 1),
+  (6, NOW(), NULL, 'Recuerda enviar el informe hoy', 2, 1),
+  (7, NOW(), NULL, 'Le he echado gasolina en vez de diesel, ¿pasa algo?', 2, 3);
 
 INSERT INTO location (id, name, contact_number)
 VALUES

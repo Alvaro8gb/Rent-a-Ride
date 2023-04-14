@@ -33,11 +33,13 @@
                         <td th:text="${msg.sender.username}">username</td>
                         <td th:text="${msg.text}" colspan="2">Mensaje recibido</td>
                         <td>
-                            
+
                             <div class="form-group text-center">
-                                <button class="border-0 bg-transparent" th:onclick="'viewChat(' + ${msg.sender.id} + ')'"                                >
-                                     <i class="fa-solid fa-message"></i>
-                                </button>
+                                <button class="border-0 bg-transparent"
+                                th:attr="onclick='viewChat(\'' + ${msg.sender.id} + '\', \'' + ${msg.sender.username} + '\')'">
+                            <i class="fa-solid fa-message"></i>
+                        </button>
+                        
                             </div>
                         </td>
                     </tr>
@@ -46,10 +48,34 @@
         </div>
     </div>
 
+    <div class="container min-vh-50">
+        <div class="row">
+            <h2 class="pageTitle text-center mt-5">Chat mas antiguo</h1>
+            <p> Numero de chats pendientes</p>
+            <p th:text="${msgsPending}"> Numero de chats pendientes</p>
+        </div>
+
+        <th th:if="${msgsPending != 0}">
+            >
+            <p th:text="${lastMsg.sender.username}"></p>
+            <p th:text="${lastMsg.dateSent}"></p>
+            <p th:text="${lastMsg.dateRead}"></p>
+            <p th:text="${lastMsg.text}"></p>
+
+            <button id="sendmsg" class="btn btn-secondary" 
+                    th:attr="onclick='acceptMsg(\'' + ${lastMsg.id} + '\', \'' + ${lastMsg.sender.id} + '\', \'' + ${lastMsg.sender.firstName} + '\')'">
+                Aceptar
+            </button>
+            
+        </th>
+
+
+    </div>
+
     <div id="chatcontainer"> </div>
 
     <th:block th:replace="fragments/footer.html :: footer" />
-    <script th:src="@{/js/chat.js}"> </script> 
+    <script th:src="@{/js/chat.js}"> </script>
 
 </body>
 
