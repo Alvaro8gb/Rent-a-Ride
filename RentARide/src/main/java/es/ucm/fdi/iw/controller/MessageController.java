@@ -46,6 +46,17 @@ public class MessageController {
 	@Autowired
 	private EntityManager entityManager;
 
+	@Autowired
+	private SimpMessagingTemplate messagingTemplate;
+
+	private Queue<Message> pendingMsgs;
+	private User bot = new User();
+
+	public MessageController() {
+		pendingMsgs = new LinkedList<Message>();
+		bot.setUsername("Rent a Ride Company");
+	}
+	
 	@GetMapping("/in")
 	public String inChats(Model model, HttpSession session) {
 
@@ -59,16 +70,6 @@ public class MessageController {
 		model.addAttribute("lastMsg", lastMsg);
 
 		return "messages";
-	}
-
-	@Autowired
-	private SimpMessagingTemplate messagingTemplate;
-
-	private Queue<Message> pendingMsgs;
-
-	public MessageController() {
-		pendingMsgs = new LinkedList<Message>();
-
 	}
 
 	/**
@@ -112,6 +113,14 @@ public class MessageController {
 		if (idUser == 0) {
 
 			pendingMsgs.add(m); // Guardamos mensaje en la cola
+
+			Message mInfo = new Message();
+			mInfo.setText("Estamos procesando su solictud, en breves un agente estara contigo");
+			mInfo.setDateSent(LocalDateTime.now());
+			mInfo.setRecipient(sender);
+			mInfo.setSender(bot);
+
+			sendMsg(mInfo, sender);
 
 		} else {
 
