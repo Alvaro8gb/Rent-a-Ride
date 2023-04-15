@@ -4,7 +4,6 @@ class Chat {
         this.title = title;
         this.idReceptor = idReceptor;
         this.username = username;
-        console.log(username);
         this.msgs = msgs;
     }
 
@@ -92,7 +91,7 @@ function sendMsg(idReceptor) {
 
     $(".chatBody").append(Chat.msgSend(msg));
 
-    return go(config.rootUrl + "/message/user/" + idReceptor, 'POST', params)
+    return go(config.rootUrl + "/messages/user/" + idReceptor, 'POST', params)
         .then(response => console.log(response))
         .catch(e => console.log(e));
 
@@ -103,14 +102,14 @@ function acceptMsg(idMessage, idReceptor, username) {
     console.log("Acepting message : " + idMessage);
 
 
-    let response = go(config.rootUrl + "/message/" + idMessage, 'POST', {})
+    let response = go(config.rootUrl + "/messages/" + idMessage, 'POST', {})
         .then(response => console.log(response))
         .catch(e => console.log(e));
 
 
     location.reload();
 
-    return go(config.rootUrl + "/message/user/" + idReceptor, 'POST', { message: "El gestor " + username + " ha aceptado tu solicitud" })
+    return go(config.rootUrl + "/messages/user/" + idReceptor, 'POST', { message: "El gestor " + username + " ha aceptado tu solicitud" })
         .then(response => console.log(response))
         .catch(e => console.log(e));
 }
@@ -125,7 +124,7 @@ function generateChat(response, idReceptor, username) {
 }
 function viewChat(idUser, username) {
 
-    return go(config.rootUrl + "/message/receivedfrom/" + idUser, 'GET', {})
+    return go(config.rootUrl + "/messages/receivedfrom/" + idUser, 'GET', {})
         .then(response => generateChat(response, idUser, username))
         .catch(e => console.log(e));
 

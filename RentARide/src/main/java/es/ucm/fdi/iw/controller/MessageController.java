@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author mfreire
  */
 @Controller()
-@RequestMapping("message")
+@RequestMapping("messages")
 public class MessageController {
 
 	private static final Logger log = LogManager.getLogger(MessageController.class);
@@ -46,15 +46,20 @@ public class MessageController {
 	@Autowired
 	private EntityManager entityManager;
 
-	/*
-	 * @GetMapping("/")
-	 * public String getMessages(Model model, HttpSession session) {
-	 * model.addAttribute("users", entityManager.createQuery(
-	 * "SELECT u FROM User u").getResultList());
-	 * return "messages";
-	 * }
-	 * 
-	 */
+	@GetMapping("/in")
+	public String inChats(Model model, HttpSession session) {
+
+		long userId = ((User) session.getAttribute("u")).getId();
+		User u = entityManager.find(User.class, userId);
+
+		model.addAttribute("msgs", u.getReceived());
+		model.addAttribute("msgsPending", pendingMsgs.size());
+
+		Message lastMsg = pendingMsgs.size() > 0 ? pendingMsgs.iterator().next() : null;
+		model.addAttribute("lastMsg", lastMsg);
+
+		return "messages";
+	}
 
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
@@ -158,20 +163,6 @@ public class MessageController {
 
 		return "{\"result\": \"false\"}";
 		
-	}
-
-	@GetMapping("/inChats")
-	public String inChats(Model model, HttpSession session) {
-
-		long userId = ((User) session.getAttribute("u")).getId();
-		User u = entityManager.find(User.class, userId);
-		model.addAttribute("msgs", u.getReceived());
-		model.addAttribute("msgsPending", pendingMsgs.size());
-
-		Message lastMsg = pendingMsgs.size() > 0 ? pendingMsgs.iterator().next() : null;
-		model.addAttribute("lastMsg", lastMsg);
-
-		return "inChats";
 	}
 
 	@GetMapping(path = "/receivedfrom/{idSender}", produces = "application/json")

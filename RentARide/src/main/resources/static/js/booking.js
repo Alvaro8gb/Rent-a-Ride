@@ -1,6 +1,6 @@
-function processBooking(json){
-    console.log(json);
-    let car = json["data"];
+function processBooking(response){
+    console.log(response);
+    let car = response["data"];
 
     if (!car){
         $("#content-booking").text("No info");
@@ -9,7 +9,6 @@ function processBooking(json){
         $("#precio-book").text(car["price"] + "€");
         $("#in-date").text(car["id"]["in_date"]);    
         $("#out-date").text(car["id"]["in_date"]);    
-
     }
 
     $("#modalAlquiler").modal("show");
