@@ -17,7 +17,7 @@
         <div class="row mt-4 gx-5">
 
             <!-- Search Filter-->
-            <div class="border lightBlueBorder rounded col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <div class="border lightBlueBorder rounded col-sm-3 col-md-3 col-lg-3 col-xl-3 pb-3">
                 <h5 class="card-title text-center mt-3 mb-4">Filtro de Búsqueda</h5>
                 <div class="card-text">
                     <div class="form-check mb-3">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="mt-2">
                         <label for="combustible">Combustible</label>
-                        <select id="tipoDeCombustible" class="form-select mt-1">
+                        <select id="tipoDeCombustible" class="form-select mt-1 filtro">
                             <option value="Todos">Todos</option>
                             <option value="Gasolina">Gasolina</option>
                             <option value="Diesel">Diesel</option>
@@ -44,11 +44,19 @@
                     </div>
                     <div class="mt-3">
                         <label for="plazas">Plazas</label>
-                        <select id="numeroPlazas" class="form-select mt-1">
+                        <select id="numeroPlazas" class="form-select mt-1 filtro">
                             <option value="Todos">Todos</option>
                             <option value="7">7</option>
                             <option value="5">5</option>
                             <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <label for="plazas">Cambio</label>
+                        <select id="cambio" class="form-select mt-1 filtro">
+                            <option value="Todos">Todos</option>
+                            <option value="Automatico">Automático</option>
+                            <option value="Manual">Manual</option>
                         </select>
                     </div>
                 </div>
@@ -62,13 +70,13 @@
                 <div class="mb-5 row justify-content-md-center">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" id="searchV" placeholder="Buscar vehiculo..."
+                            <input class="form-control me-2 filtro" type="search" id="searchV" placeholder="Buscar vehiculo..."
                                 aria-label="Search" value="">
                         </form>
                     </div>
                 </div>
 
-                <div th:each="vehicle : ${vehicles}" class="tarjetaVehiculo" th:combustible="${vehicle.fuel}" th:plazas="${vehicle.seats}">
+                <div th:each="vehicle : ${vehicles}" class="tarjetaVehiculo" th:combustible="${vehicle.fuel}" th:plazas="${vehicle.seats}" th:cambio="${vehicle.transmission}" th:nombre="|${vehicle.brand} ${vehicle.modelName}|">
                     <!-- Listado de coches -->
                     <div class="row mb-2 border lightBlueBorder rounded">
                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">

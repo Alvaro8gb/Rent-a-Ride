@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
     $("#searchV").keyup(function(){
         var filtro = $(this).val();
 
@@ -45,55 +45,51 @@ $(document).ready(function(){
             console.error('Error:', error);
         });
     });
+});*/
+
+$(document).ready(function(){
+    $("#searchV").keyup(function(){
+        aplicarFiltros();
+    });
 });
 
 $(document).ready(function(){
     $("#tipoDeCombustible").on("change", function(){
-        var combustible = $(this).val();
-        if(combustible != "Todos"){
-            $(".tarjetaVehiculo").each(function(){
-                console.log(combustible);
-                console.log($(this).attr("combustible"));
-                if(combustible != $(this).attr("combustible")){
-                    $(this).hide();
-                }
-                else{
-                    $(this).show();
-                }
-            });
-        }
-        else{
-            $(".tarjetaVehiculo").each(function(){
-                $(this).show();
-            });
-        }
+        aplicarFiltros();
     });
 });
 
 $(document).ready(function(){
     $("#numeroPlazas").on("change", function(){
-        var plazas = $(this).val();
-        if(plazas != "Todos"){
-            $(".tarjetaVehiculo").each(function(){
-                console.log(plazas);
-                console.log($(this).attr("plazas"));
-                if(plazas != $(this).attr("plazas")){
-                    $(this).hide();
-                }
-                else{
-                    $(this).show();
-                }
-            });
-        }
-        else{
-            $(".tarjetaVehiculo").each(function(){
-                $(this).show();
-            });
-        }
+        aplicarFiltros();
+    });
+});
+
+$(document).ready(function(){
+    $("#cambio").on("change", function(){
+        aplicarFiltros();
     });
 });
 
 function refreshValue(idNewVal, idShowVal) {
     let val = $(idNewVal).val();
     $(idShowVal).text(val);
+}
+
+function aplicarFiltros(){
+    const filtro = new RegExp($("#searchV").val().toLowerCase());
+    const combustible = $("#tipoDeCombustible").val();
+    const plazas = $("#numeroPlazas").val();
+    const cambio = $("#cambio").val();
+    $(".tarjetaVehiculo").each(function(){
+        if(filtro.test($(this).attr("nombre").toLowerCase()) && 
+        (combustible === $(this).attr("combustible") || combustible === "Todos") &&
+        (plazas === $(this).attr("plazas") || plazas === "Todos") &&
+        (cambio === $(this).attr("cambio") || cambio === "Todos")){
+            $(this).show();
+        }
+        else{
+            $(this).hide();
+        }
+    });
 }
