@@ -1,7 +1,7 @@
 package es.ucm.fdi.iw.controller;
 
 import java.util.List;
-
+import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,6 +41,8 @@ public class RootController {
     
     @GetMapping("/createVehicle")
     public String createVehicle(Model model) {
+
+        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
         return "createVehicle";
     }
   

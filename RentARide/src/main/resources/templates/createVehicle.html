@@ -30,12 +30,11 @@
                 <div class="col">
                     <label for="combustible">Combustible</label>
                     <select name="combustible" id="combustible" class="form-select mt-1">
-                        <option value="Gasolina">Gasolina</option>
-                        <option value="Diesel">Diesel</option>
-                        <option value="Electrico">Electrico</option>
-                        <option value="Hibrido">Hibrido</option>
-                        <option value="Gas">Gas</option>
-                    </select>
+                        <option th:each="fuel : ${fuels}" 
+                                th:value="${fuel}" 
+                                th:text="${fuel}">
+                        </option>
+                      </select>
                 </div>
                 <div class="col">
                     <label for="consumo">Consumo</label>
