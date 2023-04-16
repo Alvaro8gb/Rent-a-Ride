@@ -2,10 +2,8 @@ package es.ucm.fdi.iw.controller;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -33,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.BookingID;
+import es.ucm.fdi.iw.model.Ticket;
+import es.ucm.fdi.iw.model.TicketID;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
@@ -45,6 +45,8 @@ import es.ucm.fdi.iw.model.Vehicle;
 public class BookingController {
 
 	private static final Logger log = LogManager.getLogger(BookingController.class);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+
 
     @Autowired
 	private EntityManager entityManager;
@@ -61,7 +63,6 @@ public class BookingController {
         try {
             Vehicle vehicle = entityManager.find(Vehicle.class, id);
             User requester = (User)session.getAttribute("u");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
             LocalDate inDateTime = LocalDate.parse(inDate, formatter);
             LocalDate outDateTime = LocalDate.parse(outDate, formatter);
             BookingID bookingID = new BookingID(id, requester.getId(), inDateTime, outDateTime);
@@ -82,7 +83,7 @@ public class BookingController {
 
     @GetMapping(path="/{idVehicle}", produces = "application/json")
     @ResponseBody
-    public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{ // Transferable<Booking.Transfer>
+    public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{
   
         Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
         Booking book = vehicle.getBookings().size() > 0? vehicle.getBookings().get(0): null;
@@ -93,6 +94,54 @@ public class BookingController {
         log.info("booking {} {}", idVehicle, jsonString);
 
         return jsonString;
+    }
+
+    @GetMapping("ticket/{idVehicle}")
+    public String ticket(@PathVariable long idVehicle, Model model) {
+
+        Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
+
+        // Comprobar que el usuairo tenga un booking 
+        if ( vehicle == null){
+            model.addAttribute("status", 400);
+            return "error";
+        }
+
+        model.addAttribute("idVehicle", idVehicle);
+        model.addAttribute("gravitys", Arrays.asList(Ticket.Gravity.values()));
+
+        return "createTicket";
+    }
+
+    @PostMapping("ticket/{idBooking}")
+    public String ticket(Model model, RedirectAttributes redirAttrs,
+                        @PathVariable long idBooking,
+                        @RequestParam(required=false) String text,
+                        @RequestParam(required=false) String gravity,
+                        HttpSession session){
+        
+        redirAttrs.addFlashAttribute("successMessage", "Not implemented");
+
+        try {
+            Booking book = entityManager.find(Booking.class, idBooking); // Buscar booking po rid
+            User requester = (User)session.getAttribute("u");
+            User user = entityManager.find(User.class, requester.getId());
+
+
+            Ticket target = new Ticket(new TicketID(book.getId()), 
+                                        LocalDate.now(), 
+                                        text, 
+                                        Ticket.Gravity.valueOf(gravity));
+
+            entityManager.persist(target);
+            entityManager.flush();
+
+            redirAttrs.addFlashAttribute("successMessage", "El incidente se ha registrado con éxito");
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
+        }
+
+        return "createTicket";
     }
 
     @GetMapping("list")

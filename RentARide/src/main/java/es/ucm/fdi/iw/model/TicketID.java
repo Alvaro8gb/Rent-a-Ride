@@ -3,6 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import java.io.Serializable;
 
@@ -12,4 +15,11 @@ import java.io.Serializable;
 public class TicketID implements Serializable {
     
     private BookingID bookingID;
+    
+    /*
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id; 
+
+    */
 }
