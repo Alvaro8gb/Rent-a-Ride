@@ -21,6 +21,10 @@ public class BookingID implements Serializable, Transferable<BookingID.Transfer>
     private LocalDate in_date;
     private LocalDate out_date;
 
+    public BookingID(){
+
+    }
+
     @Getter
     @AllArgsConstructor
 	public static class Transfer {

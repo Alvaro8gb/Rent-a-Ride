@@ -194,4 +194,18 @@ public class BookingController {
         return "listBookings";
     }
 
+    @GetMapping("history")
+    public String history(Model model, HttpSession session) {
+        List<Booking> bookings = entityManager.createNamedQuery("Booking.byUser", Booking.class)
+                                                .setParameter("userID", ((User)session.getAttribute("u")).getId())
+                                                .getResultList();
+
+        System.out.println(((User)session.getAttribute("u")).getId());
+
+        model.addAttribute("bookings", bookings);
+
+        System.out.println(bookings);
+
+        return "bookingHistory";
+    }
 }

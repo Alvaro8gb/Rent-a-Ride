@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>Listado de usuarios</title>
+</head>
+
+<body>
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container">
+        <h2 class="pageTitle text-center mt-5 mb-5">Mis reservas</h2>
+
+        <div class="row">
+            <div th:each="booking : ${bookings}" class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center">
+                        <img class="img-fluid" th:src="@{/vehicle/{id}/pic(id=${booking.vehicle.id})}" alt="Imagen coche">
+                    </div>
+
+                    <div class="col-2 text-center">
+                        <p th:text="${booking.vehicle.modelName}"></p>
+                        <p th:text="${booking.vehicle.brand}"></p>
+                        <p th:text="${booking.vehicle.license}"></p>
+                    </div>
+
+                    <div class="col text-center">
+                        <h4 th:text="${booking.id.in_date + ' - ' + booking.id.out_date}"></h4>
+                    </div>
+
+                    <div class="col text-center">
+                        <button class="btn"><i class="fa-solid fa-triangle-exclamation"></i> Reportar incidencia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>
