@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.BookingID;
 import es.ucm.fdi.iw.model.Ticket;
-import es.ucm.fdi.iw.model.TicketID;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
@@ -51,21 +50,21 @@ public class BookingController {
     @Autowired
 	private EntityManager entityManager;
 
-    @PostMapping("book/{id}")
+    @PostMapping("book/{idVehicle}")
     @Transactional
     public String booking(Model model, RedirectAttributes redirAttrs,
-                            @PathVariable long id,
+                            @PathVariable long idVehicle,
                             @RequestParam(required=false) String inDate,
                             @RequestParam(required=false) String outDate,
                             @RequestParam(required=false) Float precio,
                             HttpSession session){
                                 
         try {
-            Vehicle vehicle = entityManager.find(Vehicle.class, id);
+            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
             User requester = (User)session.getAttribute("u");
             LocalDate inDateTime = LocalDate.parse(inDate, formatter);
             LocalDate outDateTime = LocalDate.parse(outDate, formatter);
-            BookingID bookingID = new BookingID(id, requester.getId(), inDateTime, outDateTime);
+            BookingID bookingID = new BookingID(idVehicle, requester.getId(), inDateTime, outDateTime);
             User user = entityManager.find(User.class, requester.getId());
             Booking target = new Booking(bookingID, precio, user, vehicle);
             
@@ -78,7 +77,7 @@ public class BookingController {
         }
 
         
-        return String.format("redirect:/vehicle/%d", id);
+        return String.format("redirect:/vehicle/%d", idVehicle);
     }
 
     @GetMapping(path="/{idVehicle}", produces = "application/json")
@@ -94,54 +93,6 @@ public class BookingController {
         log.info("booking {} {}", idVehicle, jsonString);
 
         return jsonString;
-    }
-
-    @GetMapping("ticket/{idVehicle}")
-    public String ticket(@PathVariable long idVehicle, Model model) {
-
-        Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
-
-        // Comprobar que el usuairo tenga un booking 
-        if ( vehicle == null){
-            model.addAttribute("status", 400);
-            return "error";
-        }
-
-        model.addAttribute("idVehicle", idVehicle);
-        model.addAttribute("gravitys", Arrays.asList(Ticket.Gravity.values()));
-
-        return "createTicket";
-    }
-
-    @PostMapping("ticket/{idBooking}")
-    public String ticket(Model model, RedirectAttributes redirAttrs,
-                        @PathVariable long idBooking,
-                        @RequestParam(required=false) String text,
-                        @RequestParam(required=false) String gravity,
-                        HttpSession session){
-        
-        redirAttrs.addFlashAttribute("successMessage", "Not implemented");
-
-        try {
-            Booking book = entityManager.find(Booking.class, idBooking); // Buscar booking po rid
-            User requester = (User)session.getAttribute("u");
-            User user = entityManager.find(User.class, requester.getId());
-
-
-            Ticket target = new Ticket(new TicketID(book.getId()), 
-                                        LocalDate.now(), 
-                                        text, 
-                                        Ticket.Gravity.valueOf(gravity));
-
-            entityManager.persist(target);
-            entityManager.flush();
-
-            redirAttrs.addFlashAttribute("successMessage", "El incidente se ha registrado con éxito");
-        } catch (Exception e) {
-            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
-        }
-
-        return "createTicket";
     }
 
     @GetMapping("list")
@@ -196,16 +147,49 @@ public class BookingController {
 
     @GetMapping("history")
     public String history(Model model, HttpSession session) {
+        User requester = (User)session.getAttribute("u");
         List<Booking> bookings = entityManager.createNamedQuery("Booking.byUser", Booking.class)
-                                                .setParameter("userID", ((User)session.getAttribute("u")).getId())
+                                                .setParameter("userID", requester.getId())
                                                 .getResultList();
 
-        System.out.println(((User)session.getAttribute("u")).getId());
-
         model.addAttribute("bookings", bookings);
+        model.addAttribute("gravitys", Arrays.asList(Ticket.Gravity.values()));
 
-        System.out.println(bookings);
+        log.info("El usuario {} tiene {} bookings", requester.getId(), bookings.size());
 
         return "bookingHistory";
+    }
+
+    @PostMapping("ticket/{idVehicle}")
+    public String ticket(Model model, RedirectAttributes redirAttrs,
+                        @PathVariable long idVehicle,
+                        @RequestParam(required=false) String text,
+                        @RequestParam(required=false) String gravity,
+                        HttpSession session){
+        
+        try {
+
+            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
+                
+            User requester = (User)session.getAttribute("u");
+            Ticket target = new Ticket();
+
+            target.setGravity(Ticket.Gravity.valueOf(gravity));
+            target.setIdVehicle(vehicle.getId());
+            target.setIdUser(requester.getId());
+            target.setOcurranceDate(LocalDate.now());
+            target.setText(text);
+            
+            entityManager.persist(target);
+            entityManager.flush();
+
+            redirAttrs.addFlashAttribute("successMessage", "El ticket se registro con exito");
+
+
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
+        }
+
+        return "listBookings";
     }
 }
