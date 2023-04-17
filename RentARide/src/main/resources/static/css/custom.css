@@ -372,3 +372,15 @@ input:invalid{
 .bookingEnd {
     background: var(--red-event);
 }
+
+.irs-to, .irs-from, .irs-bar, .irs-single{
+    background-color: var(--dark-blue) !important;
+}
+
+.irs-from:before, .irs-to:before, .irs-single:before{
+    border-top-color: var(--dark-blue) !important;
+}
+
+.irs-handle{
+    border: 4px solid var(--dark-blue) !important;
+}
