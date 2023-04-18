@@ -14,8 +14,11 @@
 
         <div class="row justify-content-center align-items-center mt-4">
             <div class="col-1 text-center"><button class="border-0 calendarDatePagination pageLeft">&#60;</button></div>
-            <div class="col-3 text-center calendarDateRange" th:text="${#temporals.format(bookings.keySet().toArray()[7], 'dd/MM/yyyy') + ' - ' + #temporals.format(bookings.keySet().toArray()[13], 'dd/MM/yyyy')}"></div>
-            <div class="col-1 text-center"><button class="border-0 calendarDatePagination pageRight">&#62;</button></div>
+            <div class="col-3 text-center calendarDateRange"
+                th:text="${#temporals.format(bookings.keySet().toArray()[7], 'dd/MM/yyyy') + ' - ' + #temporals.format(bookings.keySet().toArray()[13], 'dd/MM/yyyy')}">
+            </div>
+            <div class="col-1 text-center"><button class="border-0 calendarDatePagination pageRight">&#62;</button>
+            </div>
         </div>
 
         <div class="row m-5 calendarEvents">
@@ -33,13 +36,17 @@
                 <p class="text-center greyed" th:if="${#lists.isEmpty(day.value)}">Sin movimientos</p>
 
                 <div class="card calendarEvent mt-3" th:each="booking : ${day.value}">
-                    <div class="calendarEventStrip bookingStart mb-2" th:if="${booking.id.in_date.isEqual(day.key)}"></div>
-                    <div class="calendarEventStrip bookingEnd mb-2" th:if="${booking.id.out_date.isEqual(day.key)}"></div>
-                    
+                    <div class="calendarEventStrip bookingStart mb-2" th:if="${booking.id.in_date.isEqual(day.key)}">
+                    </div>
+                    <div class="calendarEventStrip bookingEnd mb-2" th:if="${booking.id.out_date.isEqual(day.key)}">
+                    </div>
+
                     <div class="card-body">
                         <p class="card-title" th:if="${booking.id.in_date.isEqual(day.key)}">Inicio reserva</p>
                         <p class="card-title" th:if="${booking.id.out_date.isEqual(day.key)}">Fin reserva</p>
-                        <p class="card-text" th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName + ' - ' + booking.vehicle.license}"></p>
+                        <p class="card-text"
+                            th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName + ' - ' + booking.vehicle.license}">
+                        </p>
                     </div>
                 </div>
             </div>
@@ -54,7 +61,7 @@
         }
 
         function hideByIndex(currentIndex) {
-            $('.container-fluid .row .col').each(function() {
+            $('.container-fluid .row .col').each(function () {
                 console.log(currentIndex);
 
                 var colId = parseInt($(this).attr('id'));
@@ -69,14 +76,14 @@
             $('.calendarDateRange').text(startDate + ' - ' + endDate);
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             var currentIndex = 7;
 
             const leftButton = $('.pageLeft');
             const rightButton = $('.pageRight');
 
-            $('.pageLeft').click(function(){ currentIndex = mod((currentIndex - 7), 21); hideByIndex(currentIndex) });
-            $('.pageRight').click(function(){ currentIndex = mod((currentIndex + 7), 21); hideByIndex(currentIndex) });
+            $('.pageLeft').click(function () { currentIndex = mod((currentIndex - 7), 21); hideByIndex(currentIndex) });
+            $('.pageRight').click(function () { currentIndex = mod((currentIndex + 7), 21); hideByIndex(currentIndex) });
 
             hideByIndex(currentIndex);
         });

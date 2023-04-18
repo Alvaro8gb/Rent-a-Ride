@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Mis reservas</title>
+
+</head>
+
+<body>
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container">
+        <h2 class="pageTitle text-center mt-5 mb-5">Mis reservas</h2>
+
+        <th:block th:replace="fragments/flash :: flash" />
+
+
+        <div class="row">
+            <div th:each="booking : ${bookings}" class="col-12 p-2">
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center align-self-center">
+                        <img class="img-fluid" th:src="@{/vehicle/{id}/pic(id=${booking.vehicle.id})}" alt="Imagen coche">
+                    </div>
+
+                    <div class="col-4 align-self-center">
+                        <p class="m-0 p-0 bookingListCar" th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName}"></p>
+                        <p class="m-0 p-0 bookingListLicense" th:text="${booking.vehicle.license}"></p>
+                        <p class="m-0 p-0 bookingListDates" th:text="${booking.id.in_date + ' - ' + booking.id.out_date}"></p>
+                    </div>
+
+                    <div class="col-4 text-end  align-self-center">
+                        <p class="m-0 p-0 bookingListPrice" th:text="${booking.price + '€'}"></p>
+                        <p class="m-0 p-0 bookingListPriceTag">Precio total</p>
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton" data-bs-toggle="modal" th:onclick="'showModal(' + ${booking.vehicle.id} + ')'" data-bs-target="#modalTicket">
+                            Reportar incidencia
+                        </a>
+                    </div>
+                </div>   
+                
+                <div class="row justify-content-center m-3">
+                    <div class="col-8">
+                        <hr />
+                    </div>
+                </div>  
+            </div>
+        </div>          
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="modalTicket" tabindex="-1" aria-labelledby="modalTicketLabel" aria-hidden="true">	
+        <div class="modal-dialog modal-lg">	
+            <div class="modal-content">	
+                <div class="modal-header">	
+                    <h1 class="modal-title fs-5" id="modalTicketLabel">Reportar incidencia</h1>	
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>	
+                </div>	
+
+                <form id="modalSendTicket" method="POST" th:action="@{/booking/ticket/}">
+                    <div class="modal-body">	
+                        <div class="form-group mb-3">	
+                            <label for="gravity">Gravedad</label>	
+                            <select name="gravity" id="gravity" class="form-select mt-1">	
+                                <option th:each="g : ${gravitys}" th:value="${g}" th:text="${g}">	
+                                </option>	
+                            </select>	
+                        </div>	
+
+                        <div class="form-group">	
+                            <label for="text">Incidencia</label>	
+                            <textarea type="text" class="form-control" id="text" name="text" rows="5" placeholder="Escriba aqui el problema"></textarea>	
+                        </div>	
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn mb-2">Enviar</button>	
+                    </div>
+                </form>	
+            </div>	
+        </div>	
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/bookingHistory.js}"> </script>
+
+</body>
+
+</html>

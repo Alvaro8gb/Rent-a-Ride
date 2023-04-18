@@ -384,3 +384,38 @@ input:invalid{
 .irs-handle{
     border: 4px solid var(--dark-blue) !important;
 }
+
+.bookingListCar {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.bookingListLicense {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.bookingListDates {
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.bookingListPrice {
+    font-size: 42px;
+    font-weight: 500;
+}
+
+.bookingListPriceTag {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.bookingListReportButton {
+    color: black;
+    font-weight: 200;
+    cursor: pointer;
+}
+
+.bookingListReportButton:hover {
+    color: var(--greyed);
+}

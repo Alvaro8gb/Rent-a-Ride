@@ -2,10 +2,8 @@ package es.ucm.fdi.iw.controller;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -33,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.BookingID;
+import es.ucm.fdi.iw.model.Ticket;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
@@ -45,26 +44,27 @@ import es.ucm.fdi.iw.model.Vehicle;
 public class BookingController {
 
 	private static final Logger log = LogManager.getLogger(BookingController.class);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+
 
     @Autowired
 	private EntityManager entityManager;
 
-    @PostMapping("book/{id}")
+    @PostMapping("book/{idVehicle}")
     @Transactional
     public String booking(Model model, RedirectAttributes redirAttrs,
-                            @PathVariable long id,
+                            @PathVariable long idVehicle,
                             @RequestParam(required=false) String inDate,
                             @RequestParam(required=false) String outDate,
                             @RequestParam(required=false) Float precio,
                             HttpSession session){
                                 
         try {
-            Vehicle vehicle = entityManager.find(Vehicle.class, id);
+            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
             User requester = (User)session.getAttribute("u");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
             LocalDate inDateTime = LocalDate.parse(inDate, formatter);
             LocalDate outDateTime = LocalDate.parse(outDate, formatter);
-            BookingID bookingID = new BookingID(id, requester.getId(), inDateTime, outDateTime);
+            BookingID bookingID = new BookingID(idVehicle, requester.getId(), inDateTime, outDateTime);
             User user = entityManager.find(User.class, requester.getId());
             Booking target = new Booking(bookingID, precio, user, vehicle);
             
@@ -77,12 +77,12 @@ public class BookingController {
         }
 
         
-        return String.format("redirect:/vehicle/%d", id);
+        return String.format("redirect:/vehicle/%d", idVehicle);
     }
 
     @GetMapping(path="/{idVehicle}", produces = "application/json")
     @ResponseBody
-    public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{ // Transferable<Booking.Transfer>
+    public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{
   
         Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
         Booking book = vehicle.getBookings().size() > 0? vehicle.getBookings().get(0): null;
@@ -145,4 +145,48 @@ public class BookingController {
         return "listBookings";
     }
 
+    @GetMapping("history")
+    public String history(Model model, HttpSession session) {
+        User requester = (User)session.getAttribute("u");
+        List<Booking> bookings = entityManager.createNamedQuery("Booking.byUser", Booking.class)
+                                                .setParameter("userID", requester.getId())
+                                                .getResultList();
+
+        model.addAttribute("bookings", bookings);
+        model.addAttribute("gravitys", Arrays.asList(Ticket.Gravity.values()));
+
+        log.info("El usuario {} tiene {} bookings", requester.getId(), bookings.size());
+
+        return "bookingHistory";
+    }
+
+    @PostMapping("ticket/{idVehicle}")
+	@Transactional
+    public String ticket(Model model, RedirectAttributes redirAttrs,
+                        @PathVariable long idVehicle,
+                        @RequestParam(required=false) String text,
+                        @RequestParam(required=false) String gravity,
+                        HttpSession session){
+
+        try {
+            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
+            User requester = (User)session.getAttribute("u");
+            Ticket ticket = new Ticket();
+
+            ticket.setGravity(Ticket.Gravity.valueOf(gravity));
+            ticket.setIdVehicle(vehicle.getId());
+            ticket.setIdUser(requester.getId());
+            ticket.setOcurranceDate(LocalDate.now());
+            ticket.setText(text);
+            
+            entityManager.persist(ticket);
+            entityManager.flush();
+
+            redirAttrs.addFlashAttribute("successMessage", "El ticket se registro con exito");
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
+        }
+
+        return "redirect:/booking/history";
+    }
 }

@@ -61,7 +61,6 @@ public class UserController {
 	private LocalData localData;
 
 
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
