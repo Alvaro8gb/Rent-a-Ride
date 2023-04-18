@@ -161,6 +161,7 @@ public class BookingController {
     }
 
     @PostMapping("ticket/{idVehicle}")
+	@Transactional
     public String ticket(Model model, RedirectAttributes redirAttrs,
                         @PathVariable long idVehicle,
                         @RequestParam(required=false) String text,
@@ -190,6 +191,6 @@ public class BookingController {
             redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
         }
 
-        return "listBookings";
+        return "redirect:/booking/history";
     }
 }

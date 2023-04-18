@@ -13,6 +13,9 @@
     <div class="container">
         <h2 class="pageTitle text-center mt-5 mb-5">Mis reservas</h2>
 
+        <th:block th:replace="fragments/flash :: flash" />
+
+
         <div class="row">
             <div th:each="booking : ${bookings}" class="col-12">
                 <div class="row justify-content-center">
@@ -32,9 +35,10 @@
                     </div>
 
                     <div class="col text-center">
-                        <button class="btn" data-bs-toggle="modal" id="abriModel{${booking.vehicle.brand}}" data-bs-target="#modalTicket"><i
-                                class="fa-solid fa-triangle-exclamation"></i> Reportar
-                            incidencia</button>
+                        <button class="btn" data-bs-toggle="modal" th:onclick="'showModal(' + ${booking.vehicle.id} + ')'" data-bs-target="#modalTicket">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Reportar incidencia
+                        </button>
+                        
                     </div>
                 </div>
             </div>
@@ -51,7 +55,8 @@
                     <h1 class="modal-title fs-5" id="modalTicketLabel">Reportar incidencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
-                <form class="row" method="POST" th:action="@{/booking/ticket/{id}(id=${idVehicle})}">
+                <form id="modalSendTicket" class="row" method="POST" th:action="@{/booking/ticket/}">
+                    
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
@@ -91,14 +96,10 @@
     </div>
 
 
-
     <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/bookingHistory.js}"> </script>
 
-    <script>
 
-        $("#abriModel").attr
-
-    </script>
 </body>
 
 </html>
