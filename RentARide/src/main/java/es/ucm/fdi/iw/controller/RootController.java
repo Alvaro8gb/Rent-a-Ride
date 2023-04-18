@@ -63,6 +63,8 @@ public class RootController {
                                 @RequestParam(required = false) boolean available){
         
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
+        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
+        model.addAttribute("transmission", Arrays.asList(Vehicle.Transmission.values()));
         model.addAttribute("vehicles", vs);
         return "carsManagement";
     }

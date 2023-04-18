@@ -2,27 +2,19 @@ $(document).ready(function(){
     $("#searchV").keyup(function(){
         aplicarFiltros();
     });
-});
 
-$(document).ready(function(){
     $("#tipoDeCombustible").on("change", function(){
         aplicarFiltros();
     });
-});
 
-$(document).ready(function(){
     $("#numeroPlazas").on("change", function(){
         aplicarFiltros();
     });
-});
 
-$(document).ready(function(){
     $("#cambio").on("change", function(){
         aplicarFiltros();
     });
-});
 
-$(document).ready(function(){
     $("#rangoPrecio").ionRangeSlider({
         type: "double",
         grid: true,
@@ -33,12 +25,12 @@ $(document).ready(function(){
         postfix: "€",
         skin: "round",
         onFinish: function (data) {
-            aplicarFiltros(data.from, data.to);
+            aplicarFiltros();
         }
     });
 });
 
-function aplicarFiltros(precioMin, precioMax){
+function aplicarFiltros(){
     const filtro = new RegExp($("#searchV").val().toLowerCase());
     const combustible = $("#tipoDeCombustible").val();
     const plazas = $("#numeroPlazas").val();
@@ -46,6 +38,7 @@ function aplicarFiltros(precioMin, precioMax){
     const precio = $("#rangoPrecio");
 
     $(".tarjetaVehiculo").each(function(){
+        const ls = $(this).attr("reservas")
         if(filtro.test($(this).attr("nombre").toLowerCase()) && 
         (combustible === $(this).attr("combustible") || combustible === "Todos") &&
         (plazas === $(this).attr("plazas") || plazas === "Todos") &&

@@ -22,12 +22,6 @@
             <div class="border lightBlueBorder rounded col-sm-3 col-md-3 col-lg-3 col-xl-3 pb-3">
                 <h5 class="card-title text-center mt-3 mb-4">Filtro de Búsqueda</h5>
                 <div class="card-text">
-                    <div class="form-check mb-3">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Disponible
-                        </label>
-                        <input class="form-check-input" type="checkbox" value="" id="available">
-                    </div>
                     <div class="mb-3">
                         <label for="priceRange" class="form-label">Precio por dia</label> </br>
                         <div class="mt-3">
@@ -38,11 +32,10 @@
                         <label for="combustible">Combustible</label>
                         <select id="tipoDeCombustible" class="form-select mt-1 filtro">
                             <option value="Todos">Todos</option>
-                            <option value="Gasolina">Gasolina</option>
-                            <option value="Diesel">Diesel</option>
-                            <option value="Electrico">Eléctrico</option>
-                            <option value="Hibrido">Híbrido</option>
-                            <option value="Gas">Gas</option>
+                            <option th:each="fuel : ${fuels}" 
+                                th:value="${fuel}" 
+                                th:text="${fuel}">
+                            </option>
                         </select>
                     </div>
                     <div class="mt-3">
@@ -58,8 +51,10 @@
                         <label for="plazas">Cambio</label>
                         <select id="cambio" class="form-select mt-1 filtro">
                             <option value="Todos">Todos</option>
-                            <option value="Automatico">Automático</option>
-                            <option value="Manual">Manual</option>
+                            <option th:each="t : ${transmission}" 
+                                th:value="${t}" 
+                                th:text="${t}">
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -118,10 +113,10 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h2> Informacion booking</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    <h2> Informacion booking</h2>
                     <table class="table" id="content-booking">
                         <tr>
                             <th>
