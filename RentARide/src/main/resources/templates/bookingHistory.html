@@ -14,30 +14,35 @@
         <h2 class="pageTitle text-center mt-5 mb-5">Mis reservas</h2>
 
         <div class="row">
-            <div th:each="booking : ${bookings}" class="col-12">
+            <div th:each="booking : ${bookings}" class="col-12 p-2">
                 <div class="row justify-content-center">
-                    <div class="col-2 text-center">
-                        <img class="img-fluid" th:src="@{/vehicle/{id}/pic(id=${booking.vehicle.id})}"
-                            alt="Imagen coche">
+                    <div class="col-2 text-center align-self-center">
+                        <img class="img-fluid" th:src="@{/vehicle/{id}/pic(id=${booking.vehicle.id})}" alt="Imagen coche">
                     </div>
 
-                    <div class="col-2 text-center">
-                        <p th:text="${booking.vehicle.modelName}"></p>
-                        <p th:text="${booking.vehicle.brand}"></p>
-                        <p th:text="${booking.vehicle.license}"></p>
+                    <div class="col-4 align-self-center">
+                        <p class="m-0 p-0 bookingListCar" th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName}"></p>
+                        <p class="m-0 p-0 bookingListLicense" th:text="${booking.vehicle.license}"></p>
+                        <p class="m-0 p-0 bookingListDates" th:text="${booking.id.in_date + ' - ' + booking.id.out_date}"></p>
                     </div>
 
-                    <div class="col text-center">
-                        <h4 th:text="${booking.id.in_date + ' - ' + booking.id.out_date}"></h4>
+                    <div class="col-4 text-end  align-self-center">
+                        <p class="m-0 p-0 bookingListPrice" th:text="${booking.price + '€'}"></p>
+                        <p class="m-0 p-0 bookingListPriceTag">Precio total</p>
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton" data-bs-toggle="modal" id="abriModel{${booking.vehicle.brand}}" data-bs-target="#modalTicket">
+                            Reportar incidencia
+                        </a>
                     </div>
+                </div>   
 
-                    <div class="col text-center">
-                        <button class="btn" data-bs-toggle="modal" id="abriModel{${booking.vehicle.brand}}" data-bs-target="#modalTicket"><i
-                                class="fa-solid fa-triangle-exclamation"></i> Reportar
-                            incidencia</button>
+                <div class="row justify-content-center m-3">
+                    <div class="col-8">
+                        <hr />
                     </div>
                 </div>
             </div>
+            
+            
         </div>
     </div>
 
