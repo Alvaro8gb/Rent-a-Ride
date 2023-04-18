@@ -401,4 +401,9 @@ input:invalid{
 .bookingListReportButton {
     color: black;
     font-weight: 200;
+    cursor: pointer;
+}
+
+.bookingListReportButton:hover {
+    color: var(--greyed);
 }

@@ -167,26 +167,22 @@ public class BookingController {
                         @RequestParam(required=false) String text,
                         @RequestParam(required=false) String gravity,
                         HttpSession session){
-        
+
         try {
-
             Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
-                
             User requester = (User)session.getAttribute("u");
-            Ticket target = new Ticket();
+            Ticket ticket = new Ticket();
 
-            target.setGravity(Ticket.Gravity.valueOf(gravity));
-            target.setIdVehicle(vehicle.getId());
-            target.setIdUser(requester.getId());
-            target.setOcurranceDate(LocalDate.now());
-            target.setText(text);
+            ticket.setGravity(Ticket.Gravity.valueOf(gravity));
+            ticket.setIdVehicle(vehicle.getId());
+            ticket.setIdUser(requester.getId());
+            ticket.setOcurranceDate(LocalDate.now());
+            ticket.setText(text);
             
-            entityManager.persist(target);
+            entityManager.persist(ticket);
             entityManager.flush();
 
             redirAttrs.addFlashAttribute("successMessage", "El ticket se registro con exito");
-
-
         } catch (Exception e) {
             redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
         }
