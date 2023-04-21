@@ -219,7 +219,7 @@ nav li .dropdown-item {
 .chat {
     position: fixed;
     right: 70px;
-    bottom: 200px;
+    bottom: 240px;
     height: 25em;
     width: 22em;
     border-radius: 1em;
@@ -418,4 +418,60 @@ input:invalid{
 
 .bookingListReportButton:hover {
     color: var(--greyed);
+}
+
+.agentChatHeader {
+    background: var(--dark-blue);
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+    padding: 1em;
+    color: white;
+}
+
+.agentChatHeader h3 {
+    font-weight: 400;
+    margin: 0;
+}
+
+.agentChatHeader h3 span {
+    font-weight: 600;
+}
+
+.agentChatBody {
+    padding: 1em;
+    min-height: 40vh;
+    max-height: 40vh;
+    --bs-gutter-x: 1.5rem;
+    display: flex;
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.agentChatMessage {
+    background-color: #EFEFEF;
+    border-radius: 0.3em;
+    overflow-wrap: break-word;
+    font-weight: 300;
+    margin: 0.75em;
+    padding: 0.75em;
+}
+
+.agentChatForm {
+    background: var(--dark-blue);
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    padding: 1em;
+    color: white;
+}
+
+.agentChatForm button {
+    border: 0;
+    font-weight: 500;
+}
+
+.agentChatForm span {
+    background: white;
+    color: grey;
+    border-top-right-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
 }

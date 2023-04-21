@@ -2,6 +2,7 @@ package es.ucm.fdi.iw.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.time.LocalDateTime;
@@ -49,25 +50,20 @@ public class MessageController {
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 
-	private Queue<Message> pendingMsgs;
-	private User bot = new User();
+	// private List<Message> pendingMsgs;
+	// private User bot = new User();
 
 	public MessageController() {
-		pendingMsgs = new LinkedList<Message>();
-		bot.setUsername("Rent a Ride Company");
+		// pendingMsgs = new ArrayList<>();
+
+		// bot.setUsername("Rent a Ride Bot");
 	}
 	
 	@GetMapping("/in")
 	public String inChats(Model model, HttpSession session) {
+		List<Message> pendingMsgs = entityManager.createNamedQuery("Message.findAllUnattended", Message.class).getResultList();
 
-		long userId = ((User) session.getAttribute("u")).getId();
-		User u = entityManager.find(User.class, userId);
-
-		model.addAttribute("msgs", u.getReceived());
-		model.addAttribute("msgsPending", pendingMsgs.size());
-
-		Message lastMsg = pendingMsgs.size() > 0 ? pendingMsgs.iterator().next() : null;
-		model.addAttribute("lastMsg", lastMsg);
+		model.addAttribute("pendingMsgs", pendingMsgs); // Return messages queue
 
 		return "messages";
 	}
@@ -100,41 +96,33 @@ public class MessageController {
 	@ResponseBody
 	@Transactional
 	public String postMsg(@PathVariable long idUser,
-			@RequestBody JsonNode o, Model model, HttpSession session)
-			throws JsonProcessingException {
+							@RequestBody JsonNode o, Model model, HttpSession session)
+							throws JsonProcessingException {
 
-		String text = o.get("message").asText();
-		Message m = new Message();
+		Message message = new Message();
 		User sender = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
-		m.setSender(sender);
-		m.setDateSent(LocalDateTime.now());
-		m.setText(text);
-
-		if (idUser == 0) {
-
-			pendingMsgs.add(m); // Guardamos mensaje en la cola
-
-			Message mInfo = new Message();
-			mInfo.setText("Estamos procesando su solictud, en breves un agente estara contigo");
-			mInfo.setDateSent(LocalDateTime.now());
-			mInfo.setRecipient(sender);
-			mInfo.setSender(bot);
-
-			sendMsg(mInfo, sender);
-
+		
+		message.setDateSent(LocalDateTime.now());
+		message.setText(o.get("message").asText());
+		message.setSender(sender);
+		
+		if (o.get("firstMessage").asBoolean(false)) {
+			message.setUnattended(true);
+			message.setRecipient(null);
+			
+			entityManager.persist(message);
+			entityManager.flush();
 		} else {
+			User recipient = entityManager.find(User.class, idUser);
+			message.setRecipient(recipient);
+			
+			entityManager.persist(message);
+			entityManager.flush();
 
-			User u = entityManager.find(User.class, idUser);
-
-			m.setRecipient(u);
-			entityManager.persist(m);
-			entityManager.flush(); // to get Id before commit
-
-			sendMsg(m, u); // Enviamos
+			sendMsg(message, recipient); // Enviamos
 		}
 
 		return "{\"result\": \"message sent.\"}";
-
 	}
 
 	/**
@@ -144,34 +132,37 @@ public class MessageController {
 	 * @param o  JSON-ized message, similar to {"message": "text goes here"}
 	 * @throws JsonProcessingException
 	 */
-	@PostMapping(path = "/{idMessage}")
-	@ResponseBody
+	@PostMapping(path = "/{idMessage}", produces = "application/json")
 	@Transactional
-	public String acceptMsg(@PathVariable long idMessage,
-			@RequestBody JsonNode o, Model model, HttpSession session)
-			throws JsonProcessingException {
+	@ResponseBody
+	public String acceptMsg(@PathVariable long idMessage, Model model, HttpSession session) throws JsonProcessingException {
+		Message message = entityManager.find(Message.class, idMessage);
+		User recevier = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
-		Message m = pendingMsgs.iterator().next();
+		if (message != null) {
+			message.setRecipient(recevier);
+			message.setUnattended(false);
+			entityManager.persist(message);
+			entityManager.flush();
 
-		if (m.getId() == idMessage){
+			sendMsg(message, recevier);
 
-			User recept = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
+			// Notify user the agent acceptance
+			Message confirm = new Message();
+			confirm.setDateSent(LocalDateTime.now());
+			confirm.setSender(recevier);
+			confirm.setRecipient(message.getSender());
+			confirm.setText("chatAccepted");
 
-			m.setRecipient(recept);
+			entityManager.persist(confirm);
+			entityManager.flush();
 
-			entityManager.persist(m);
-			entityManager.flush(); 
+			sendMsg(confirm, message.getSender());
 
-			sendMsg(m, recept); 
-
-			pendingMsgs.remove();
-
-			return "{\"result\": \"message accept.\"}";
-
+			return "{\"result\": \"accepted\"}";
 		}
-
-		return "{\"result\": \"false\"}";
 		
+		return "{\"result\": \"error\"}";
 	}
 
 	@GetMapping(path = "/receivedfrom/{idSender}", produces = "application/json")

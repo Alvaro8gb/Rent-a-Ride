@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Calendario de reservas</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container p-3">
+        <h2 class="pageTitle text-center mt-3 mb-3">Atención al ciente</h2>
+
+        <div class="row agentChatHeader">
+            <div class="col">
+                <h3>Atendiendo a: <span>Juan</span></h3>
+            </div>
+        </div>
+
+        <div class="row agentChatBody overflow-auto">
+            <div class="row justify-content-start">
+                <div class="col-6 agentChatMessage text-start">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-end">
+                <div class="col-6 agentChatMessage text-end">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-start">
+                <div class="col-6 agentChatMessage text-start">Este es el mensaje de Juan y es un mensaje super largo porque el pesado no para de quejarse sobre los coches que ha alquilado porque no tiene dinero para comprarlos y quiere fardar de vehiculo</div>
+            </div>
+
+            <div class="row justify-content-end">
+                <div class="col-6 agentChatMessage text-end">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-start">
+                <div class="col-6 agentChatMessage text-start">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-end">
+                <div class="col-6 agentChatMessage text-end">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-start">
+                <div class="col-6 agentChatMessage text-start">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-end">
+                <div class="col-6 agentChatMessage text-end">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-start">
+                <div class="col-6 agentChatMessage text-start">Este es el mensaje de Juan</div>
+            </div>
+
+            <div class="row justify-content-end">
+                <div class="col-6 agentChatMessage text-end">Este es el mensaje de Juan</div>
+            </div>
+            
+        </div>
+
+        <form class="row align-items-center agentChatForm">
+            <div class="col-10 align-self-center">
+                <div class="input-group">
+                    <input type="text" class="form-control border-0" name="message" id="message" placeholder="Escribe tu mensaje">
+                    <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
+                        <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
+                        <input type="file" class="d-none form-control" name="attachment" id="attachment">
+                    </span>
+                </div>
+            </div>
+
+            
+
+            <div class="col-2 align-self-center">
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <th:block th:replace="fragments/chat.html :: chat" />
+
+    <th:block th:include="fragments/footer" />
+    <script th:src="@{/js/chat.js}"> </script>
+</body>
+
+</html>

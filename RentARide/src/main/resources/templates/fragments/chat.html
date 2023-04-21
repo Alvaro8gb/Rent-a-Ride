@@ -11,44 +11,38 @@
 
         <th:block th:if="${session.u}">
 
-            <div class="container collapse chat" id="chat">
-                <div class="row chatHeader py-3">
-                    <div class="col-12">
-                        Chat de [[${@environment.getProperty('APP_NAME')}]]
+            <div class="container w-25 collapse p-3 chat" id="chat">                
+                <div class="row agentChatHeader">
+                    <div class="col">
+                        <h3 th:inline="text">[[${@environment.getProperty('APP_NAME')}]] Chat</h3>
                     </div>
                 </div>
-
-                <div class="row chatBody p-3 d-flex h-100">
-                    <div class="col-12 chatMessage my-2 py-2 chatReceiver">
-                        ¿En qué te podemos ayudar?
-                    </div>
+        
+                <div class="agentChatBody overflow-auto bg-white">
 
                 </div>
-
-                <div class="row chatInput py-3">
-
-                    <div class="col-10">
+        
+                <div class="row align-items-center agentChatForm">
+                    <div class="col-10 align-self-center">
                         <div class="input-group">
-                            <input type="text" class="form-control border-0" name="message" id="message"
-                                placeholder="Escribe tu mensaje">
+                            <input type="text" class="form-control border-0" name="message" id="message" placeholder="Escribe tu mensaje">
                             <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
                                 <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
-                                <!--<input type="file" class="d-none form-control" name="attachment" id="attachment">-->
+                                <input type="file" class="d-none form-control" name="attachment" id="attachment">
                             </span>
                         </div>
                     </div>
-
-                    <div class="col-2">
-                        <button id="sendmsg" class="btn btn-secondary" 
-                                th:onclick="'sendMsg(' + ${idReceiver} + ')'"> 
-                            Enviar
-                        </button>
+        
+                    <div class="col-2 align-self-center">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" th:attr="onclick='sendMsg(-1)'">Enviar</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <button class="chatIcon" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false"
-            aria-controls="chat"><i class="fa-solid fa-headset fa-xl"></i></button>
+                aria-controls="chat"><i class="fa-solid fa-headset fa-xl"></i></button>
 
         </th:block>
 
@@ -73,6 +67,9 @@
             <button class="chatIcon" data-toggle="modal" data-target="#registrateModal"><i class="fa-solid fa-headset fa-xl"></i></button>
         
         </th:block>
+
+        <script>var firstMessage = true;</script>
+        <script th:src="@{/js/chat.js}"> </script>
 
     </th:block>
 
