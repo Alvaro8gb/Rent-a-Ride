@@ -442,7 +442,6 @@ input:invalid{
     min-height: 40vh;
     max-height: 40vh;
     --bs-gutter-x: 1.5rem;
-    display: flex;
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }

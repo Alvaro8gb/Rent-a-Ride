@@ -1,10 +1,12 @@
 function openChat(idUser, msgId) {
-    console.log(`Should post to ${msgId}`);
     go(config.rootUrl + "/messages/" + msgId, 'POST', {})
         .then(response => {
-            console.log(response);
-            $('#chatModal').modal('show');
-            $(".agentChatForm button").attr("onclick", `sendMsg(${idUser})`);
+            if (response["result"] == "accepted") {
+                $(".agentChatForm button").attr("onclick", `sendMsg(${idUser})`);
+                $("#username").text(`#${idUser}`);
+                $('#chatModal').modal('show');
+            } else
+                alert(`Error! ${response["data"]}`);
         })
         .catch(e => console.log(e));
 }

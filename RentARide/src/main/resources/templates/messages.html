@@ -6,7 +6,7 @@
     <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Chats entrantes</title>
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column min-vh-100">
 
     <header th:replace="fragments/nav.html :: nav"></header>
 
@@ -35,7 +35,7 @@
                         <td th:text="${msg.text}"></td>
 
                         <td class="form-group text-center">
-                            <div class="form-group text-end">
+                            <div class="form-group text-center">
                                 <button class="border-0 bg-transparent" th:attr="onclick='openChat(' + ${msg.sender.id} + ', ' + ${msg.id} + ')'">
                                     <i class="fa-solid fa-message"></i>
                                 </button>
@@ -52,6 +52,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mt-3">
+            <div class="col text-center">
+                <a class="text-decoration-none" th:attr="onclick='location.reload()'">Comprobar nuevos mensajes</a>
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -62,7 +68,7 @@
                     <div class="container p-3">                
                         <div class="row agentChatHeader">
                             <div class="col">
-                                <h3>Atendiendo a: <span>XXXX</span></h3>
+                                <h3>Atendiendo a: <span id="username"></span></h3>
                             </div>
                         </div>
                 

@@ -140,6 +140,9 @@ public class MessageController {
 		User recevier = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
 		if (message != null) {
+			if (message.getRecipient() != null)
+				return "{\"result\": \"error\", \"data\": \"chat already attended\"}";
+
 			message.setRecipient(recevier);
 			message.setUnattended(false);
 			entityManager.persist(message);

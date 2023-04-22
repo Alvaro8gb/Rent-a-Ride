@@ -14,16 +14,20 @@
             <div class="container w-25 collapse p-3 chat" id="chat">                
                 <div class="row agentChatHeader">
                     <div class="col">
-                        <h3 th:inline="text">[[${@environment.getProperty('APP_NAME')}]] Chat</h3>
+                        <h4 class="m-0" th:inline="text">[[${@environment.getProperty('APP_NAME')}]] Chat</h4>
                     </div>
                 </div>
         
                 <div class="agentChatBody overflow-auto bg-white">
-
+                    <div class="row justify-content-start">
+                        <div class="col-6 agentChatMessage text-start" th:inline="text">
+                            ¡Bienvenido al chat de atención de [[${@environment.getProperty('APP_NAME')}]]! ¿En qué te podemos ayudar?        
+                        </div>
+                    </div>
                 </div>
         
                 <div class="row align-items-center agentChatForm">
-                    <div class="col-10 align-self-center">
+                    <div class="col-9 align-self-center">
                         <div class="input-group">
                             <input type="text" class="form-control border-0" name="message" id="message" placeholder="Escribe tu mensaje">
                             <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
@@ -33,7 +37,7 @@
                         </div>
                     </div>
         
-                    <div class="col-2 align-self-center">
+                    <div class="col-3 align-self-center">
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary" th:attr="onclick='sendMsg(-1)'">Enviar</button>
                         </div>
@@ -41,31 +45,9 @@
                 </div>
             </div>
 
-            <button class="chatIcon" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false"
+            <button th:if="${session.u}" class="chatIcon" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false"
                 aria-controls="chat"><i class="fa-solid fa-headset fa-xl"></i></button>
 
-        </th:block>
-
-        <th:block th:unless="${session.u}">
-
-            <div class="modal fade" id="registrateModal" tabindex="-1" aria-labelledby="registrateModal" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Registrarse</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Para acceder a todas las funcionalidades del sitio, debes registrarte.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="chatIcon" data-toggle="modal" data-target="#registrateModal"><i class="fa-solid fa-headset fa-xl"></i></button>
-        
         </th:block>
 
         <script>var firstMessage = true;</script>
