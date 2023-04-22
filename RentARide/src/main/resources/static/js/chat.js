@@ -4,6 +4,7 @@ function openChat(idUser, msgId) {
             if (response["result"] == "accepted") {
                 $(".agentChatForm button").attr("onclick", `sendMsg(${idUser})`);
                 $("#username").text(`#${idUser}`);
+                $(".agentChatBody").empty();
                 $('#chatModal').modal('show');
             } else
                 alert(`Error! ${response["data"]}`);
