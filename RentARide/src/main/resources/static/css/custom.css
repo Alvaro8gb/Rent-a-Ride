@@ -11,10 +11,15 @@
     --green-event: #95D066;
     --red-event: #D06666;
     --greyed: #838383;
+    --dark: #212529;
 }
 
 * {
     font-family: 'Inter';
+}
+
+.footerContainer {
+    background-color: var(--dark);
 }
 
 .iwthumb {

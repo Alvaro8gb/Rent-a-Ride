@@ -6,55 +6,15 @@
 </head>
 
 <body>
-    <!-- ver https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/ -->
     <footer th:fragment="footer" class="mt-auto bg-dark text-center text-white">
-
         <div class="container p-4">
-            <!-- Section: Social media -->
-            <section class="mb-4">
-                <!-- Facebook -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-facebook-f"></i></a>
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-white-50">Inicio</a></li>
+                <li class="nav-item"><a th:href="@{/booking/history}" class="nav-link px-2 text-white-50">Mis reservas</a></li>
+                <li class="nav-item"><a th:href="@{/user/profile}" class="nav-link px-2 text-white-50">Perfil</a></li>
+            </ul>
 
-                <!-- Twitter -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-twitter"></i></a>
-
-                <!-- Google -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-google"></i></a>
-
-                <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/cristiano/" role="button"><i
-                        class="fab fa-instagram"></i></a>
-
-                <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
-                        class="fab fa-linkedin-in"></i></a>
-
-                <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/Alvaro8gb/Rent-a-Ride"
-                    role="button"><i class="fab fa-github"></i></a>
-            </section>
-            <!-- Section: Social media -->
-
-            <!-- Section: Text -->
-            <section class="mb-4">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                    repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                    eum harum corrupti dicta, aliquam sequi voluptate quas.
-                </p>
-            </section>
-            <!-- Section: Text -->
-
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2023 Copyright:
-                <a class="text-white" href="">Rent-a-Ride</a>
-                <!-- <p> Todos los derechos reservados</p> -->
-            </div>
-            <!-- Copyright -->
+            <p class="text-center text-white-50" th:inline="text">© 2023 [[${@environment.getProperty('APP_NAME')}]]</p>
 
             <!-- Bootstrap -->
             <script th:src="@{/js/bootstrap.bundle-5.1.3.js}" src="js/bootstrap.bundle-5.1.3.js"></script>
@@ -66,8 +26,6 @@
             <!-- Otros scripts de interacción, aquí -->
             <script th:src="@{/js/searchUser.js}" src="js/searchUser.js"></script>
     </footer>
-
-
 </body>
 
 </html>
