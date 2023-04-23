@@ -60,3 +60,18 @@ function sendMsg(idReceptor) {
         .then(response => console.log(response))
         .catch(e => console.log(e));
 }
+
+
+$(document).ready(function() {
+    const input = $('#message');
+    const button = document.querySelector('#chatSend');
+  
+    input.on('keyup', function(event) {
+      if (event.key === 'Enter') {
+        console.log("Enviado mediante ENter");
+        button.click();
+      }
+    });
+  });
+  
+  
