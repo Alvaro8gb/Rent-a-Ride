@@ -22,6 +22,7 @@
                     <tr>
                         <th scope="col">Fecha</th>
                         <th scope="col">Vehículo</th>
+                        <th scope="col">Gravedad</th>
                         <th scope="col">Descripción</th>
                         <th class="text-center" scope="col">Acciones</th>
                     </tr>
@@ -31,10 +32,15 @@
                     <tr th:each="t, iterator : ${tickets}">
                         <td th:text="${#temporals.format(t.ocurranceDate, 'dd/MM/yyyy hh:mm')}"></td>
                         <td th:text="${t.idVehicle}"></td>
+                        <td th:text="${t.Gravity}" th:class="${#strings.toLowerCase(t.Gravity.toString()) == 'baja' ? 'text-success' : #strings.toLowerCase(t.Gravity.toString()) == 'media' ? 'text-warning' : 'text-danger'}"></td>
+                        <!-- <td th:text="${t.Gravity}"></td> -->
                         <td th:text="${t.text}"></td>
-
                         <td class="form-group text-center">
                             <div class="form-group text-center">
+                                <form method="POST" th:action="@{/incidencias/{id}/delete (id=${t.id})}">
+                                    <button class="border-0 bg-transparent" title="Eliminar" type="submit"><i
+                                        class="fa-solid fa-xl fa-trash"></i></button>
+                                </form>
                                 
                             </div>
                         </td>
