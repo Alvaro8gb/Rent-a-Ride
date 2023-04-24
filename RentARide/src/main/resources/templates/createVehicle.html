@@ -15,15 +15,15 @@
             <div class="row d-flex text-align-center mt-3">
                 <div class="col">
                     <label for="marca">Marca</label>
-                    <input type="text" class="form-control mt-1" placeholder="Mazda" name="marca" id="marca">
+                    <input type="text" class="form-control mt-1" placeholder="Mazda" name="marca" id="marca" required>
                 </div>
                 <div class="col">
                     <label for="modelo">Modelo</label>
-                    <input type="text" class="form-control  mt-1" name="modelo" id="modelo" placeholder="RX-8">
+                    <input type="text" class="form-control  mt-1" name="modelo" id="modelo" placeholder="RX-8" required>
                 </div>
                 <div class="col">
                     <label for="año">Año de fabricacion</label>
-                    <input type="number" name="anio" id="anio" class="form-control  mt-1" placeholder="2020" min="1900" max="2023">
+                    <input type="number" name="anio" id="anio" class="form-control  mt-1" placeholder="2020" min="1900" max="2023" required>
                 </div>
             </div>
             <div class="row d-flex mt-3 text-align-center">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col">
                     <label for="consumo">Consumo</label>
-                    <input type="text" class="form-control mt-1" name="consumo" id="consumo" placeholder="L/100Km">
+                    <input type="number" class="form-control mt-1" name="consumo" id="consumo" placeholder="L/100Km" min="1" step="0.1" required>
                 </div>
                 <div class="col">
                     <label for="cambio">Cambio</label>
@@ -67,19 +67,19 @@
                 </div>
                 <div class="col">
                     <label for="cv">CV</label>
-                    <input type="number" name="cv" id="cv" class="form-control mt-1" placeholder="231" min="50" max="1000">
+                    <input type="number" name="cv" id="cv" class="form-control mt-1" placeholder="231" min="50" max="1000" required>
                 </div>
             </div>
             <div class="row d-flex text-align-center mt-3">
                 <div class="col mt-2">
                     <label for="matricula">Matricula</label>
                     <input type="text" class="form-control  mt-1" placeholder="0000-DDD" name="matricula"
-                        id="matricula">
+                        id="matricula" required>
                 </div>
                 <div class="col mt-2">
                     <label for="autonomia">Autonomia diaria</label>
-                    <input type="text" class="form-control  mt-1" name="autonomia" id="autonomia"
-                        placeholder="400km/dia">
+                    <input type="number" class="form-control  mt-1" name="autonomia" id="autonomia"
+                        placeholder="400km/dia" min="1" required>
                 </div>
                 <div class="col">
                     <label for="img" class="form-label mt-1">Imagen</label>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-4">
                     <label for="precio" class="form-label mt-1">Precio por día</label>
-                    <input class="form-control" type="number" step=".01" min="0" id="precio" name="precio" placeholder="234,23€">
+                    <input class="form-control" type="number" step=".01" min="0" id="precio" name="precio" placeholder="234,23€" required>
                 </div>
             </div>
             <div class="row d-flex justify-content-center mt-3">
