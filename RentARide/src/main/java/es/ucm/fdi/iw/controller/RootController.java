@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.ucm.fdi.iw.model.Location;
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
@@ -63,9 +64,11 @@ public class RootController {
                                 @RequestParam(required = false) boolean available){
         
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
+        List<Location> ls = entityManager.createNamedQuery("Location.findAll", Location.class).getResultList();
         model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
         model.addAttribute("transmission", Arrays.asList(Vehicle.Transmission.values()));
         model.addAttribute("vehicles", vs);
+        model.addAttribute("locations", ls);
         return "carsManagement";
     }
 
