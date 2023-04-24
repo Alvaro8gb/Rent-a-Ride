@@ -40,25 +40,30 @@ ws.receive = (m) => {
 
 function sendMsg(idReceptor) {
     let msg = $("#message").val();
-    $("#message").val("");
-    let params;
 
-    if (typeof firstMessage != 'undefined' && firstMessage) {
-        params = { message: msg, firstMessage: firstMessage };
-        firstMessage = false;
-    } else {
-        firstMessage = false;
-        params = { message: msg, firstMessage: firstMessage };
-    }
+    if (msg == "")
+        alert(`Escribe un mensaje`);
+    else{
+        $("#message").val("");
+        let params;
 
-    // Spring Security lo añade en formularios html, pero no en Ajax
-    params[config.csrf.name] = config.csrf.value;
+        if (typeof firstMessage != 'undefined' && firstMessage) {
+            params = { message: msg, firstMessage: firstMessage };
+            firstMessage = false;
+        } else {
+            firstMessage = false;
+            params = { message: msg, firstMessage: firstMessage };
+        }
 
-    insertMessage(msg, true);
+        // Spring Security lo añade en formularios html, pero no en Ajax
+        params[config.csrf.name] = config.csrf.value;
+
+        insertMessage(msg, true);
 
     return go(config.rootUrl + "/messages/user/" + idReceptor, 'POST', params)
         .then(response => console.log(response))
         .catch(e => console.log(e));
+    }
 }
 
 

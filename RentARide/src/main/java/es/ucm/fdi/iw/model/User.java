@@ -69,6 +69,9 @@ public class User implements Transferable<User.Transfer> {
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
 
+    @OneToMany(mappedBy = "idUser")
+    private List<Ticket> tickets;
+
     /**
      * Checks whether this user has a given role.
      * @param role to check

@@ -32,6 +32,10 @@
                                 <a class="nav-link" th:href="@{/booking/history}">Mis reservas</a>
                             </li>
 
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('USER')}">
+                                <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>
+                            </li>
+
                             <th:block th:if="${session.u.hasRole('GESTOR') or session.u.hasRole('ADMIN')}">
                             <li class="nav-item px-3">
                                 <a class="nav-link" th:href="@{/createVehicle}">Crear Vehículo</a>

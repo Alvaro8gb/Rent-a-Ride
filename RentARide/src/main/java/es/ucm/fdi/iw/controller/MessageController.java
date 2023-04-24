@@ -60,7 +60,7 @@ public class MessageController {
 	}
 	
 	@GetMapping("/in")
-	public String inChats(Model model, HttpSession session) {
+	public String inChats(Model model) {
 		List<Message> pendingMsgs = entityManager.createNamedQuery("Message.findAllUnattended", Message.class).getResultList();
 
 		model.addAttribute("pendingMsgs", pendingMsgs); // Return messages queue
