@@ -95,7 +95,7 @@
                         </div>
                         <div class="my-auto col-sm-3 col-md-3 col-lg-3 col-xl-3">
                             <div class="row">
-                                <a href="#" class="textColor1 text-decoration-none">Modificar</a>
+                                <a href="#" data-bs-toggle="modal" th:attr = "data-bs-target='#modalModificarVehiculo'+${vehicle.id}" class="textColor1 text-decoration-none">Modificar</a>
                             </div>
                             <div class="row">
                                 <a href="#viewBooking" th:onclick="viewBooking([[(${vehicle.id})]])"
@@ -103,6 +103,118 @@
                             </div>
                         </div>
                     </div>
+
+                    <form class="row" method="POST" enctype="multipart/form-data" action="">
+                    <div class="modal fade" th:id="modalModificarVehiculo+${vehicle.id}" tabindex="-1" aria-labelledby="modalAlquilerLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Modificar</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row d-flex text-align-center mt-3">
+                                                <div class="col">
+                                                    <label for="marca">Marca</label>
+                                                    <input type="text" class="form-control mt-1" placeholder="Mazda" th:value="${vehicle.brand}" name="marca" id="marca">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="modelo">Modelo</label>
+                                                    <input type="text" class="form-control mt-1" name="modelo" id="modelo" placeholder="RX-8" th:value="${vehicle.modelName}">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="año">Año de fabricacion</label>
+                                                    <input type="number" name="anio" id="anio" class="form-control mt-1" th:value="${vehicle.oldYear}" placeholder="2020" min="1900" max="2023">
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex mt-3 text-align-center">
+                                                <div class="col">
+                                                    <label for="combustible">Combustible</label>
+                                                    <select id="combustible" class="form-select mt-1 filtro">
+                                                        <option value="Todos">Todos</option>
+                                                        <option th:each="fuel : ${fuels}" 
+                                                            th:value="${fuel}" 
+                                                            th:text="${fuel}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="consumo">Consumo</label>
+                                                    <input type="text" class="form-control mt-1" th:value="${vehicle.consumption}" name="consumo" id="consumo" placeholder="L/100Km">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="cambio">Cambio</label>
+                                                    <select name="cambio" id="cambio" class="form-select  mt-1">
+                                                        <option value="Manual">Manual</option>
+                                                        <option value="Automático">Automático</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                
+                                            <div class="row d-flex text-align-center mt-3">
+                                                <div class="col">
+                                                    <label for="puertas">Puertas</label>
+                                                    <select name="puertas" id="puertas" class="form-select  mt-1">
+                                                        <option value="3">3</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="plazas">Plazas</label>
+                                                    <select name="plazas" id="plazas" class="form-select mt-1">
+                                                        <option value="7">7</option>
+                                                        <option value="5">5</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="cv">CV</label>
+                                                    <input type="number" name="cv" id="cv" class="form-control mt-1" th:value="${vehicle.cv}" placeholder="231" min="50" max="1000">
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex text-align-center mt-3">
+                                                <div class="col mt-2">
+                                                    <label for="matricula">Matricula</label>
+                                                    <input type="text" class="form-control  mt-1" th:value="${vehicle.license}" placeholder="0000-DDD" name="matricula"
+                                                        id="matricula">
+                                                </div>
+                                                <div class="col mt-2">
+                                                    <label for="autonomia">Autonomia diaria</label>
+                                                    <input type="text" class="form-control mt-1" th:value="${vehicle.autonomy}" name="autonomia" id="autonomia"
+                                                        placeholder="400km/dia">
+                                                </div>
+                                                <div class="col">
+                                                    <label for="img" class="form-label mt-1">Imagen</label>
+                                                    <input class="form-control" type="file" id="img" name="img">
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-center mt-3">
+                                                <div class="col-4">
+                                                    <label for="recogida" class="form-label">Punto de recogida</label>
+                                                    <select name="recogida" id="recogida" class="form-select  mt-1">
+                                                        <option value="Sevilla" selected>Sevilla</option>
+                                                        <option value="Madrid">Madrid</option>
+                                                        <option value="Barcelona">Barcelona</option>
+                                                        <option value="Valencia">Valencia</option>
+                                                        <option value="Málaga">Málaga</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="precio" class="form-label mt-1">Precio por día</label>
+                                                    <input class="form-control" type="number" th:value="${vehicle.priceByDay}" step=".01" min="0" id="precio" name="precio" placeholder="234,23€">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn" id="confirm-reservar">Modificar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
