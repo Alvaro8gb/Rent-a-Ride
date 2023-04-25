@@ -1,6 +1,9 @@
 package es.ucm.fdi.iw.model;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import com.opencsv.CSVWriter;
+
 
 @Data
 @Entity
@@ -22,6 +27,8 @@ import lombok.Data;
             query="DELETE FROM Ticket t "
                     + "WHERE t.id = :id")
             })
+@NamedQuery(name="Ticket.findAll",
+            query="SELECT t FROM Ticket t ")
 @AllArgsConstructor
 public class Ticket {
     
@@ -54,4 +61,33 @@ public class Ticket {
     @Column (nullable = false)
     private Gravity gravity;
 
+
+    public static String serializeToCSV(List<Ticket> tickets){
+        StringWriter stringWriter = new StringWriter();
+        CSVWriter csvWriter = new CSVWriter(stringWriter);
+
+        String[] header = {"id", "idUser", "idVehicle", "ocurranceDate", "text", "gravity"};
+        csvWriter.writeNext(header);
+
+        for (Ticket ticket : tickets) {
+            String[] data = {
+                String.valueOf(ticket.getId()),
+                String.valueOf(ticket.getIdUser()),
+                String.valueOf(ticket.getIdVehicle()),
+                ticket.getOcurranceDate().toString(),
+                ticket.getText(),
+                ticket.getGravity().toString()
+            };
+            csvWriter.writeNext(data);
+        }
+
+        try {
+            csvWriter.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return stringWriter.toString();
+    }
 }

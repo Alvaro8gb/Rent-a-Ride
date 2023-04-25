@@ -159,34 +159,4 @@ public class BookingController {
 
         return "bookingHistory";
     }
-
-    @PostMapping("ticket/{idVehicle}")
-	@Transactional
-    public String ticket(Model model, RedirectAttributes redirAttrs,
-                        @PathVariable long idVehicle,
-                        @RequestParam(required=false) String text,
-                        @RequestParam(required=false) String gravity,
-                        HttpSession session){
-
-        try {
-            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
-            User requester = (User)session.getAttribute("u");
-            Ticket ticket = new Ticket();
-
-            ticket.setGravity(Ticket.Gravity.valueOf(gravity));
-            ticket.setIdVehicle(vehicle.getId());
-            ticket.setIdUser(requester.getId());
-            ticket.setOcurranceDate(LocalDate.now());
-            ticket.setText(text);
-            
-            entityManager.persist(ticket);
-            entityManager.flush();
-
-            redirAttrs.addFlashAttribute("successMessage", "El ticket se registro con exito");
-        } catch (Exception e) {
-            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema creando el ticket");
-        }
-
-        return "redirect:/booking/history";
-    }
 }

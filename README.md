@@ -5,13 +5,16 @@ Enlace para figma [link](https://www.figma.com/file/UY1222Ks3zLpMzkwTa3BFu/IW?no
 
 
 ## Funcionalidades implementadas
-- Gestion de usuarios (90%) vistas: Perfil, Crear, Borrar, Logear
-- Gestion de coches (70%)
-- Gestion de chats (solo front, web sockets estamos en ello) (50%) vistas: chats_entratantes + chat desplegable
-- Gestión de flota (80%)
-    1. Vista de calendario administracion (0%)
-    2. Busquedas en gestion de flota (70%)
-- Gestion de incidentes(0%)
+- Gestion de usuarios (😄) vistas: Perfil, Crear, Borrar, Logear
+- Gestion de coches (😄) vistas: Crear vehiculo
+- Gestion de chats (😄)  vistas: mensajes entratantes + chat desplegable ( pensado en dudas generales para averias crear tickect)
+- Gestion de reservas(😄): vistas: mis reservas y crear reservas y verlas 
+- Gestión de flota:
+    1. Vista de calendario administracion (😄)
+    2. Busquedas en gestion de flota (😄) : filtros + editar vehiculo 
+- Gestion de incidentes(😄): mis incidencias ( se pueden crear teniendo una reserva y tambien se pueden eliminar)
+
+Salvo posibles fallos de escenarios complejos o el modal de cargar datos de vehiculo todo va, faltaria restringir acceso a vistas dependiendo de si es USUARIO/GESTOR/ADMIN. Y mejorar codigo en algunos sitios.
 
 ## Imagenes de coches y usuarios 
 Al ser editables no estan en el static del proyecto

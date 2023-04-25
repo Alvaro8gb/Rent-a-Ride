@@ -73,7 +73,7 @@ $(document).ready(function() {
   
     input.on('keyup', function(event) {
       if (event.key === 'Enter') {
-        console.log("Enviado mediante ENter");
+        console.log("Enviado mediante Enter");
         button.click();
       }
     });
