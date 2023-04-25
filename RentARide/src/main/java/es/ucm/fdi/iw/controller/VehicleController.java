@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,12 +58,6 @@ public class VehicleController {
                         @RequestParam(required=false) String pickupPoint,
                         @RequestParam(required=false) String startDate,
                         @RequestParam(required=false) String endDate) {
-        /*
-        log.info("vehicle {}", vehicle);
-        log.info("pickupPoint {}", pickupPoint);
-        log.info("startDate {}", startDate);
-        log.info("endDate {}", endDate);
-        */
         
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.byVechicle", Vehicle.class)
         .setParameter("modelName", vehicle)
@@ -122,7 +118,7 @@ public class VehicleController {
         jsonString += "]}";
         return jsonString;
     }
-   
+    
     @PostMapping("/create")
     @Transactional
     public String create(Model model, @RequestParam(required=true) String marca,
@@ -164,5 +160,76 @@ public class VehicleController {
         entityManager.flush();
 
         return "createVehicle";
+    }
+
+    @PostMapping("{id}/modify")
+    @Transactional
+    public String modify(RedirectAttributes redirAttrs,
+                            @PathVariable long id,Model model, 
+                            @RequestParam(required=true) String marca,
+                            @RequestParam(required=true) String modelo,
+                            @RequestParam(required=true) int anio,
+                            @RequestParam(required=true) String combustible,
+                            @RequestParam(required=true) float consumo,
+                            @RequestParam(required=true) String cambio,
+                            @RequestParam(required=true) int puertas,
+                            @RequestParam(required=true) int plazas,
+                            @RequestParam(required=true) int cv,
+                            @RequestParam(required=true) String matricula,
+                            @RequestParam(required=true) int autonomia,
+                            @RequestParam(required=true) String recogida,
+                            @RequestParam(required=true) float precio,
+                            @RequestParam(required=true) MultipartFile img){
+
+        try{
+            Location location = entityManager.createNamedQuery("Location.byName", Location.class)
+            .setParameter("name", recogida)
+            .getSingleResult();
+            Vehicle v = entityManager.find(Vehicle.class, id);
+            if(v != null){
+                changeVehicleInfo(v, marca, modelo, anio, combustible, consumo, cambio, puertas, plazas, cv, matricula,autonomia, img, location, precio);
+                redirAttrs.addFlashAttribute("successMessage",
+                "El vehiculo '" + id + "'' se ha modificado con exito");
+            }
+            else{
+                redirAttrs.addFlashAttribute("errorMessage", "El vehiculo no existe");
+            }
+        }catch(Exception e){
+            redirAttrs.addFlashAttribute("errorMessage", "La localizacion no existe");
+        }
+        
+        return "redirect:/carsManagement";
+    }
+
+    private void changeVehicleInfo(Vehicle v, String marca, String modelo, int anio, String combustible,
+     float consumo, String cambio, int puertas, int plazas, int cv, String matricula,
+      int autonomia, MultipartFile img, Location recogida, float precio){
+        v.setOldYear(anio);
+        v.setConsumption(consumo);
+        v.setDoors(puertas);
+        v.setSeats(plazas);
+        v.setCv(cv);
+        v.setAutonomy(autonomia);
+        v.setPriceByDay(precio);
+        if(marca != null && !marca.isEmpty())
+            v.setBrand(marca);
+        if(modelo != null && !modelo.isEmpty())
+            v.setModelName(modelo);
+        if(combustible != null && !combustible.isEmpty())
+            v.setFuel(Fuel.valueOf(combustible));
+        if(cambio != null && !cambio.isEmpty())
+            v.setTransmission(Transmission.valueOf(cambio));
+        if(matricula != null && !matricula.isEmpty())
+            v.setLicense(matricula);
+        if(img != null && !img.isEmpty()){
+            try{
+                File f = localData.getFile("vehicle", v.getId() + ".png");
+                img.transferTo(new File(f.getAbsolutePath()));
+            } catch(Exception e){
+
+            }
+        }
+        if(recogida != null)
+            v.setLocation(recogida);
     }
 }

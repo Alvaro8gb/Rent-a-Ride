@@ -16,6 +16,7 @@
 
     
     <div class="container my-4">
+        <th:block th:replace="fragments/flash :: flash" />
         <div class="row mt-4 gx-5">
 
             <!-- Search Filter-->
@@ -104,7 +105,7 @@
                         </div>
                     </div>
 
-                    <form class="row" method="POST" enctype="multipart/form-data" th:action="@{vehicle/{id}/modify(id=${vehicle.id})}">
+                    <form class="row" method="POST" enctype="multipart/form-data" th:action="@{/vehicle/{id}/modify(id=${vehicle.id})}">
                     <div class="modal fade" th:id="modalModificarVehiculo+${vehicle.id}" tabindex="-1" aria-labelledby="modalAlquilerLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
                             <div class="modal-content">
@@ -117,15 +118,15 @@
                                             <div class="row d-flex text-align-center mt-3">
                                                 <div class="col">
                                                     <label for="marca">Marca</label>
-                                                    <input type="text" class="form-control mt-1" placeholder="Mazda" th:value="${vehicle.brand}" name="marca" id="marca">
+                                                    <input type="text" class="form-control mt-1" placeholder="Mazda" th:value="${vehicle.brand}" name="marca" id="marca" required>
                                                 </div>
                                                 <div class="col">
                                                     <label for="modelo">Modelo</label>
-                                                    <input type="text" class="form-control mt-1" name="modelo" id="modelo" placeholder="RX-8" th:value="${vehicle.modelName}">
+                                                    <input type="text" class="form-control mt-1" name="modelo" id="modelo" placeholder="RX-8" th:value="${vehicle.modelName}"required>
                                                 </div>
                                                 <div class="col">
                                                     <label for="año">Año de fabricacion</label>
-                                                    <input type="number" name="anio" id="anio" class="form-control mt-1" th:value="${vehicle.oldYear}" placeholder="2020" min="1900" max="2023">
+                                                    <input type="number" name="anio" id="anio" class="form-control mt-1" th:value="${vehicle.oldYear}" placeholder="2020" min="1900" max="2023" required>
                                                 </div>
                                             </div>
                                             <div class="row d-flex mt-3 text-align-center">
@@ -137,7 +138,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <label for="consumo">Consumo</label>
-                                                    <input type="text" class="form-control mt-1" th:value="${vehicle.consumption}" name="consumo" id="consumo" placeholder="L/100Km">
+                                                    <input type="number" class="form-control mt-1" th:value="${vehicle.consumption}" name="consumo" id="consumo" placeholder="L/100Km" min="1" step="0.1" required>
                                                 </div>
                                                 <div class="col">
                                                     <label for="cambio">Cambio</label>
@@ -165,7 +166,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <label for="cv">CV</label>
-                                                    <input type="number" name="cv" id="cv" class="form-control mt-1" th:value="${vehicle.cv}" placeholder="231" min="50" max="1000">
+                                                    <input type="number" name="cv" id="cv" class="form-control mt-1" th:value="${vehicle.cv}" placeholder="231" min="50" max="1000" required>
                                                 </div>
                                             </div>
                                             <div class="row d-flex text-align-center mt-3">
@@ -176,8 +177,8 @@
                                                 </div>
                                                 <div class="col mt-2">
                                                     <label for="autonomia">Autonomia diaria</label>
-                                                    <input type="text" class="form-control mt-1" th:value="${vehicle.autonomy}" name="autonomia" id="autonomia"
-                                                        placeholder="400km/dia">
+                                                    <input type="number" class="form-control mt-1" th:value="${vehicle.autonomy}" name="autonomia" id="autonomia"
+                                                        placeholder="400km/dia" required>
                                                 </div>
                                                 <div class="col">
                                                     <label for="img" class="form-label mt-1">Imagen</label>
@@ -188,7 +189,7 @@
                                                 <div class="col-4">
                                                     <label for="recogida" class="form-label">Punto de recogida</label>
                                                     <select name="recogida" id="recogida" class="form-select  mt-1">
-                                                        <option th:each="l : ${locations}" th:value="${l}" th:text="${l.name}" th:selected="${l.name==vehicle.location.name}"></option>
+                                                        <option th:each="l : ${locations}" th:value="${l.name}" th:text="${l.name}" th:selected="${l.name==vehicle.location.name}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-4">

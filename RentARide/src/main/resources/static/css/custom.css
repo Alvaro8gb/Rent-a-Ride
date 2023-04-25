@@ -321,10 +321,6 @@ nav li .dropdown-item {
     font-weight: 400;
 }
 
-input:invalid{
-    color:red; 
-}
-
 .calendarEvent .card-body {
     margin-left: 2em;
 }
