@@ -321,6 +321,10 @@ nav li .dropdown-item {
     font-weight: 400;
 }
 
+.calendarEvent:hover {
+    cursor: pointer;
+}
+
 .calendarEvent .card-body {
     margin-left: 2em;
 }
@@ -480,4 +484,8 @@ nav li .dropdown-item {
 }
 .asd{
     color:orange;
+}
+
+#bookingDetails span {
+    font-weight: 200;
 }

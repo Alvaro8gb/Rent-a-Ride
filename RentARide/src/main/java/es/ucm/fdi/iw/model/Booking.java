@@ -44,12 +44,15 @@ public class Booking implements Transferable<Booking.Transfer> {
         @MapsId("vehicleID")
         private Vehicle vehicle;
 
+        public Booking() {
+                
+        }
+
         @Getter
         @AllArgsConstructor
         public static class Transfer {
                 private BookingID.Transfer id;
                 private Float price;
-
         }
         
         @Override
@@ -62,7 +65,17 @@ public class Booking implements Transferable<Booking.Transfer> {
                 return toTransfer().toString();
         }
 
-        public Booking(){
-                
+        public String toJSON() {
+                StringBuilder stringBuilder = new StringBuilder();
+        
+                stringBuilder.append("{");
+                stringBuilder.append("\"vehicleID\": " + id.getVehicleID() + ", ");
+                stringBuilder.append("\"userID\": " + id.getUserID() + ", ");
+                stringBuilder.append("\"inDate\": \"" + DateTimeFormatter.ISO_LOCAL_DATE.format(id.getIn_date()) + "\", ");
+                stringBuilder.append("\"outDate\": \"" + DateTimeFormatter.ISO_LOCAL_DATE.format(id.getOut_date()) + "\", ");
+                stringBuilder.append("\"price\": " + price);
+                stringBuilder.append("}");
+        
+                return stringBuilder.toString();
         }
 }

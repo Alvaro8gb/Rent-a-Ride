@@ -159,4 +159,23 @@ public class BookingController {
 
         return "bookingHistory";
     }
+
+    @GetMapping(path="/details", produces = "application/json")
+    @ResponseBody
+    public String getDetails(Model model, @RequestParam long vehicleID, 
+                                          @RequestParam long userID) throws JsonProcessingException {
+  
+        Vehicle vehicle = entityManager.find(Vehicle.class, vehicleID);
+        User user = entityManager.find(User.class, userID);
+        
+        StringBuilder stringBuilder = new StringBuilder();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        stringBuilder.append("{");
+        stringBuilder.append("\"user\": " + objectMapper.writeValueAsString(user.toTransfer()) + ", ");
+        stringBuilder.append("\"vehicle\": " + objectMapper.writeValueAsString(vehicle.toTransfer()));
+        stringBuilder.append("}");
+
+        return stringBuilder.toString();
+    }
 }

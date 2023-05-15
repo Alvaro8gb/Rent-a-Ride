@@ -87,13 +87,17 @@ public class User implements Transferable<User.Transfer> {
     public static class Transfer {
 		private long id;
         private String username;
+        private String DNI;
+        private String firstName;
+        private String lastName;
+        private String email;
 		private int totalReceived;
 		private int totalSent;
     }
 
 	@Override
     public Transfer toTransfer() {
-		return new Transfer(id,	username, received.size(), sent.size());
+		return new Transfer(id,	username, DNI, firstName, lastName, email, received.size(), sent.size());
 	}
 	
 	@Override

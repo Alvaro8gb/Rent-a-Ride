@@ -21,9 +21,10 @@ public class BookingID implements Serializable, Transferable<BookingID.Transfer>
     private LocalDate in_date;
     private LocalDate out_date;
 
-    public BookingID(){
+    public BookingID() {
         
     }
+
     @Getter
     @AllArgsConstructor
 	public static class Transfer {
@@ -33,11 +34,11 @@ public class BookingID implements Serializable, Transferable<BookingID.Transfer>
         private String out_date;
 
     }
+
     @Override
     public Transfer toTransfer() {
        return new Transfer(vehicleID, userID, 
        DateTimeFormatter.ISO_LOCAL_DATE.format(in_date), 
        DateTimeFormatter.ISO_LOCAL_DATE.format(out_date));
     }
-
 }

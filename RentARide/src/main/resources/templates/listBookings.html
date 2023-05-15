@@ -6,7 +6,7 @@
     <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Calendario de reservas</title>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100 h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <div class="container-fluid my-4">
@@ -35,7 +35,7 @@
                 <h6 class="calendarEventDate text-center" th:text="${#temporals.format(day.key, 'dd/MM/yyyy')}">Day</h6>
                 <p class="text-center greyed" th:if="${#lists.isEmpty(day.value)}">Sin movimientos</p>
 
-                <div class="card calendarEvent mt-3" th:each="booking : ${day.value}">
+                <div class="card calendarEvent mt-3" th:each="booking : ${day.value}" th:attr="onClick='showDetails(' + ${booking.toJSON()} + ')'">
                     <div class="calendarEventStrip bookingStart mb-2" th:if="${booking.id.in_date.isEqual(day.key)}">
                     </div>
                     <div class="calendarEventStrip bookingEnd mb-2" th:if="${booking.id.out_date.isEqual(day.key)}">
@@ -53,6 +53,45 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="bookingDetails" tabindex="-1" aria-labelledby="bookingDetailsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingDetailsLabel">Resumen de la reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-3 text-center"><span>Fecha inicio</span><br/><p class="inDate"></p></div>
+                            <div class="col-3 text-center"><span>Fecha fin</span><br/><p class="outDate"></p></div>
+                            <div class="col-3 text-center"><span>Precio total</span><br/><p class="price"></p></div>
+                        </div>
+                        <div class="row mt-4 p-3 justify-content-center">
+                            <div class="col-12 text-center mb-2"><h5>Usuario</h5></div>
+                            <div class="col-3 text-center"><span>Nombre</span><br/><p class="name"></p></div>
+                            <div class="col-3 text-center"><span>Apellidos</span><br/><p class="surname"></p></div>
+                            <div class="col-3 text-center"><span>DNI</span><br/><p class="dni"></p></div>
+                            <div class="col-3 text-center"><span>Correo</span><br/><p class="email"></p></div>
+                        </div>
+                        <div class="row mt-4 p-3 justify-content-center">
+                            <div class="col-12 text-center mb-2"><h5>Vehículo</h5></div>
+                            <div class="col-3 text-center"><span>Marca</span><br/><p class="brand"></p></div>
+                            <div class="col-3 text-center"><span>Modelo</span><br/><p class="model"></p></div>
+                            <div class="col-3 text-center"><span>Matrícula</span><br/><p class="licensePlate"></p></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <th:block th:include="fragments/footer" />
 
     <script>
@@ -62,8 +101,6 @@
 
         function hideByIndex(currentIndex) {
             $('.container-fluid .row .col').each(function () {
-                console.log(currentIndex);
-
                 var colId = parseInt($(this).attr('id'));
                 if ((colId < currentIndex) || (colId > currentIndex + 6)) // Index starts at 0
                     $(this).hide();
@@ -74,6 +111,39 @@
             const startDate = $('#' + currentIndex + ' .calendarEventDate').text();
             const endDate = $('#' + (currentIndex + 6) + ' .calendarEventDate').text();
             $('.calendarDateRange').text(startDate + ' - ' + endDate);
+        }
+
+        function showDetails(bookingDetails) {
+            console.log(bookingDetails);
+            let params = {
+                vehicleID: bookingDetails.vehicleID,
+                userID: bookingDetails.userID
+            }
+
+            // Spring Security lo añade en formularios html, pero no en Ajax
+            params[config.csrf.name] = config.csrf.value;
+
+            $.ajax({
+                type: "GET",
+                url: config.rootUrl + "/booking/details",
+                data: params,
+                success: (response) => {
+                    $('#bookingDetails').modal("show");
+                    $(".inDate").text(bookingDetails.inDate);
+                    $(".outDate").text(bookingDetails.outDate);
+                    $(".price").text(bookingDetails.price + " €");
+                    $(".name").text(response.user.firstName);
+                    $(".surname").text(response.user.lastName);
+                    $(".dni").text(response.user.dni);
+                    $(".email").text(response.user.email);
+                    $(".brand").text(response.vehicle.brand);
+                    $(".model").text(response.vehicle.modelName);
+                    $(".licensePlate").text(response.vehicle.license);
+                },
+                error: (e) => {
+                    console.log(e);
+                }
+            });
         }
 
         $(document).ready(function () {
