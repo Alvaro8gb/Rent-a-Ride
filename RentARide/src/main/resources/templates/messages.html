@@ -10,7 +10,7 @@
 
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <div class="container min-vh-60 mb-3">
+    <div class="container min-vh-50 max-vh-50 mb-3">
         <div class="row">
             <h2 class="pageTitle text-center mt-3">Chats entrantes
                 <span th:text="${#lists.size(pendingMsgs)}" class="badge bg-warning text-dark rounded-pill">4</span>
@@ -56,6 +56,52 @@
         <div class="row mt-3">
             <div class="col text-center">
                 <a class="text-decoration-none" th:attr="onclick='location.reload()'">Comprobar nuevos mensajes</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container min-vh-50 max-vh-50 mb-3">
+        <div class="row">
+            <h2 class="pageTitle text-center mt-3">Historial de chats
+                <span th:text="${#lists.size(attendedMsgs)}" class="badge bg-warning text-dark rounded-pill">4</span>
+            </h2>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(attendedMsgs)}" class="row">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Gestor</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Último mensaje</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="msg, iterator : ${attendedMsgs}">
+                        <td th:text="${msg.sender.username}"></td>
+                        <td th:text="${msg.recipient.username}"></td>
+                        <td th:text="${#temporals.format(msg.dateSent, 'dd/MM/yyyy hh:mm')}"></td>
+                        <td th:text="${msg.text}"></td>
+
+                        <td class="form-group text-center">
+                            <div class="form-group text-center">
+                                <button class="border-0 bg-transparent" th:attr="onclick='openChatHistory(' + ${msg.sender.id} +  ')'">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(attendedMsgs)}">
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="fs-4 text-center greyed">No existen chats atendidos</p>
+                </div>
             </div>
         </div>
     </div>

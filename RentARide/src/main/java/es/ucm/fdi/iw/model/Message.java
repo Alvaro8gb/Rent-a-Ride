@@ -38,14 +38,20 @@ import lombok.AllArgsConstructor;
 	query="SELECT m FROM Message m "
 			+ "WHERE m.dateRead = null and ((m.recipient.id = :idReceptor and m.sender.id = :idSender) or"
 			+ " (m.recipient.id = :idSender and m.sender.id = :idReceptor)) "
-			+ "ORDER BY m.dateSent")
+			+ "ORDER BY m.dateSent"),
 	
-			/*
-	@NamedQuery(name = "Message.lastUnreadReceived",
-	query = "SELECT sender, text, MAX(dateSent) FROM Message m"
-			+ "WHERE m.recipient.role = :userId AND m.dateRead IS NULL "
-			+ "GROUP BY m.recipient.id")
-	*/
+	@NamedQuery(name="Message.findAllByUserID",
+	query="SELECT m FROM Message m "
+			+ "WHERE m.sender.id = :idUser or m.recipient.id = :idUser"),
+
+	@NamedQuery(name = "Message.findAllAttended",
+	query = "SELECT m FROM Message m JOIN User u ON (u.id = m.sender.id)" +
+			"WHERE m.unattended = false AND u.roles NOT LIKE '%GESTOR%' AND u.roles NOT LIKE '%ADMIN%'" +
+			"AND m.dateSent = (" +
+			"    SELECT MAX(m2.dateSent) FROM Message m2 " +
+			"    WHERE m2.sender = m.sender " +
+			"    AND m2.recipient = m.recipient)"
+	)
 })
 
 

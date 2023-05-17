@@ -29,6 +29,7 @@ import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,8 +63,10 @@ public class MessageController {
 	@GetMapping("/in")
 	public String inChats(Model model) {
 		List<Message> pendingMsgs = entityManager.createNamedQuery("Message.findAllUnattended", Message.class).getResultList();
+		List<Message> attendedMsgs = entityManager.createNamedQuery("Message.findAllAttended", Message.class).getResultList();
 
 		model.addAttribute("pendingMsgs", pendingMsgs); // Return messages queue
+		model.addAttribute("attendedMsgs", attendedMsgs); // Return attended history
 
 		return "messages";
 	}
@@ -162,7 +165,14 @@ public class MessageController {
 
 			sendMsg(confirm, message.getSender());
 
-			return "{\"result\": \"accepted\"}";
+			StringBuilder stringBuilder = new StringBuilder();
+
+			stringBuilder.append("{ \"result\": \"accepted\", ");
+			stringBuilder.append(String.format("\"clientName\": \"%s\"", 
+									message.getSender().getFirstName() + ' ' + message.getSender().getLastName()));
+			stringBuilder.append("}");
+
+			return stringBuilder.toString();
 		}
 		
 		return "{\"result\": \"error\"}";
@@ -198,5 +208,44 @@ public class MessageController {
 				.getSingleResult();
 		session.setAttribute("unread", unread);
 		return "{\"unread\": " + unread + "}";
+	}
+
+	/**
+	 * Get chat history by user ID
+	 * 
+	 * @param id of USER
+	 * @throws JsonProcessingException
+	 */
+	@GetMapping(path = "/history/{idUser}", produces = "application/json")
+	@Transactional
+	@ResponseBody
+	public String chatHistory(@PathVariable long idUser, Model model, HttpSession session) throws JsonProcessingException {
+		List<Message> msgs = entityManager.createNamedQuery("Message.findAllByUserID", Message.class)
+											.setParameter("idUser", idUser)
+											.getResultList();
+		
+		if (msgs != null) {
+			User user = entityManager.find(User.class, idUser);
+
+			StringBuilder stringBuilder = new StringBuilder();
+
+			stringBuilder.append("{ \"result\": \"accepted\", ");
+			stringBuilder.append(String.format("\"clientName\": \"%s\", ", user.getFirstName() + ' ' + user.getLastName()));
+			stringBuilder.append("\"messages\": [");
+
+			for (Message m : msgs)
+				stringBuilder.append(String.format("{\"text\": \"%s\", \"sender\": %b},", 
+														m.getText(), m.getSender().getId() == idUser ? true : false));
+
+			stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length()); // Remove last comma
+
+			stringBuilder.append("]}");
+
+			System.out.println(stringBuilder.toString());
+
+			return stringBuilder.toString();
+		}
+		
+		return "{\"result\": \"error\"}";
 	}
 }

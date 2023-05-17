@@ -1,11 +1,32 @@
 function openChat(idUser, msgId) {
     go(config.rootUrl + "/messages/" + msgId, 'POST', {})
         .then(response => {
+            if (response.result == "accepted") {
+                $(".agentChatForm button").attr("onclick", `sendMsg(${idUser})`);
+                console.log(response);
+                $(".agentChatHeader h3").html(`Atendiendo a: <span class='username'>${response.clientName}</span>`);
+                console.log(response.clientName);
+                // $(".agentChatBody").empty();
+                $('#chatModal').modal('show');
+            } else
+                alert(`Error! ${response["data"]}`);
+        })
+        .catch(e => console.log(e));
+}
+
+function openChatHistory(idUser) {
+    go(config.rootUrl + "/messages/history/" + idUser, 'GET', {})
+        .then(response => {
+            console.log(response);
             if (response["result"] == "accepted") {
                 $(".agentChatForm button").attr("onclick", `sendMsg(${idUser})`);
+                $(".agentChatHeader h3").html(`Historial del usuario: <span class='username'>${response.clientName}</span>`);
                 $("#username").text(`#${idUser}`);
                 $(".agentChatBody").empty();
                 $('#chatModal').modal('show');
+                response.messages.forEach(msg => {
+                    insertMessage(msg.text, msg.sender);
+                });
             } else
                 alert(`Error! ${response["data"]}`);
         })
@@ -31,11 +52,11 @@ function insertMessage(text, sender) {
 }
 
 ws.receive = (m) => {
-    if (m["text"] == "chatAccepted") {
+    if (m.text == "chatAccepted") {
         insertMessage(`El agente ${m["from"]} se ha conectado al chat.`, false);
         $(".agentChatForm button").attr("onclick", `sendMsg(${m["senderID"]})`);
     } else
-        insertMessage(m["text"], false);
+        insertMessage(m.text, false);
 }
 
 function sendMsg(idReceptor) {
