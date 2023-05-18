@@ -172,7 +172,7 @@
                                             <div class="row d-flex text-align-center mt-3">
                                                 <div class="col mt-2">
                                                     <label for="matricula">Matricula</label>
-                                                    <input type="text" class="form-control  mt-1" th:value="${vehicle.license}" placeholder="0000-DDD" name="matricula"
+                                                    <input type="text" class="form-control  mt-1" th:value="${vehicle.license}" placeholder="0000-DDD" name="matricula" pattern="[0-9]{4}+-[A-Za-z]{3}"
                                                         id="matricula">
                                                 </div>
                                                 <div class="col mt-2">

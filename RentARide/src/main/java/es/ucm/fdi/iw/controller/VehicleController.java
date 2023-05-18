@@ -155,7 +155,6 @@ public class VehicleController {
         vehicle.setAutonomy(autonomia);
         vehicle.setPriceByDay(precio);
         vehicle.setLocation(location);
-
         entityManager.persist(vehicle);
         entityManager.flush();
 

@@ -91,7 +91,8 @@
                                     <div class="col text-start">
                                         <label for="correo">Correo</label>
                                         <input type="email" class="form-control mt-1" th:value="${user.email}"
-                                            name="correo" id="correo_perfil" required>
+                                            name="correo" id="correo_perfil" required
+                                            pattern= "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" >
                                     </div>
                                     <div class="col text-start">
                                         <label for="usuario">Nombre de usuario</label>
@@ -101,7 +102,7 @@
                                     <div class="col text-start">
                                         <label for="dni">DNI</label>
                                         <input type="text" class="form-control mt-1" th:value="${user.DNI}" name="dni"
-                                            id="dni_perfil" requiered>
+                                            id="dni_perfil" pattern="[0-9]{8}[A-Za-z]{1}" requiered>
                                     </div>
                                 </div>
                                 <div class="row mt-3 justify-content-center">
