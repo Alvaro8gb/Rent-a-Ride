@@ -311,13 +311,13 @@ public class UserController {
 	@Transactional
 	public String specificUserMod(RedirectAttributes redirAttrs,
 			@PathVariable long id,
-			@RequestParam("dni_gestion_u") String dni,
-			@RequestParam("correo_gestion_u") String correo,
-			@RequestParam("apellido_gestion_u") String apellido,
-			@RequestParam("nombre_gestion_u") String nombre,
-			@RequestParam("usuario_gestion_u") String cuenta,
-			@RequestParam("roles_gestion_u") String roles,
-			@RequestParam("imagen_gestion_u") MultipartFile imagen,
+			@RequestParam String dni,
+			@RequestParam String correo,
+			@RequestParam String apellido,
+			@RequestParam String nombre,
+			@RequestParam String cuenta,
+			@RequestParam String roles,
+			@RequestParam MultipartFile imagen,
 			HttpSession session) {
 		String err = checkData(dni, correo, imagen);
 		if (err == null) {
@@ -354,11 +354,11 @@ public class UserController {
 	@PostMapping("/profile/modify")
 	@Transactional
 	public String profileMod(RedirectAttributes redirAttrs,
-			@RequestParam("dni_perfil") String dni,
-			@RequestParam("correo_perfil") String correo,
-			@RequestParam("apellido_perfil") String apellido,
-			@RequestParam("nombre_perfil") String nombre,
-			@RequestParam("imagen_perfil") MultipartFile imagen,
+			@RequestParam String dni,
+			@RequestParam String correo,
+			@RequestParam String apellido,
+			@RequestParam String nombre,
+			@RequestParam MultipartFile imagen,
 			HttpSession session) {
 		String err = checkData(dni, correo, imagen);
 		if (err == null) {
@@ -380,14 +380,14 @@ public class UserController {
 	@PostMapping("/signup")
 	@Transactional
 	public String signup(RedirectAttributes redirAttrs,
-			@RequestParam("dni") String dni,
-			@RequestParam("correo") String email,
-			@RequestParam("primer_apellido") String lastName,
-			@RequestParam("segundo_apellido") String lastName1,
-			@RequestParam("nombre") String firstName,
-			@RequestParam("usuario") String username,
-			@RequestParam("password") String pass,
-			@RequestParam("conf_pass") String conf_pass,
+			@RequestParam String dni,
+			@RequestParam String correo,
+			@RequestParam String primer_apellido,
+			@RequestParam String segundo_apellido,
+			@RequestParam String nombre,
+			@RequestParam String usuario,
+			@RequestParam String password,
+			@RequestParam String conf_pass,
 			HttpSession session) {
 
 		User newUser = new User();
@@ -396,19 +396,19 @@ public class UserController {
 		Matcher matcherDNI = patternDNI.matcher(dni);
 		if (matcherDNI.matches()) {
 			Pattern patternEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
-			Matcher matcherEmail = patternEmail.matcher(email);
+			Matcher matcherEmail = patternEmail.matcher(correo);
 			if (matcherEmail.matches()) {
 				Pattern patternPass = Pattern
 						.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$");
-				Matcher matcherPass = patternPass.matcher(pass);
+				Matcher matcherPass = patternPass.matcher(password);
 				if (matcherPass.matches()) {
-					if (pass.equals(conf_pass)) {
+					if (password.equals(conf_pass)) {
 						newUser.setDNI(dni);
-						newUser.setEmail(email);
-						newUser.setLastName(lastName + " " + lastName1);
-						newUser.setFirstName(firstName);
-						newUser.setUsername(username);
-						newUser.setPassword(encodePassword(pass));
+						newUser.setEmail(correo);
+						newUser.setLastName(primer_apellido + " " + segundo_apellido);
+						newUser.setFirstName(nombre);
+						newUser.setUsername(usuario);
+						newUser.setPassword(encodePassword(password));
 						newUser.setRoles("USER");
 						newUser.setEnabled(true);
 						entityManager.persist(newUser);

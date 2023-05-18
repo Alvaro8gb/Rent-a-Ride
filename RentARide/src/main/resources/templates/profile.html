@@ -79,19 +79,19 @@
                                     <div class="col text-start">
                                         <label for="nombre">Nombre</label>
                                         <input type="text" class="form-control mt-1" th:value="${user.firstName}"
-                                            name="nombre_perfil" id="nombre_perfil" required>
+                                            name="nombre" id="nombre_perfil" required>
                                     </div>
                                     <div class="col text-start">
                                         <label for="primer_apellido">Apellido</label>
                                         <input type="text" class="form-control mt-1" th:value="${user.lastName}"
-                                            name="apellido_perfil" id="apellido_perfil" required> 
+                                            name="apellido" id="apellido_perfil" required> 
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col text-start">
                                         <label for="correo">Correo</label>
                                         <input type="email" class="form-control mt-1" th:value="${user.email}"
-                                            name="correo_perfil" id="correo_perfil" required>
+                                            name="correo" id="correo_perfil" required>
                                     </div>
                                     <div class="col text-start">
                                         <label for="usuario">Nombre de usuario</label>
@@ -100,14 +100,14 @@
                                     </div>
                                     <div class="col text-start">
                                         <label for="dni">DNI</label>
-                                        <input type="text" class="form-control mt-1" th:value="${user.DNI}" name="dni_perfil"
+                                        <input type="text" class="form-control mt-1" th:value="${user.DNI}" name="dni"
                                             id="dni_perfil" requiered>
                                     </div>
                                 </div>
                                 <div class="row mt-3 justify-content-center">
                                     <div class="col-auto text-start">
                                         <label for="img" class="form-label mt-1">Imagen</label>
-                                        <input class="form-control" type="file" id="imagen_perfil" name="imagen_perfil" accept="image/jpeg,image/png">
+                                        <input class="form-control" type="file" id="imagen_perfil" name="imagen" accept="image/jpeg,image/png">
                                     </div>
                                 </div>
                                 <br>

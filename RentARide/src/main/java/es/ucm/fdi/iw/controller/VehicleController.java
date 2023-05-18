@@ -100,7 +100,7 @@ public class VehicleController {
     @GetMapping(path = "/searchByName", produces = "application/json")
     @Transactional
 	@ResponseBody
-    public String searchByName(@RequestParam("filtro") String filtro, Model model) throws JsonProcessingException{
+    public String searchByName(@RequestParam String filtro, Model model) throws JsonProcessingException{
         List<Vehicle> l = entityManager.createNamedQuery("Vehicle.searchWithFilter", Vehicle.class).setParameter("filtro", filtro).getResultList();
 
         String jsonString = "{\"data\" : [";

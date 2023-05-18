@@ -55,7 +55,7 @@
                                                 class="fa-solid fa-xl fa-pencil"></i></button>
                                     </div>
                                     <form class="row" method="POST" enctype="multipart/form-data"
-                                        th:action="@{user/{id}/modify(id=${user.id})}"></form>
+                                        th:action="@{user/{id}/modify(id=${user.id})}">
                                     <div class="modal fade" th:id="modalModificarUsuario+${user.id }" tabindex="-1"
                                         aria-labelledby="modalAlquilerLabel" aria-hidden="true">
                                         <div
@@ -72,14 +72,14 @@
                                                             <div class="col text-start">
                                                                 <label for="nombre">Nombre</label>
                                                                 <input type="text" class="form-control mt-1"
-                                                                    th:value="${user.firstName}" name="nombre_gestion_u"
+                                                                    th:value="${user.firstName}" name="nombre"
                                                                     id="nombre_gestion_u" required>
                                                             </div>
                                                             <div class="col text-start">
                                                                 <label for="primer_apellido">Apellido</label>
                                                                 <input type="text" class="form-control mt-1"
                                                                     th:value="${user.lastName}"
-                                                                    name="apellido_gestion_u" id="apellido_gestion_u"
+                                                                    name="apellido" id="apellido_gestion_u"
                                                                     required>
                                                             </div>
                                                         </div>
@@ -87,19 +87,19 @@
                                                             <div class="col text-start">
                                                                 <label for="correo">Correo</label>
                                                                 <input type="email" class="form-control mt-1"
-                                                                    th:value="${user.email}" name="correo_gestion_u"
+                                                                    th:value="${user.email}" name="correo"
                                                                     id="correo_gestion_u" required>
                                                             </div>
                                                             <div class="col text-start">
                                                                 <label for="dni">DNI</label>
                                                                 <input type="text" class="form-control mt-1"
-                                                                    th:value="${user.DNI}" name="dni_gestion_u"
+                                                                    th:value="${user.DNI}" name="dni"
                                                                     id="dni_gestion_u" required>
                                                             </div>
                                                             <div class="col text-start">
                                                                 <label for="usuario">Nombre de usuario</label>
                                                                 <input type="text" class="form-control mt-1"
-                                                                    th:value="${user.username}" name="usuario_gestion_u"
+                                                                    th:value="${user.username}" name="cuenta"
                                                                     id="usuario_gestion_u" required>
                                                             </div>
                                                         </div>
@@ -107,7 +107,7 @@
                                                             <div class="col text-start">
                                                                 <label for="roles">Roles</label>
                                                                 <input type="text" class="form-control mt-1"
-                                                                    th:value="${user.roles}" name="roles_gestion_u"
+                                                                    th:value="${user.roles}" name="roles"
                                                                     id="roles_gestion_u" title="Admin/Gestor/User"
                                                                     required>
                                                             </div>
@@ -116,7 +116,7 @@
                                                             <div class="col-auto text-start">
                                                                 <label for="img" class="form-label mt-1">Imagen</label>
                                                                 <input class="form-control" type="file"
-                                                                    id="imagen_gestion_u" name="imagen_gestion_u"
+                                                                    id="imagen_gestion_u" name="imagen"
                                                                     accept="image/jpeg,image/png">
                                                             </div>
                                                         </div><br>
