@@ -51,14 +51,6 @@ function insertMessage(text, sender) {
         lastMessage.after(newMessage); // Insert the new message after the last message
 }
 
-ws.receive = (m) => {
-    if (m.text == "chatAccepted") {
-        insertMessage(`El agente ${m["from"]} se ha conectado al chat.`, false);
-        $(".agentChatForm button").attr("onclick", `sendMsg(${m["senderID"]})`);
-    } else
-        insertMessage(m.text, false);
-}
-
 function sendMsg(idReceptor) {
     let msg = $("#message").val();
 
@@ -88,6 +80,14 @@ function sendMsg(idReceptor) {
 }
 
 
+ws.receive = (m) => {
+    if (m.text == "chatAccepted") {
+        insertMessage(`El agente ${m["from"]} se ha conectado al chat.`, false);
+        $(".agentChatForm button").attr("onclick", `sendMsg(${m["senderID"]})`);
+    } else
+        insertMessage(m.text, false);
+}
+
 $(document).ready(function() {
     const input = $('#message');
     const button = document.querySelector('#chatSend');
@@ -98,6 +98,10 @@ $(document).ready(function() {
         button.click();
       }
     });
-  });
+});
   
+
+
+
+
   

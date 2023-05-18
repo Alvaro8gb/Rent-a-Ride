@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * as a first rule. Note that this may break an application that expects to have
 	 * login information available.
 	 */
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
@@ -65,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/vehicle/**").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
 	            .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
+				.antMatchers("/manager/**").hasRole("GESTOR")
 	            .anyRequest().authenticated()
 	            .and()
 			.formLogin()

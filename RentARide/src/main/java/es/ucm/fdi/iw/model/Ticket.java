@@ -61,7 +61,6 @@ public class Ticket {
     @Column (nullable = false)
     private Gravity gravity;
 
-
     public static String serializeToCSV(List<Ticket> tickets){
         StringWriter stringWriter = new StringWriter();
         CSVWriter csvWriter = new CSVWriter(stringWriter);

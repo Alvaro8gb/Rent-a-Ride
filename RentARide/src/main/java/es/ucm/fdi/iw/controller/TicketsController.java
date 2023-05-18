@@ -37,12 +37,12 @@ public class TicketsController {
     private EntityManager entityManager;
 
     @GetMapping("/")
-    public String inChats(Model model, HttpSession session) {
+    public String showTickets(Model model, HttpSession session) {
         User user = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
-        List<Ticket> pendingMsgs = user.getTickets();
+        List<Ticket> tickets = user.getTickets();
 
-        model.addAttribute("tickets", pendingMsgs); // Return messages queue
+        model.addAttribute("tickets", tickets);
 
         return "tickets";
     }

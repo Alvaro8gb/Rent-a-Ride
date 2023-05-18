@@ -32,7 +32,7 @@ Feature: login en servidor
     And input('#username', 'a')
     And input('#password', 'aa')
     When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/admin')
+    Then waitForUrl(baseUrl + '/carsManagement')
 
   Scenario: logout after login
     Given driver baseUrl + '/login'
