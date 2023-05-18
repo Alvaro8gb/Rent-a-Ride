@@ -88,13 +88,15 @@
                                                                 <label for="correo">Correo</label>
                                                                 <input type="email" class="form-control mt-1"
                                                                     th:value="${user.email}" name="correo"
-                                                                    id="correo_gestion_u" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                                                                    id="correo_gestion_u" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                                    title="El formato debe ser email@gmail.com">
                                                             </div>
                                                             <div class="col text-start">
                                                                 <label for="dni">DNI</label>
                                                                 <input type="text" class="form-control mt-1"
                                                                     th:value="${user.DNI}" name="dni"
-                                                                    id="dni_gestion_u" pattern= "[0-9]{8}[A-Za-z]{1}" required>
+                                                                    id="dni_gestion_u" pattern= "[0-9]{8}[A-Za-z]{1}" 
+                                                                    title="El formato debe ser 15358957A" required>
                                                             </div>
                                                             <div class="col text-start">
                                                                 <label for="usuario">Nombre de usuario</label>

@@ -36,11 +36,14 @@
                     <div class="row mt-3">
                         <div class="col text-start">
                             <label for="correo">Correo</label>
-                            <input type="email" class="form-control mt-1" placeholder="email@gmail.com" name="correo" id="correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                            <input type="email" class="form-control mt-1" placeholder="email@gmail.com" name="correo" id="correo"
+                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                             title="El formato debe ser email@gmail.com">
                         </div>
                         <div class="col text-start">
                             <label for="dni">DNI</label>
-                            <input type="dni" class="form-control mt-1" placeholder="15358957A" name="dni" id="dni" pattern="[0-9]{8}[A-Za-z]{1}">
+                            <input type="dni" class="form-control mt-1" placeholder="15358957A" name="dni" id="dni" pattern="[0-9]{8}[A-Za-z]{1}"
+                                title="El formato debe ser 15358957A">
                         </div>
                         <div class="col text-start">
                             <label for="usuario">Nombre de usuario</label>
@@ -51,11 +54,15 @@
                     <div class="row mt-3 mb-3">
                         <div class="col text-start">
                             <label for="password">Contraseña</label>
-                            <input type="password" class="form-control mt-1" placeholder="Contraseña" name="password" id="password" pattern="^(?=.*?[a-z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$">
+                            <input type="password" class="form-control mt-1" placeholder="Contraseña" name="password" id="password" 
+                                pattern="^(?=.*?[a-z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$"
+                                title="La contraseña debe tener 8-16 caracteres una \nmayuscula, una minuscula, un número y un caracter especial">
                         </div>
                         <div class="col text-start">
                             <label for="conf_pass">Repetir contraseña</label>
-                            <input type="password" class="form-control mt-1" placeholder="Repetir Contraseña" name="conf_pass" id="conf_pass">
+                            <input type="password" class="form-control mt-1" placeholder="Repetir Contraseña" name="conf_pass" id="conf_pass"
+                                pattern="^(?=.*?[a-z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$"
+                                title="La contraseña debe tener 8-16 caracteres una \nmayuscula, una minuscula, un número y un caracter especial">
                         </div>
                     </div> 
                     

@@ -67,7 +67,7 @@ public class UserController {
 	private final String mensajeErrorImagen = "La imagen proporcionada no es válida";
 	private final String mensajeErrorDNI = "El DNI proporcionado no es válido";
 	private final String mensajeErrorEmail = "El correo proporcionado no es válido";
-	private final String mensajeErrorPassword = "Las contraseñas no coinciden o no cumple los requisitos";
+	private final String mensajeErrorPassword = "Las contraseñas no coinciden o debe tener 8-16 caracteres una \nmayuscula, una minuscula, un número y un caracter especial";
 
 
 
