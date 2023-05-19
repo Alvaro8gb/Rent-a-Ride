@@ -30,7 +30,7 @@
                                 <i class="fa-solid fa-fw fa-location-dot"></i>
                                   [[ ${vehicle.location.name} ]]
                               </p>
-                              <a th:href="@{/vehicle/{id}(id=${vehicle.id})}" class="d-flex justify-content-end">Consultar precio</a>
+                              <a  th:id="${vehicle.modelName}" th:href="@{/vehicle/{id}(id=${vehicle.id})}" class="d-flex justify-content-end">Consultar precio</a>
                             </div>
                           </div>
                     </div>
