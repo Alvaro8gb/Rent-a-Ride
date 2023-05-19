@@ -1,49 +1,18 @@
 package es.ucm.fdi.iw.controller;
 
-import es.ucm.fdi.iw.LocalData;
+import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.Ticket;
-import es.ucm.fdi.iw.model.User;
-import es.ucm.fdi.iw.model.User.Role;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 
-
-
-import java.io.*;
-import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.List;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * User management.
@@ -57,14 +26,66 @@ public class ManagerController {
     @Autowired
     private EntityManager entityManager;
 
-	@GetMapping("/incidencias")
+    @GetMapping("/incidencias")
     public String showTickets(Model model) {
-        
-		List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
+
+        List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
 
         model.addAttribute("tickets", tickets);
 
         return "ticketsManager";
     }
+
+    @GetMapping("calendario")
+    public String list(Model model) {
+        int threeWeeks = 21;
+        SortedMap<LocalDate, List<Booking>> res = new TreeMap<>();
+        LocalDate date = LocalDate.now();
+        int dia = date.getDayOfWeek().getValue();
+
+        switch(dia) {
+            case 1:
+                date = date.minusDays(7);
+                break;
+            case 2:
+                date = date.minusDays(8);
+                break;
+            case 3:
+                date = date.minusDays(9);
+                break;
+            case 4:
+                date = date.minusDays(10);
+                break;
+            case 5:
+                date = date.minusDays(11);
+                break;
+            case 6:
+                date = date.minusDays(12);
+                break;
+            case 7:
+                date = date.minusDays(13);
+                break;
+        }
+
+        for(int i = 0; i < threeWeeks; i++) {
+            List<Booking> data = entityManager.createNamedQuery("Booking.bydate", Booking.class)
+            .setParameter("in_date", date)
+            .setParameter("out_date", date)
+            .getResultList();
+
+            if (data.size() != 0)
+                res.put(date, data);
+            else
+                res.put(date, null);
+
+            date = date.plusDays(1);
+        }
+
+        model.addAttribute("bookings", res);
+        
+        return "listBookings";
+    }
+
+
 
 }

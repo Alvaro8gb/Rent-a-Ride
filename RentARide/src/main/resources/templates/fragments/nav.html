@@ -44,13 +44,17 @@
                                 <a class="nav-link" th:href="@{/carsManagement}">Gestión de flota</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/booking/list}">Calendario</a>
+                                <a class="nav-link" th:href="@{/gestor/calendario}">Calendario</a>
                             </li>
                             <li class="nav-item px-3">
                                 <a class="nav-link" th:href="@{/messages/in}">Mensajes entrantes</a>
                             </li>
+
                             <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN')}">
-                                <a class="nav-link" th:href="@{/userList}">Gestión de usuarios</a>
+                                <a class="nav-link" th:href="@{/admin/}">Administración</a>
+                            </li>
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN')}">
+                                <a class="nav-link" th:href="@{/admin/userList}">Gestión de usuarios</a>
                             </li>
                             </th:block>
                         </th:block>

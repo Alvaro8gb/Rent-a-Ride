@@ -5,8 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
@@ -95,55 +94,6 @@ public class BookingController {
         return jsonString;
     }
 
-    @GetMapping("list")
-    public String list(Model model) {
-        int threeWeeks = 21;
-        SortedMap<LocalDate, List<Booking>> res = new TreeMap<>();
-        LocalDate date = LocalDate.now();
-        int dia = date.getDayOfWeek().getValue();
-
-        switch(dia) {
-            case 1:
-                date = date.minusDays(7);
-                break;
-            case 2:
-                date = date.minusDays(8);
-                break;
-            case 3:
-                date = date.minusDays(9);
-                break;
-            case 4:
-                date = date.minusDays(10);
-                break;
-            case 5:
-                date = date.minusDays(11);
-                break;
-            case 6:
-                date = date.minusDays(12);
-                break;
-            case 7:
-                date = date.minusDays(13);
-                break;
-        }
-
-        for(int i = 0; i < threeWeeks; i++) {
-            List<Booking> data = entityManager.createNamedQuery("Booking.bydate", Booking.class)
-            .setParameter("in_date", date)
-            .setParameter("out_date", date)
-            .getResultList();
-
-            if (data.size() != 0)
-                res.put(date, data);
-            else
-                res.put(date, null);
-
-            date = date.plusDays(1);
-        }
-
-        model.addAttribute("bookings", res);
-        
-        return "listBookings";
-    }
 
     @GetMapping("history")
     public String history(Model model, HttpSession session) {

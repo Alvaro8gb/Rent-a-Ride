@@ -59,11 +59,14 @@ public class VehicleController {
                         @RequestParam(required=false) String startDate,
                         @RequestParam(required=false) String endDate) {
         
+        log.info("Searching car {} pickupPoint {}", vehicle, pickupPoint);
+
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.byVechicle", Vehicle.class)
         .setParameter("modelName", vehicle)
         .setParameter("location", pickupPoint)
         .getResultList();
 
+                        
         model.addAttribute("vehicles", vs);
 
         return "searchResult";
@@ -83,7 +86,7 @@ public class VehicleController {
         return "carDetails";
     }
 
-        @GetMapping("{id}/pic")
+    @GetMapping("{id}/pic")
     public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
         File f = localData.getFile("vehicle", ""+id+".png");
         InputStream in = new BufferedInputStream(f.exists() ?

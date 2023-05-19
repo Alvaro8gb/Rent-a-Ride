@@ -15,8 +15,6 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.ucm.fdi.iw.model.Location;
-import es.ucm.fdi.iw.model.Message;
-import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
 
@@ -72,21 +70,12 @@ public class RootController {
         return "carsManagement";
     }
 
-    @GetMapping("/userList")
-    public String userList(Model model) {
-        List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
-        model.addAttribute("users", users);
-        return "userList";
-    }
+    
 
     @GetMapping("/carDetails")
     public String carDetails(Model model) {
         return "carDetails";
     }
 
-    @GetMapping("/carsCalendar")
-    public String carCalendar(Model model) {
-        return "carsCalendar";
-    }
 
 }
