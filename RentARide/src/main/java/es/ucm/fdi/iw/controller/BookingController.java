@@ -67,9 +67,9 @@ public class BookingController {
             LocalDate outDateTime = LocalDate.parse(outDate, formatter);
             BookingID bookingID = new BookingID(idVehicle, requester.getId(), inDateTime, outDateTime);
             User user = entityManager.find(User.class, requester.getId());
-            long daysDifference = ChronoUnit.DAYS.between(inDateTime, outDateTime);
+            long daysDifference = ChronoUnit.DAYS.between(inDateTime, outDateTime) + 1;
             Booking target = new Booking(bookingID,daysDifference * precio, user, vehicle);
-            
+    
             entityManager.persist(target);
             entityManager.flush();
 

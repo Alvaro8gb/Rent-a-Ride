@@ -34,6 +34,14 @@ Feature: login en servidor
     When submit().click(".form-signin button")
     Then waitForUrl(baseUrl + '/admin')
 
+  @login_c
+  Scenario: login correcto como user
+    Given driver baseUrl + '/login'
+    And input('#username', 'c')
+    And input('#password', 'aa')
+    When submit().click(".form-signin button")
+    Then waitForUrl(baseUrl)
+
   Scenario: logout after login
     Given driver baseUrl + '/login'
     And input('#username', 'a')

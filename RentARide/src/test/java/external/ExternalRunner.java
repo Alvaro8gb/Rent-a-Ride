@@ -23,5 +23,9 @@ class ExternalRunner {
     Karate createVehicle() {
         return Karate.run("createVehicle").relativeTo(getClass());
     }
+    @Karate.Test
+    Karate createTicket() {
+        return Karate.run("createTicket").relativeTo(getClass());
+    }
 }
 

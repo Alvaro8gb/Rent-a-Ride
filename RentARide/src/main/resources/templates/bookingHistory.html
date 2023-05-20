@@ -32,7 +32,7 @@
                     <div class="col-4 text-end  align-self-center">
                         <p class="m-0 p-0 bookingListPrice" th:text="${booking.price + '€'}"></p>
                         <p class="m-0 p-0 bookingListPriceTag">Precio total</p>
-                        <a class="text-decoration-none d-block mt-2 bookingListReportButton" data-bs-toggle="modal" th:onclick="'showModal(' + ${booking.vehicle.id} + ')'" data-bs-target="#modalTicket">
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton" th:id="${'report-' +  booking.vehicle.id}" data-bs-toggle="modal" th:onclick="'showModal(' + ${booking.vehicle.id} + ')'" data-bs-target="#modalTicket">
                             Reportar incidencia
                         </a>
                     </div>
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn mb-2">Enviar</button>	
+                        <button id="ok" class="btn mb-2">Enviar</button>	
                     </div>
                 </form>	
             </div>	
