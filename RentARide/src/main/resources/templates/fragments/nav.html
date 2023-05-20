@@ -36,7 +36,7 @@
                                 <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>
                             </li>
 
-                            <li class="nav-item px-3" th:if="${session.u.hasRole('GESTOR')}">
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN') or session.u.hasRole('GESTOR')}">
                                 <a class="nav-link" th:href="@{/incidencias/listar/}">Ver incidencias</a>
                             </li>
 

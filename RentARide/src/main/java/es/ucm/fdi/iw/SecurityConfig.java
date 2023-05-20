@@ -60,16 +60,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/**").permitAll()            // <-- public api access
 
 				// Custom endpoints
-				// Vehicle Controller
 				.antMatchers("/").permitAll()
-				.antMatchers("/vehicle/search").permitAll()
-				.antMatchers("/vehicle/*").permitAll()
-				.antMatchers("/vehicle/*/pic").permitAll()
-				.antMatchers("/vehicle").hasAnyRole("GESTOR", "ADMIN")
 				
+				// Vehicle Controller
+				.antMatchers("/vehicle/search", "/vehicle/{\\d+}/pic").permitAll()
+				.antMatchers("/vehicle/create").hasAnyRole("ADMIN", "GESTOR")
+				.antMatchers("/vehicle/{\\d+}/modify", "/vehicle/createVehicle", "/vehicle/carsManagement").hasAnyRole("ADMIN", "GESTOR")
+				.antMatchers("/vehicle/{\\d+}").permitAll()
+                
+				// Ticket Controller
+				.antMatchers("/incidencias/export", "/incidencias/listar").hasAnyRole("ADMIN", "GESTOR")
 
-				// .antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
-	            // .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
+				// Booking Controller
+				.antMatchers("/booking/list", "/booking/details").hasAnyRole("ADMIN", "GESTOR")
+
+				// Message Controller
+				.antMatchers("/messages/in", "/messages/unread", "/messages/history/{\\d+}").hasAnyRole("ADMIN", "GESTOR")
+
+				// User Controller
+				.antMatchers("/user/userList", "/user/{\\d+}/delete", "/user/{\\d+}/modify").hasAnyRole("ADMIN", "GESTOR")
+
 	            .anyRequest().authenticated()
 	            .and()
 			.formLogin()

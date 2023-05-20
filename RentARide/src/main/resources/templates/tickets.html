@@ -49,8 +49,12 @@
             </table>
         </div>
 
-        <div th:unless="${!#lists.isEmpty(tickets)}" class="row">
-            <h4> No hay incidencias </h4>
+        <div th:unless="${!#lists.isEmpty(tickets)}">
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="fs-4 text-center greyed">No existen incidencias</p>
+                </div>
+            </div>
         </div>
 
     </div>
