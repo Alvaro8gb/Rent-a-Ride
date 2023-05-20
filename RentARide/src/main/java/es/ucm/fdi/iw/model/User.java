@@ -62,6 +62,7 @@ public class User implements Transferable<User.Transfer> {
 	@OneToMany
 	@JoinColumn(name = "sender_id")
 	private List<Message> sent = new ArrayList<>();
+
 	@OneToMany
 	@JoinColumn(name = "recipient_id")	
 	private List<Message> received = new ArrayList<>();	
@@ -69,7 +70,7 @@ public class User implements Transferable<User.Transfer> {
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
 
-    @OneToMany(mappedBy = "idUser")
+    @OneToMany(mappedBy = "user")
     private List<Ticket> tickets;
 
     /**
@@ -93,11 +94,13 @@ public class User implements Transferable<User.Transfer> {
         private String email;
 		private int totalReceived;
 		private int totalSent;
+
+        public Transfer() {}
     }
 
 	@Override
     public Transfer toTransfer() {
-		return new Transfer(id,	username, DNI, firstName, lastName, email, received.size(), sent.size());
+        return new Transfer(id,	username, DNI, firstName, lastName, email, received.size(), sent.size());
 	}
 	
 	@Override
