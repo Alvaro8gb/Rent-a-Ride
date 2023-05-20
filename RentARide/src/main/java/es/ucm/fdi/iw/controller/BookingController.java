@@ -3,6 +3,7 @@ package es.ucm.fdi.iw.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
@@ -66,7 +67,8 @@ public class BookingController {
             LocalDate outDateTime = LocalDate.parse(outDate, formatter);
             BookingID bookingID = new BookingID(idVehicle, requester.getId(), inDateTime, outDateTime);
             User user = entityManager.find(User.class, requester.getId());
-            Booking target = new Booking(bookingID, precio, user, vehicle);
+            long daysDifference = ChronoUnit.DAYS.between(inDateTime, outDateTime);
+            Booking target = new Booking(bookingID,daysDifference * precio, user, vehicle);
             
             entityManager.persist(target);
             entityManager.flush();
