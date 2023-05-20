@@ -60,11 +60,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/**").permitAll()            // <-- public api access
 
 				// Custom endpoints
-				.antMatchers("/user/signup").permitAll()
+				// Vehicle Controller
 				.antMatchers("/").permitAll()
-				.antMatchers("/vehicle/**").permitAll()
-				.antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
-	            .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
+				.antMatchers("/vehicle/search").permitAll()
+				.antMatchers("/vehicle/*").permitAll()
+				.antMatchers("/vehicle/*/pic").permitAll()
+				.antMatchers("/vehicle").hasAnyRole("GESTOR", "ADMIN")
+				
+
+				// .antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
+	            // .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
 	            .anyRequest().authenticated()
 	            .and()
 			.formLogin()

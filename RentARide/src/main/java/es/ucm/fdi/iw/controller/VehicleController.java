@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,7 +84,7 @@ public class VehicleController {
         return "carDetails";
     }
 
-        @GetMapping("{id}/pic")
+    @GetMapping("{id}/pic")
     public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
         File f = localData.getFile("vehicle", ""+id+".png");
         InputStream in = new BufferedInputStream(f.exists() ?
@@ -158,7 +159,7 @@ public class VehicleController {
         entityManager.persist(vehicle);
         entityManager.flush();
 
-        return "redirect:/createVehicle";
+        return "redirect:/vehicle/createVehicle";
     }
 
     @PostMapping("{id}/modify")
@@ -197,7 +198,7 @@ public class VehicleController {
             redirAttrs.addFlashAttribute("errorMessage", "La localizacion no existe");
         }
         
-        return "redirect:/carsManagement";
+        return "redirect:/vehicle/carsManagement";
     }
 
     private void changeVehicleInfo(Vehicle v, String marca, String modelo, int anio, String combustible,
@@ -230,5 +231,28 @@ public class VehicleController {
         }
         if(recogida != null)
             v.setLocation(recogida);
+    }
+
+    @GetMapping("/createVehicle")
+    public String createVehicle(Model model) {
+
+        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
+        
+        return "createVehicle";
+    }
+
+    @GetMapping("/carsManagement")
+    public String carsManagment(Model model,
+                                @RequestParam(required = false) boolean available){
+        
+        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
+        List<Location> ls = entityManager.createNamedQuery("Location.findAll", Location.class).getResultList();
+       
+        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
+        model.addAttribute("transmission", Arrays.asList(Vehicle.Transmission.values()));
+        model.addAttribute("vehicles", vs);
+        model.addAttribute("locations", ls);
+        
+        return "carsManagement";
     }
 }

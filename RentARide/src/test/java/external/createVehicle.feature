@@ -5,7 +5,7 @@ Background:
 
 Scenario: Creacion del vehiculo
     * call read('login.feature@login_b')
-    Given def createFormURL = baseUrl + '/createVehicle' 
+    Given def createFormURL = baseUrl + '/vehicle/createVehicle' 
     Given driver createFormURL
     Then driver.screenshot()
     And input('#marca', 'Seat') 

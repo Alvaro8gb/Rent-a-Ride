@@ -42,10 +42,10 @@
 
                             <th:block th:if="${session.u.hasRole('GESTOR') or session.u.hasRole('ADMIN')}">
                             <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/createVehicle}">Crear Vehículo</a>
+                                <a class="nav-link" th:href="@{/vehicle/createVehicle}">Crear Vehículo</a>
                             </li>
                             <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/carsManagement}">Gestión de flota</a>
+                                <a class="nav-link" th:href="@{/vehicle/carsManagement}">Gestión de flota</a>
                             </li>
                             <li class="nav-item px-3">
                                 <a class="nav-link" th:href="@{/booking/list}">Calendario</a>
@@ -54,7 +54,7 @@
                                 <a class="nav-link" th:href="@{/messages/in}">Mensajes entrantes</a>
                             </li>
                             <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN')}">
-                                <a class="nav-link" th:href="@{/userList}">Gestión de usuarios</a>
+                                <a class="nav-link" th:href="@{/user/userList}">Gestión de usuarios</a>
                             </li>
                             </th:block>
                         </th:block>

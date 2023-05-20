@@ -35,6 +35,7 @@ import java.io.*;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.Base64;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -271,7 +272,7 @@ public class UserController {
 			}
 
 		}
-		return "redirect:/userList";
+		return "redirect:/user/userList";
 	}
 
 	private void changeUserInfo(User target, User requester, HttpSession session, String dni, String correo,
@@ -348,7 +349,7 @@ public class UserController {
 		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}
-		return "redirect:/userList";
+		return "redirect:/user/userList";
 	}
 
 	@PostMapping("/profile/modify")
@@ -371,6 +372,15 @@ public class UserController {
 		}
 		return "redirect:/user/profile";
 	}
+
+	@GetMapping("/userList")
+    public String userList(Model model) {
+        List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
+        
+        model.addAttribute("users", users);
+        
+        return "userList";
+    }
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
