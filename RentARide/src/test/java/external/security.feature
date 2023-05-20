@@ -1,4 +1,4 @@
-Feature: Prueba principal, en nuestro caso que un cliente busque un coche y lo reserve 
+Feature: Prueba de seguridad 
 
 Background:
     * url baseUrl

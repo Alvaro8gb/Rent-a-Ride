@@ -9,14 +9,13 @@ Además, la aplicación permitirá a las compañías llevar un registro preciso 
 Los usuarios de la aplicación podrán reservar coches de manera fácil y rápida, seleccionando el vehículo que más se adapte a sus necesidades y disponibilidad.
 
 
-
 ## Funcionalidades
 
 - Vehículos
   - Creación de nuevos vehículos
   - Listado de vehículos
-  - Búsqueda de vehículos
-  - Gestión de la flota
+  - Búsqueda de vehículos: por nombre de modelo 
+  - Gestión de la flota: puediendose filtrar por varios campos
 - Reservas
   - Realizar reservas de vehículos
   - Ver Mis reservas
@@ -29,10 +28,10 @@ Los usuarios de la aplicación podrán reservar coches de manera fácil y rápid
   - El usuario creador de la incidencia puede borrarla
   - Listado de incidencias para los gestores
   - Se pueden exportar las incidencias en formato CSV a través de la URL `/incidencias/export`
-
 - Usuarios
   - Los usuarios pueden ver su perfil y editar los detalles
   - Los administradores pueden acceder a un listado para gestionar los usuarios, pudiendo modificarlos y borrarlos
+
 
 ## Diagrama de la DB
 
@@ -52,7 +51,22 @@ Los usuarios de la aplicación podrán reservar coches de manera fácil y rápid
 
 ## Karate Testing
 
-
+Hemos creado varios test para comprobar que funciona todo correctamente y es seguro:
+- [file](./RentARide/src/test/java/external/createTicket.feature) : crea un ticket
+- [file](./RentARide/src/test/java/external/createVehicle.feature) : crea un vehciulo
+- [file](./RentARide/src/test/java/external/main.feature): Prueba de la vista principal
+  - Scenario: Busqueda de un audi sin identificarse
+  - Scenario: Buscar coche por id estando logeado y reservarlo
+- [file](./RentARide/src/test/java/external/security.feature): Seguridad
+  - Scenario: Ver las paginas que puede entrar un cliente sin resgitrar 
+  - Scenario: Intentar acceder a cosas que no se pueden no estando registrado
+  - Scenario: Intentar acceder a cosas que no se pueden siendo usuarios
+- [file](./RentARide/src/test/java/external/login.feature): Prueba de login y logouts
+  - Scenario: login malo en plantilla
+  - Scenario: login correcto como b
+  - Scenario: login correcto como a
+  - Scenario: login correcto como user
+  - Scenario: logout after login
 
 ## Comentarios
 
