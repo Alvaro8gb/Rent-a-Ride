@@ -158,7 +158,7 @@ public class VehicleController {
         entityManager.persist(vehicle);
         entityManager.flush();
 
-        return "createVehicle";
+        return "redirect:/createVehicle";
     }
 
     @PostMapping("{id}/modify")

@@ -15,6 +15,7 @@ VALUES (3, TRUE, 'USER', 'c',
 
 /* El id 3 queda reservado para los mensajes sin receptor*/
 
+/*
 INSERT INTO Message (id, date_sent, date_read, unattended, text, recipient_id, sender_id)
 VALUES
   (1, NOW(), NULL, FALSE, 'Hola usuario 3, ¿cómo estás?', 3, 2),
@@ -24,6 +25,7 @@ VALUES
   (5, NOW(), NULL, FALSE, 'Gracias', 2, 1),
   (6, NOW(), NULL, FALSE, 'Recuerda enviar el informe hoy', 2, 1),
   (7, NOW(), NULL, FALSE, 'Le he echado gasolina en vez de diesel, ¿pasa algo?', 2, 3);
+*/
 
 INSERT INTO location (id, name, contact_number)
 VALUES
@@ -47,17 +49,17 @@ INSERT INTO vehicle (CV, LICENSE, AUTONOMY, CONSUMPTION, DOORS, FUEL, MODEL_NAME
 
 INSERT INTO booking (USER_ID, VEHICLE_ID, IN_DATE, OUT_DATE, PRICE)
 VALUES
-(1, 1, '2023-04-3', '2023-04-22', 50),
-(2, 2, '2023-04-1', '2023-04-3', 80),
-(1, 3, '2023-04-4', '2023-04-24', 100),
-(2, 4, '2023-04-1', '2023-04-4', 120),
-(1, 5, '2023-04-10', '2023-04-26', 150),
-(2, 6, '2023-04-1', '2023-04-10', 200),
-(1, 7, '2023-04-21', '2023-04-28', 250),
-(2, 8, '2023-04-21', '2023-04-29', 300),
-(1, 9, '2023-04-21', '2023-04-30', 350),
-(2, 10, '2023-04-21', '2023-04-30', 400),
-(3, 1, '2022-04-3', '2022-04-22', 50);
+(1, 1, '2023-05-3', '2023-05-22', 50),
+(2, 2, '2023-05-1', '2023-05-3', 80),
+(1, 3, '2023-05-4', '2023-05-24', 100),
+(2, 4, '2023-05-1', '2023-05-4', 120),
+(1, 5, '2023-05-10', '2023-05-26', 150),
+(2, 6, '2023-05-1', '2023-05-10', 200),
+(1, 7, '2023-05-21', '2023-05-28', 250),
+(2, 8, '2023-05-21', '2023-05-29', 300),
+(1, 9, '2023-05-21', '2023-05-30', 350),
+(2, 10, '2023-05-21', '2023-05-30', 400),
+(3, 1, '2022-05-3', '2022-05-22', 50);
 
 
 

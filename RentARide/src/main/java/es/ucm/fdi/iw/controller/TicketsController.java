@@ -37,7 +37,7 @@ public class TicketsController {
     private EntityManager entityManager;
 
     @GetMapping("/")
-    public String inChats(Model model, HttpSession session) {
+    public String userTickets(Model model, HttpSession session) {
         User user = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
         List<Ticket> pendingMsgs = user.getTickets();
@@ -107,6 +107,16 @@ public class TicketsController {
         }
 
         return "redirect:/booking/history";
+    }
+
+    @GetMapping("/list")
+    public String findAllTickets(Model model) {
+
+        List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
+
+        model.addAttribute("tickets", tickets);
+
+        return "ticketsManager";
     }
 
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <th:block th:include="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Listado incidencias</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container min-vh-60 mb-3">
+
+        <div class="row">
+            <h2 class="pageTitle text-center mt-3"> Incidencias</h2>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(tickets)}" class="row">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Vehículo</th>
+                        <th scope="col">Gravedad</th>
+                        <th scope="col">Descripción</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="t, iterator : ${tickets}">
+                        <td th:text="${t.idUser}" ></td>
+                        <td th:text="${#temporals.format(t.ocurranceDate, 'dd/MM/yyyy hh:mm')}"></td>
+                        <td th:text="${t.idVehicle}"></td>
+                        <td th:text="${t.Gravity}" th:class="${#strings.toLowerCase(t.Gravity.toString()) == 'baja' ? 'text-success' : #strings.toLowerCase(t.Gravity.toString()) == 'media' ? 'text-warning' : 'text-danger'}"></td>
+                        <td th:text="${t.text}"></td>
+                        <td class="form-group text-center">
+                            <div class="form-group text-center">
+                                <button class="border-0 bg-transparent" th:attr="onclick='openChatHistory(' + ${t.idUser} + ')'">
+                                    <i class="fa-solid fa-message"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:unless="${!#lists.isEmpty(tickets)}">
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="fs-4 text-center greyed">No existen incidencias</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container p-3">                
+                        <div class="row agentChatHeader">
+                            <div class="col">
+                                <h3>Atendiendo a: <span id="username"></span></h3>
+                            </div>
+                        </div>
+
+                        <div class="agentChatBody overflow-auto">
+
+                        </div>
+
+                        <div class="row align-items-center agentChatForm">
+                            <div class="col-10 align-self-center">
+                                <div class="input-group">
+                                    <input type="text" class="form-control border-0" name="message" id="message" placeholder="Escribe tu mensaje">
+                                    <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
+                                        <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
+                                        <input type="file" class="d-none form-control" name="attachment" id="attachment">
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-2 align-self-center">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/chat.js}"> </script>
+
+</body>
+
+</html>
