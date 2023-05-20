@@ -32,8 +32,12 @@
                                 <a class="nav-link" th:href="@{/booking/history}">Mis reservas</a>
                             </li>
 
-                            <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN')}">
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and !session.u.hasRole('GESTOR')}">
                                 <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>
+                            </li>
+
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('GESTOR')}">
+                                <a class="nav-link" th:href="@{/incidencias/listar/}">Ver incidencias</a>
                             </li>
 
                             <th:block th:if="${session.u.hasRole('GESTOR') or session.u.hasRole('ADMIN')}">

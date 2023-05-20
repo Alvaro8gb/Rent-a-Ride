@@ -109,7 +109,7 @@ public class TicketsController {
         return "redirect:/booking/history";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listar")
     public String findAllTickets(Model model) {
 
         List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
