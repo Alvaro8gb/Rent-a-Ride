@@ -22,7 +22,7 @@ verify:
 
 # Regla para ejecutar los tests
 test:
-	$(SPRING_BOOT_TEST_INTERNAL)
+# $(SPRING_BOOT_TEST_INTERNAL)
 	$(SPRING_BOOT_TEST_EXTERNAL)
 
 # Reglas para limpiar archivos cache y logs

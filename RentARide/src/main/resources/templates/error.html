@@ -14,7 +14,7 @@
     <div class="container">
         <div class="main">
 
-            <h4>Error <span th:text="${status}"></span></h4>
+            <h4>Error <span id = "status" th:text="${status}"></span></h4>
 
             <div th:unless="${application.debug}">
                 <img th:src="|https://http.cat/${status}|" alt="gato ilustrando problema" />

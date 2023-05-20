@@ -16,7 +16,7 @@ Feature: login en servidor
     And input('#username', 'dummy')
     And input('#password', 'world')
     When submit().click(".form-signin button")
-    Then match html('.error') contains 'Error en nombre de usuario o contraseña'
+    Then match html('.error') contains 'Error en usuario o contraseña'
 
   @login_b
   Scenario: login correcto como b
@@ -32,7 +32,7 @@ Feature: login en servidor
     And input('#username', 'a')
     And input('#password', 'aa')
     When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/admin')
+    Then waitForUrl(baseUrl + '/vehicle/carsManagement/')
 
   @login_c
   Scenario: login correcto como user
@@ -47,6 +47,6 @@ Feature: login en servidor
     And input('#username', 'a')
     And input('#password', 'aa')
     When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/admin')
-    When submit().click("{button}logout")
+    Then waitForUrl(baseUrl + '/vehicle/carsManagement/')
+    When submit().click("#logout")
     Then waitForUrl(baseUrl + '/login')

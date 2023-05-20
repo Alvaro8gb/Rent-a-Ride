@@ -10,7 +10,6 @@ Scenario: Busqueda de un audi sin identificarse
     Then waitForUrl(baseUrl + '/vehicle/search')
     Then driver.screenshot()
 
-
 Scenario: Buscar coche por id estando logeado y reservarlo
     * call read('login.feature@login_c')
     * driver baseUrl + '/vehicle/4'

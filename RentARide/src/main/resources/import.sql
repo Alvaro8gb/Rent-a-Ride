@@ -13,8 +13,6 @@ INSERT INTO IWUser (id, enabled, roles, username, password, first_Name, last_Nam
 VALUES (3, TRUE, 'USER', 'c',
     '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'Cliente', 'Cliente', 'pepeM@gmail.com', '23400978T');
 
-/* El id 3 queda reservado para los mensajes sin receptor*/
-
 /*
 INSERT INTO Message (id, date_sent, date_read, unattended, text, recipient_id, sender_id)
 VALUES

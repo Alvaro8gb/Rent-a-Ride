@@ -189,7 +189,6 @@ public class MessageController {
 				.setParameter("idSender", idSender)
 				.getResultList();
 
-
 		ObjectMapper objectMapper = new ObjectMapper();
 		String msgsJson = objectMapper.writeValueAsString(msgs.stream().map(Message::toTransfer).collect(Collectors.toList()));		
 
