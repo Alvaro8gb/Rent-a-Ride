@@ -10,7 +10,7 @@ Los usuarios de la aplicación podrán reservar coches de manera fácil y rápid
 
 
 
-## Estado de las funcionalidades
+## Funcionalidades
 
 - Vehículos
   - Creación de nuevos vehículos
