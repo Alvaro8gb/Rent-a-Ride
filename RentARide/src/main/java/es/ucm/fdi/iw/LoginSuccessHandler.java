@@ -84,7 +84,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		// redirects to 'admin' or 'index', depending on the user
 		String nextUrl = u.hasRole(User.Role.ADMIN) ? 
-			"carsManagement/" :
+			"/vehicle/managment" :
 			"/";	
 
 		log.info("LOG IN: {} (id {}) -- session is {}, websocket is {} -- redirected to {}",

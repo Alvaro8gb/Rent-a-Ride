@@ -44,3 +44,12 @@ Para debugear se lleva la INFO al fichero app.log
 
 - [edit](https://guacamole.containers.fdi.ucm.es/)
 - [view](https://vm34.containers.fdi.ucm.es/)
+
+## Roles
+
+- Admin: todo, editar usuarios en especial
+- Gestor: 
+    usuario + calendario + gestion flota + gestion incidencias - gestion usurios 
+- Usuario: flujo principal
+
+

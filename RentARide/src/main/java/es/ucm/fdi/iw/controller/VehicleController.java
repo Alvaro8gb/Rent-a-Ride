@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.util.Arrays;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -121,6 +124,12 @@ public class VehicleController {
         jsonString += "]}";
         return jsonString;
     }
+
+    @GetMapping("/create")
+    public String createVehicle(Model model) {
+        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
+        return "createVehicle";
+    }
     
     @PostMapping("/create")
     @Transactional
@@ -203,6 +212,9 @@ public class VehicleController {
         return "redirect:/carsManagement";
     }
 
+    // Funciones de apoyo 
+
+
     private void changeVehicleInfo(Vehicle v, String marca, String modelo, int anio, String combustible,
      float consumo, String cambio, int puertas, int plazas, int cv, String matricula,
       int autonomia, MultipartFile img, Location recogida, float precio){
@@ -234,4 +246,18 @@ public class VehicleController {
         if(recogida != null)
             v.setLocation(recogida);
     }
+
+    @GetMapping("/managment")
+    public String carsManagment(Model model,
+                                @RequestParam(required = false) boolean available){
+        
+        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
+        List<Location> ls = entityManager.createNamedQuery("Location.findAll", Location.class).getResultList();
+        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
+        model.addAttribute("transmission", Arrays.asList(Vehicle.Transmission.values()));
+        model.addAttribute("vehicles", vs);
+        model.addAttribute("locations", ls);
+        return "carsManagement";
+    }
+
 }

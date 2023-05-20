@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.ucm.fdi.iw.model.Ticket;
@@ -28,7 +27,7 @@ import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
 @Controller
-@RequestMapping("incidencias")
+@RequestMapping("tickets")
 public class TicketsController {
 
     private static final Logger log = LogManager.getLogger(MessageController.class);
@@ -37,7 +36,7 @@ public class TicketsController {
     private EntityManager entityManager;
 
     @GetMapping("/")
-    public String showTickets(Model model, HttpSession session) {
+    public String show(Model model, HttpSession session) {
         User user = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
         List<Ticket> tickets = user.getTickets();
@@ -52,10 +51,18 @@ public class TicketsController {
     public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session) {
 
         try {
-
+            User requester = (User) session.getAttribute("u");
+            User user = entityManager.find(User.class, requester.getId());
             Ticket target = entityManager.find(Ticket.class, id);
-            entityManager.remove(target);
-            entityManager.flush();
+
+            if (target.getIdUser() == user.getId()){
+                entityManager.remove(target);
+                entityManager.flush();
+            }
+            else{
+                redirAttrs.addFlashAttribute("errorMessage", "No tienes permiso");    
+            }
+            
             redirAttrs.addFlashAttribute("successMessage", "El ticket se ha eliminado con éxito");
         } catch (Exception e) {
             redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema eliminando el ticket");
@@ -70,7 +77,7 @@ public class TicketsController {
     public ResponseEntity<String> exportCSV() {
         List<Ticket> ts = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
 
-        String csvData = Ticket.serializeToCSV(ts);
+        String csvData = Ticket.serialize2csv(ts);
 
         // Devuelve una respuesta con el contenido CSV en el cuerpo
         return ResponseEntity.ok()
@@ -109,4 +116,17 @@ public class TicketsController {
         return "redirect:/booking/history";
     }
 
+
+    @GetMapping("/reports")
+    public String showTickets(Model model) {
+
+        List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
+
+        model.addAttribute("tickets", tickets);
+
+        return "ticketsManager";
+    }
+
+
+ 
 }

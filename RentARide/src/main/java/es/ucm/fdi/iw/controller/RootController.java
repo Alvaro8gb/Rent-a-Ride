@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.ucm.fdi.iw.model.Location;
 import es.ucm.fdi.iw.model.Vehicle;
 
 
@@ -37,14 +36,7 @@ public class RootController {
     public String login(Model model) {
         return "login";
     }
-    
-    @GetMapping("/createVehicle")
-    public String createVehicle(Model model) {
-
-        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
-        return "createVehicle";
-    }
-  
+      
 	@GetMapping("/")
     public String index(Model model) {
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
@@ -56,26 +48,5 @@ public class RootController {
         model.addAttribute("idReceiver", 0);
         return "index";
     }
-
-    @GetMapping("/carsManagement")
-    public String carsManagment(Model model,
-                                @RequestParam(required = false) boolean available){
-        
-        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
-        List<Location> ls = entityManager.createNamedQuery("Location.findAll", Location.class).getResultList();
-        model.addAttribute("fuels", Arrays.asList(Vehicle.Fuel.values()));
-        model.addAttribute("transmission", Arrays.asList(Vehicle.Transmission.values()));
-        model.addAttribute("vehicles", vs);
-        model.addAttribute("locations", ls);
-        return "carsManagement";
-    }
-
-    
-
-    @GetMapping("/carDetails")
-    public String carDetails(Model model) {
-        return "carDetails";
-    }
-
 
 }

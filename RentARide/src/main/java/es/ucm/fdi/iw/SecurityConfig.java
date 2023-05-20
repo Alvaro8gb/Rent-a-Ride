@@ -63,11 +63,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Custom endpoints
 				.antMatchers("/user/signup").permitAll()
 				.antMatchers("/").permitAll()
-				.antMatchers("/vehicle/**").permitAll()
-				.antMatchers("/admin/**").hasRole("ADMIN")	   // <-- administration
-	            .antMatchers("/user/**").hasRole("USER")	   // <-- logged-in users
-				.antMatchers("/manager/**").hasRole("GESTOR")
-	            .anyRequest().authenticated()
+				.antMatchers("/vehicle/create").hasAnyRole("GESTOR", "ADMIN")
+				.antMatchers("/vehicle/*/modify").hasAnyRole("GESTOR", "ADMIN")
+				.antMatchers("/booking/calendar").hasAnyRole("GESTOR", "ADMIN")
+				.antMatchers("/vehicle/managment").hasAnyRole("GESTOR", "ADMIN")
+				.antMatchers("/user/list").hasRole("ADMIN")
+				.antMatchers("/user/*/delete").hasRole("ADMIN")
+				.antMatchers("/tickets/export").hasRole("ADMIN")
+
+				
+
+				.anyRequest().authenticated()
 	            .and()
 			.formLogin()
 				.loginPage("/login")

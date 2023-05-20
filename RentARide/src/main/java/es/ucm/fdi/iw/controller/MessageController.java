@@ -2,9 +2,6 @@ package es.ucm.fdi.iw.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.time.LocalDateTime;
 
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -26,10 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.ucm.fdi.iw.model.Message;
-import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

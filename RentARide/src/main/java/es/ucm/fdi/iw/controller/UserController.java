@@ -35,6 +35,7 @@ import java.io.*;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.Base64;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,10 +65,10 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private final String mensajeErrorImagen = "La imagen proporcionada no es válida";
-	private final String mensajeErrorDNI = "El DNI proporcionado no es válido";
-	private final String mensajeErrorEmail = "El correo proporcionado no es válido";
-	private final String mensajeErrorPassword = "Las contraseñas no coinciden o debe tener 8-16 caracteres una \nmayuscula, una minuscula, un número y un caracter especial";
+	private static final String mensajeErrorImagen = "La imagen proporcionada no es válida";
+	private static final String mensajeErrorDNI = "El DNI proporcionado no es válido";
+	private static final String mensajeErrorEmail = "El correo proporcionado no es válido";
+	private static final String mensajeErrorPassword = "Las contraseñas no coinciden o debe tener 8-16 caracteres una \nmayuscula, una minuscula, un número y un caracter especial";
 
 
 
@@ -274,39 +275,6 @@ public class UserController {
 		return "redirect:/userList";
 	}
 
-	private void changeUserInfo(User target, User requester, HttpSession session, String dni, String correo,
-			String nombre, String apellido, String cuenta, String roles, MultipartFile imagen) {
-		if (imagen != null && !imagen.isEmpty()) {
-			try {
-				File f = localData.getFile("user", target.getId() + ".jpg");
-				imagen.transferTo(new File(f.getAbsolutePath()));
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-		if (cuenta != null && !cuenta.isEmpty()) {
-			target.setUsername(cuenta);
-		}
-		if (dni != null && !dni.isEmpty()) {
-			target.setDNI(dni);
-		}
-		if (correo != null && !correo.isEmpty()) {
-			target.setEmail(correo);
-		}
-		if (apellido != null && !apellido.isEmpty()) {
-			target.setLastName(apellido);
-		}
-		if (nombre != null && !nombre.isEmpty()) {
-			target.setFirstName(nombre);
-		}
-		if (roles != null && !roles.isEmpty()) {
-			target.setRoles(roles);
-		}
-		if (requester.getId() == target.getId()) {
-			session.setAttribute("u", target);
-		}
-	}
-
 	@PostMapping("/{id}/modify")
 	@Transactional
 	public String specificUserMod(RedirectAttributes redirAttrs,
@@ -360,7 +328,9 @@ public class UserController {
 			@RequestParam String nombre,
 			@RequestParam MultipartFile imagen,
 			HttpSession session) {
+
 		String err = checkData(dni, correo, imagen);
+		
 		if (err == null) {
 			User requester = (User) session.getAttribute("u");
 			User target = entityManager.find(User.class, requester.getId());
@@ -426,6 +396,15 @@ public class UserController {
 		return "redirect:/user/signup";
 	}
 
+	@GetMapping("/list")
+    public String userList(Model model) {
+        List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
+        model.addAttribute("users", users);
+        return "userList";
+    }
+
+	// Funciones de apoyo
+
 	private String checkData(String dni, String correo, MultipartFile imagen) {
 		Pattern patternDNI = Pattern.compile("^\\d{8}[a-zA-Z]$");
 		Matcher matcherDNI = patternDNI.matcher(dni);
@@ -455,6 +434,39 @@ public class UserController {
 			}
 		} else {
 			return mensajeErrorDNI;
+		}
+	}
+
+	private void changeUserInfo(User target, User requester, HttpSession session, String dni, String correo,
+			String nombre, String apellido, String cuenta, String roles, MultipartFile imagen) {
+		if (imagen != null && !imagen.isEmpty()) {
+			try {
+				File f = localData.getFile("user", target.getId() + ".jpg");
+				imagen.transferTo(new File(f.getAbsolutePath()));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		if (cuenta != null && !cuenta.isEmpty()) {
+			target.setUsername(cuenta);
+		}
+		if (dni != null && !dni.isEmpty()) {
+			target.setDNI(dni);
+		}
+		if (correo != null && !correo.isEmpty()) {
+			target.setEmail(correo);
+		}
+		if (apellido != null && !apellido.isEmpty()) {
+			target.setLastName(apellido);
+		}
+		if (nombre != null && !nombre.isEmpty()) {
+			target.setFirstName(nombre);
+		}
+		if (roles != null && !roles.isEmpty()) {
+			target.setRoles(roles);
+		}
+		if (requester.getId() == target.getId()) {
+			session.setAttribute("u", target);
 		}
 	}
 
