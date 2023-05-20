@@ -65,14 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/").permitAll()
 				.antMatchers("/vehicle/create").hasAnyRole("GESTOR", "ADMIN")
 				.antMatchers("/vehicle/*/modify").hasAnyRole("GESTOR", "ADMIN")
+				.antMatchers("/vehicle/*/pic").permitAll()
 				.antMatchers("/booking/calendar").hasAnyRole("GESTOR", "ADMIN")
 				.antMatchers("/vehicle/managment").hasAnyRole("GESTOR", "ADMIN")
 				.antMatchers("/user/list").hasRole("ADMIN")
 				.antMatchers("/user/*/delete").hasRole("ADMIN")
 				.antMatchers("/tickets/export").hasRole("ADMIN")
 
-				
-
+				// Authenticate the rest of requests
 				.anyRequest().authenticated()
 	            .and()
 			.formLogin()
