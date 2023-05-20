@@ -55,6 +55,9 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     @OneToMany(mappedBy = "vehicle")
     private List<Booking> bookings;
 
+    @OneToMany(mappedBy = "vehicle")
+    private List<Ticket> incidencias;
+
     @Column(nullable=false)
     private String brand;
 

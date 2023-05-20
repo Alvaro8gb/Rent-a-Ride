@@ -25,24 +25,16 @@
                         <th scope="col">Vehículo</th>
                         <th scope="col">Gravedad</th>
                         <th scope="col">Descripción</th>
-                        <th class="text-center" scope="col">Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr th:each="t, iterator : ${tickets}">
-                        <td th:text="${t.idUser}" ></td>
+                        <td th:text="${t.user.firstName + ' ' + t.user.lastName}" ></td>
                         <td th:text="${#temporals.format(t.ocurranceDate, 'dd/MM/yyyy hh:mm')}"></td>
-                        <td th:text="${t.idVehicle}"></td>
+                        <td th:text="${t.vehicle.brand + ' ' + t.vehicle.modelName + ' - ' + t.vehicle.license}"></td>
                         <td th:text="${t.Gravity}" th:class="${#strings.toLowerCase(t.Gravity.toString()) == 'baja' ? 'text-success' : #strings.toLowerCase(t.Gravity.toString()) == 'media' ? 'text-warning' : 'text-danger'}"></td>
                         <td th:text="${t.text}"></td>
-                        <td class="form-group text-center">
-                            <div class="form-group text-center">
-                                <button class="border-0 bg-transparent" th:attr="onclick='openChatHistory(' + ${t.idUser} + ')'">
-                                    <i class="fa-solid fa-message"></i>
-                                </button>
-                            </div>
-                        </td>
 
                     </tr>
                 </tbody>
@@ -57,45 +49,6 @@
             </div>
         </div>
 
-    </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="container p-3">                
-                        <div class="row agentChatHeader">
-                            <div class="col">
-                                <h3>Atendiendo a: <span id="username"></span></h3>
-                            </div>
-                        </div>
-
-                        <div class="agentChatBody overflow-auto">
-
-                        </div>
-
-                        <div class="row align-items-center agentChatForm">
-                            <div class="col-10 align-self-center">
-                                <div class="input-group">
-                                    <input type="text" class="form-control border-0" name="message" id="message" placeholder="Escribe tu mensaje">
-                                    <span class="input-group-append px-2 d-flex align-items-center attachmentGroup">
-                                        <label role="button" for="attachment"><i class="fa-solid fa-paperclip"></i></label>
-                                        <input type="file" class="d-none form-control" name="attachment" id="attachment">
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-2 align-self-center">
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <th:block th:replace="fragments/footer.html :: footer" />

@@ -37,6 +37,7 @@ public class TicketsController {
     private EntityManager entityManager;
 
     @GetMapping("/")
+    @Transactional 
     public String userTickets(Model model, HttpSession session) {
         User user = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
@@ -52,7 +53,6 @@ public class TicketsController {
     public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session) {
 
         try {
-
             Ticket target = entityManager.find(Ticket.class, id);
             entityManager.remove(target);
             entityManager.flush();
@@ -93,8 +93,8 @@ public class TicketsController {
             Ticket ticket = new Ticket();
 
             ticket.setGravity(Ticket.Gravity.valueOf(gravity));
-            ticket.setIdVehicle(vehicle.getId());
-            ticket.setIdUser(requester.getId());
+            ticket.setVehicle(vehicle);
+            ticket.setUser(requester);
             ticket.setOcurranceDate(LocalDate.now());
             ticket.setText(text);
 
@@ -110,6 +110,7 @@ public class TicketsController {
     }
 
     @GetMapping("/listar")
+    @Transactional 
     public String findAllTickets(Model model) {
 
         List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();

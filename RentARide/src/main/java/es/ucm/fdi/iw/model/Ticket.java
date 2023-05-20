@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -18,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import com.opencsv.CSVWriter;
-
 
 @Data
 @Entity
@@ -29,10 +29,12 @@ import com.opencsv.CSVWriter;
             })
 @NamedQuery(name="Ticket.findAll",
             query="SELECT t FROM Ticket t ")
+
 @AllArgsConstructor
 public class Ticket {
     
     public Ticket() {
+
     }
 
     @Id
@@ -40,11 +42,11 @@ public class Ticket {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
 	private long id;
 
-    @Column (nullable= false)
-    private long idUser;
+    @ManyToOne
+    private User user;
     
-    @Column (nullable = false)
-    private long idVehicle;
+    @ManyToOne
+    private Vehicle vehicle;
 
     @Column (nullable = false)
     private LocalDate ocurranceDate;
@@ -61,7 +63,6 @@ public class Ticket {
     @Column (nullable = false)
     private Gravity gravity;
 
-
     public static String serializeToCSV(List<Ticket> tickets){
         StringWriter stringWriter = new StringWriter();
         CSVWriter csvWriter = new CSVWriter(stringWriter);
@@ -72,8 +73,8 @@ public class Ticket {
         for (Ticket ticket : tickets) {
             String[] data = {
                 String.valueOf(ticket.getId()),
-                String.valueOf(ticket.getIdUser()),
-                String.valueOf(ticket.getIdVehicle()),
+                String.valueOf(ticket.getUser().getId()),
+                String.valueOf(ticket.getVehicle().getId()),
                 ticket.getOcurranceDate().toString(),
                 ticket.getText(),
                 ticket.getGravity().toString()

@@ -31,7 +31,7 @@
                 <tbody>
                     <tr th:each="t, iterator : ${tickets}">
                         <td th:text="${#temporals.format(t.ocurranceDate, 'dd/MM/yyyy hh:mm')}"></td>
-                        <td th:text="${t.idVehicle}"></td>
+                        <td th:text="${t.vehicle.brand + ' ' + t.vehicle.modelName + ' - ' + t.vehicle.license}"></td>
                         <td th:text="${t.Gravity}" th:class="${#strings.toLowerCase(t.Gravity.toString()) == 'baja' ? 'text-success' : #strings.toLowerCase(t.Gravity.toString()) == 'media' ? 'text-warning' : 'text-danger'}"></td>
                         <!-- <td th:text="${t.Gravity}"></td> -->
                         <td th:text="${t.text}"></td>
