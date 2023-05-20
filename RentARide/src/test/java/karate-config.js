@@ -10,9 +10,11 @@ function fn() {
      * Variables here are available in all tests
      */
     var config = {
+        appId: 'my.app.id',
+        appSecret: 'my.secret',
         env: env,
         myVarName: 'someValue',
-        baseUrl: 'http://localhost:8080'
+        baseUrl: 'http://localhost:8080',
     }
 
     /**
@@ -22,7 +24,7 @@ function fn() {
         type: 'chrome',
         // descomentar para chromium bajo linux
         //executable: '/usr/bin/chromium-browser',
-        executable: "/usr/bin/google-chrome-stable",
+        executable: "/usr/bin/google-chrome",
         addOptions: ["--remote-allow-origins=*"],
         //executable: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         //executable: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
