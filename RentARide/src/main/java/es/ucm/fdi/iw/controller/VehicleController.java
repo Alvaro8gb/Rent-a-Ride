@@ -34,7 +34,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.ucm.fdi.iw.LocalData;
+import es.ucm.fdi.iw.model.Booking;
 import es.ucm.fdi.iw.model.Location;
+import es.ucm.fdi.iw.model.Ticket;
 import es.ucm.fdi.iw.model.Vehicle;
 import es.ucm.fdi.iw.model.Vehicle.Fuel;
 import es.ucm.fdi.iw.model.Vehicle.Transmission;
@@ -254,5 +256,30 @@ public class VehicleController {
         model.addAttribute("locations", ls);
         
         return "carsManagement";
+    }
+
+    @PostMapping("{id}/delete")
+    @Transactional
+    public String search(@PathVariable long id, RedirectAttributes redir) {
+        try{
+            Vehicle v = entityManager.find(Vehicle.class, id);
+            List<Booking> bs = entityManager.createNamedQuery("Booking.byCar", Booking.class).setParameter("vehicleID", id).getResultList();
+            List<Ticket> ts = entityManager.createNamedQuery("Ticket.getTicketsByCar", Ticket.class).setParameter("vehicleID", id).getResultList();
+            for(Booking b : bs){
+                entityManager.remove(b);
+            }
+            for(Ticket t : ts){
+                entityManager.remove(t);
+            }
+            entityManager.remove(v);
+            entityManager.flush();
+            redir.addFlashAttribute("successMessage", "Vehículo eliminado con éxito");
+        }
+        catch(Exception e){
+            System.out.println("tortilla");
+            System.out.println(e.getMessage());
+            redir.addFlashAttribute("errorMessage", "El vehiculo no se ha podido eliminar");
+        }
+        return "redirect:/vehicle/carsManagement";
     }
 }

@@ -25,11 +25,4 @@ function viewBooking(idVehicle) {
         .then(response => processBooking(response) )
         .catch(e => console.log(e));
     
-}
-
-
-
-
-
-
-    
+}    

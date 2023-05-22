@@ -25,10 +25,13 @@ import com.opencsv.CSVWriter;
 @NamedQueries({
     @NamedQuery(name="Ticket.deleteTicket",
             query="DELETE FROM Ticket t "
-                    + "WHERE t.id = :id")
+                    + "WHERE t.id = :id"),
+
+    @NamedQuery(name="Ticket.getTicketsByCar",
+    query="SELECT t FROM Ticket t WHERE (t.vehicle.id = :vehicleID) ")        
             })
 @NamedQuery(name="Ticket.findAll",
-            query="SELECT t FROM Ticket t ")
+            query="SELECT t FROM Ticket t")
 
 @AllArgsConstructor
 public class Ticket {

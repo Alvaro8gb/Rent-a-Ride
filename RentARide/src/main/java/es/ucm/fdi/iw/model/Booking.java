@@ -24,7 +24,8 @@ import lombok.AllArgsConstructor;
         @NamedQuery(name="Booking.bydate", 
                 query="SELECT b FROM Booking b "
                         + "WHERE (b.id.in_date = :in_date) or (b.id.out_date = :out_date)"),
-        @NamedQuery(name="Booking.byUser", query="SELECT b FROM Booking b WHERE (b.id.userID = :userID)")
+        @NamedQuery(name="Booking.byUser", query="SELECT b FROM Booking b WHERE (b.id.userID = :userID)"),
+        @NamedQuery(name="Booking.byCar", query="SELECT b FROM Booking b WHERE (b.id.vehicleID = :vehicleID)")
 })
 @AllArgsConstructor
 
