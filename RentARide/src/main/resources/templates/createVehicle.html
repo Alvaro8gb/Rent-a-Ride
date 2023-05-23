@@ -11,7 +11,7 @@
     <div class="container my-3" style="width: 60%;">
         <h2 class="pageTitle text-center mt-4">Crear nuevo vehículo</h2>
 
-        <form class="createVehicleForm" th:action="@{/vehicle/create}" method="post">
+        <form class="createVehicleForm" th:action="@{/vehicle/create}" method="post" th:onsubmit="|notify()|">
             <div class="row d-flex text-align-center mt-3">
                 <div class="col">
                     <label for="marca">Marca</label>
@@ -139,6 +139,31 @@
     </div>
 
     <th:block th:replace="fragments/footer.html :: footer" />
+
+    <script>
+        $(document).ready(function() {
+            const input = $('#message');
+            const button = document.querySelector('#chatSend');
+        
+            input.on('keyup', function(event) {
+            if (event.key === 'Enter') {
+                console.log("Enviado mediante Enter");
+                button.click();
+            }
+            });
+        });
+
+        function notify(){
+            let params;
+            params = { notification: "newVehicle" };
+        // Spring Security lo añade en formularios html, pero no en Ajax
+            params[config.csrf.name] = config.csrf.value;
+
+            return go(config.rootUrl + "/messages/notify", 'POST', params)
+                    .then(response => console.log(response))
+                    .catch(e => console.log(e));
+        }
+    </script>
 </body>
 
 </html>

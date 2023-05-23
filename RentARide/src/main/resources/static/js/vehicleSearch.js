@@ -36,7 +36,7 @@ function aplicarFiltros(){
     const plazas = $("#numeroPlazas").val();
     const cambio = $("#cambio").val();
     const precio = $("#rangoPrecio");
-
+    
     $(".tarjetaVehiculo").each(function(){
         const ls = $(this).attr("reservas")
         if(filtro.test($(this).attr("nombre").toLowerCase()) && 
@@ -50,4 +50,8 @@ function aplicarFiltros(){
             $(this).hide();
         }
     });
+}
+
+ws.receive = (m) => {
+    console.log(m);
 }

@@ -79,7 +79,6 @@ public class BookingController {
             redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema realizando la reserva");
         }
 
-        
         return String.format("redirect:/vehicle/%d", idVehicle);
     }
 

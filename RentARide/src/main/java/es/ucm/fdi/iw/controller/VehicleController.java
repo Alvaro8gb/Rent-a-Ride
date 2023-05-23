@@ -246,7 +246,6 @@ public class VehicleController {
     @GetMapping("/carsManagement")
     public String carsManagment(Model model,
                                 @RequestParam(required = false) boolean available){
-        
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
         List<Location> ls = entityManager.createNamedQuery("Location.findAll", Location.class).getResultList();
        

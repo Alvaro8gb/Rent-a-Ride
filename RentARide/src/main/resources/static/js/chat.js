@@ -61,7 +61,12 @@ ws.receive = (m) => {
 
 function sendMsg(idReceptor) {
     let msg = $("#message").val();
-
+    const filtro = new RegExp("/*\<*\>*/");
+    if(filtro.test(msg)){
+        console.log("HIJO DE PUTA");
+        return;
+    }
+    
     if (msg == "")
         alert(`Escribe un mensaje`);
     else{

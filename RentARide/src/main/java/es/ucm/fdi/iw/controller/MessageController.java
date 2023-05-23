@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
 
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.User.Role;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -106,7 +108,7 @@ public class MessageController {
 		User sender = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 		
 		message.setDateSent(LocalDateTime.now());
-		message.setText(o.get("message").asText());
+		message.setText(HtmlUtils.htmlEscape(o.get("message").asText()));
 		message.setSender(sender);
 		
 		if (o.get("firstMessage").asBoolean(false)) {
@@ -246,5 +248,32 @@ public class MessageController {
 		}
 		
 		return "{\"result\": \"error\"}";
+	}
+
+	@PostMapping("/notify")
+	@ResponseBody
+	@Transactional
+	public String postMsg(@RequestBody JsonNode o, Model model, HttpSession session)
+							throws JsonProcessingException {
+
+		Message message = new Message();
+		User sender = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
+		
+		message.setDateSent(LocalDateTime.now());
+		message.setText(HtmlUtils.htmlEscape(o.get("notification").asText()));
+		message.setSender(sender);
+		
+		message.setUnattended(true);
+		List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
+		for(User u : users){
+			if(u.hasRole(Role.GESTOR)){
+				message.setRecipient(u);
+				entityManager.persist(message);
+				entityManager.flush();
+				sendMsg(message, u);
+			}
+		}
+
+		return "{\"result\": \"message sent.\"}";
 	}
 }
