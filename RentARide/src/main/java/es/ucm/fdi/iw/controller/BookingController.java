@@ -184,14 +184,14 @@ public class BookingController {
     
     @PostMapping("/editBooking")
     @Transactional
-    public String editBooking(Model model, RedirectAttributes redirAttrs,
+    public String editBooking(RedirectAttributes redirAttrs,
                             @RequestParam(required=false) String BookingUserID,
                             @RequestParam(required=false) String BookingVehicleID,
                             @RequestParam(required=false) String inDate,
                             @RequestParam(required=false) String outDate,
                             @RequestParam(required=false) String oldInDate,
                             @RequestParam(required=false) String oldOutDate,
-                            @RequestParam(required=false) Float price,
+                            @RequestParam(required=false) String price,
                             HttpSession session){
                                 
         User requester = (User)session.getAttribute("u");
@@ -203,9 +203,12 @@ public class BookingController {
             if (b == null){
                 LocalDate inDateTimeOld = LocalDate.parse(oldInDate, formatter);
                 LocalDate outDateTimeOld = LocalDate.parse(oldOutDate, formatter);
-                entityManager.createNamedQuery("Booking.editBooking", Booking.class).setParameter("inDate", inDateTime)
-                .setParameter("outDate", outDateTime).setParameter("price",price).setParameter("oldOutDate", outDateTimeOld)
-                .setParameter("oldInDate", inDateTimeOld).setParameter("vehicleID", Long.parseLong(BookingVehicleID)).setParameter("userID", Long.parseLong(BookingUserID));
+
+                BookingID targetUpdate = new BookingID(Long.parseLong(BookingVehicleID), Long.parseLong(BookingUserID), inDateTimeOld, outDateTimeOld);
+                Booking bUpdate = entityManager.find(Booking.class, targetUpdate);
+                bUpdate.setId(target);
+                bUpdate.setPrice(Float.parseFloat(price));
+                entityManager.persist(bUpdate);
                 entityManager.flush();
                 redirAttrs.addFlashAttribute("successMessage", "INCREIBLE HA FUNCIONADO");
             }else{
@@ -213,7 +216,7 @@ public class BookingController {
             }
         }
                                 
-        return "redirect:/listBookings";
+        return "redirect:/booking/list";
     }
 
 }
