@@ -35,6 +35,7 @@ import es.ucm.fdi.iw.model.BookingID;
 import es.ucm.fdi.iw.model.Ticket;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
+import es.ucm.fdi.iw.model.User.Role;
 
 
 /**
@@ -180,4 +181,39 @@ public class BookingController {
 
         return stringBuilder.toString();
     }
+    
+    @PostMapping("/editBooking")
+    @Transactional
+    public String editBooking(Model model, RedirectAttributes redirAttrs,
+                            @RequestParam(required=false) String BookingUserID,
+                            @RequestParam(required=false) String BookingVehicleID,
+                            @RequestParam(required=false) String inDate,
+                            @RequestParam(required=false) String outDate,
+                            @RequestParam(required=false) String oldInDate,
+                            @RequestParam(required=false) String oldOutDate,
+                            @RequestParam(required=false) Float price,
+                            HttpSession session){
+                                
+        User requester = (User)session.getAttribute("u");
+        if(requester.hasRole(Role.ADMIN) || requester.hasRole(Role.GESTOR)){
+            LocalDate inDateTime = LocalDate.parse(inDate, formatter);
+            LocalDate outDateTime = LocalDate.parse(outDate, formatter);
+            BookingID target = new BookingID(Long.parseLong(BookingVehicleID), Long.parseLong(BookingUserID), inDateTime, outDateTime);
+            Booking b = entityManager.find(Booking.class, target);
+            if (b == null){
+                LocalDate inDateTimeOld = LocalDate.parse(oldInDate, formatter);
+                LocalDate outDateTimeOld = LocalDate.parse(oldOutDate, formatter);
+                entityManager.createNamedQuery("Booking.editBooking", Booking.class).setParameter("inDate", inDateTime)
+                .setParameter("outDate", outDateTime).setParameter("price",price).setParameter("oldOutDate", outDateTimeOld)
+                .setParameter("oldInDate", inDateTimeOld).setParameter("vehicleID", Long.parseLong(BookingVehicleID)).setParameter("userID", Long.parseLong(BookingUserID));
+                entityManager.flush();
+                redirAttrs.addFlashAttribute("successMessage", "INCREIBLE HA FUNCIONADO");
+            }else{
+                redirAttrs.addFlashAttribute("errorMessage", "Fechas ocupadas");
+            }
+        }
+                                
+        return "redirect:/listBookings";
+    }
+
 }

@@ -54,43 +54,53 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="bookingDetails" tabindex="-1" aria-labelledby="bookingDetailsLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bookingDetailsLabel">Resumen de la reserva</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+    <form action="/booking/editBooking" method="post">
+        <div class="modal fade" id="bookingDetails" tabindex="-1" aria-labelledby="bookingDetailsLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bookingDetailsLabel">Resumen de la reserva</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-3 text-center"><span>Fecha inicio</span><br/><p class="inDate"></p></div>
-                            <div class="col-3 text-center"><span>Fecha fin</span><br/><p class="outDate"></p></div>
-                            <div class="col-3 text-center"><span>Precio total</span><br/><p class="price"></p></div>
-                        </div>
-                        <div class="row mt-4 p-3 justify-content-center">
-                            <div class="col-12 text-center mb-2"><h5>Usuario</h5></div>
-                            <div class="col-3 text-center"><span>Nombre</span><br/><p class="name"></p></div>
-                            <div class="col-3 text-center"><span>Apellidos</span><br/><p class="surname"></p></div>
-                            <div class="col-3 text-center"><span>DNI</span><br/><p class="dni"></p></div>
-                            <div class="col-3 text-center"><span>Correo</span><br/><p class="email"></p></div>
-                        </div>
-                        <div class="row mt-4 p-3 justify-content-center">
-                            <div class="col-12 text-center mb-2"><h5>Vehículo</h5></div>
-                            <div class="col-3 text-center"><span>Marca</span><br/><p class="brand"></p></div>
-                            <div class="col-3 text-center"><span>Modelo</span><br/><p class="model"></p></div>
-                            <div class="col-3 text-center"><span>Matrícula</span><br/><p class="licensePlate"></p></div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-3 text-center"><span>Fecha inicio</span><br/>
+                                    <input type="date" class="form-control" id="inDate" name="inDate"></div>
+                                <div class="col-3 text-center"><span>Fecha fin</span><br/>
+                                    <input type="date" class="form-control" id="outDate" name="outDate"></div>
+                                <div class="col-3 text-center"><span>Precio total</span><br/>
+                                    <input type="text" class="form-control" id="price" name="price"></div>
+                                    <input type="hidden" class="form-control" id="BookingUserID" name="BookingUserID" >
+                                    <input type="hidden" class="form-control" id="BookingVehicleID" name="BookingVehicleID" >
+                                    <input type="hidden" class="form-control" id="oldInDate" name="oldInDate" >
+                                    <input type="hidden" class="form-control" id="oldOutDate" name="oldOutDate" >
+                            </div>
+                            <div class="row mt-4 p-3 justify-content-center">
+                                <div class="col-12 text-center mb-2"><h5>Usuario</h5></div>
+                                <div class="col-3 text-center"><span>Nombre</span><br/><p class="name"></p></div>
+                                <div class="col-3 text-center"><span>Apellidos</span><br/><p class="surname"></p></div>
+                                <div class="col-3 text-center"><span>DNI</span><br/><p class="dni"></p></div>
+                                <div class="col-3 text-center"><span>Correo</span><br/><p class="email"></p></div>
+                            </div>
+                            <div class="row mt-4 p-3 justify-content-center">
+                                <div class="col-12 text-center mb-2"><h5>Vehículo</h5></div>
+                                <div class="col-3 text-center"><span>Marca</span><br/><p class="brand"></p></div>
+                                <div class="col-3 text-center"><span>Modelo</span><br/><p class="model"></p></div>
+                                <div class="col-3 text-center"><span>Matrícula</span><br/><p class="licensePlate"></p></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn" data-bs-dismiss="modal">Modificar</button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <th:block th:include="fragments/footer" />
 
@@ -129,9 +139,13 @@
                 data: params,
                 success: (response) => {
                     $('#bookingDetails').modal("show");
-                    $(".inDate").text(bookingDetails.inDate);
-                    $(".outDate").text(bookingDetails.outDate);
-                    $(".price").text(bookingDetails.price + " €");
+                    $("#inDate").attr("value", bookingDetails.inDate);
+                    $("#outDate").attr("value",bookingDetails.outDate);
+                    $("#price").attr("value",bookingDetails.price + " €");
+                    $("#BookingUserID").attr("value", bookingDetails.userID);
+                    $("#BookingVehicleID").attr("value", bookingDetails.vehicleID);
+                    $("#oldInDate").attr("value", bookingDetails.inDate);
+                    $("#oldOutDate").attr("value", bookingDetails.outDate);
                     $(".name").text(response.user.firstName);
                     $(".surname").text(response.user.lastName);
                     $(".dni").text(response.user.dni);
