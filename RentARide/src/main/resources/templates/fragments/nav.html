@@ -66,7 +66,7 @@
                         <th:block th:if="${session.u}">
                             <li class="d-flex align-items-center"><img class="iwthumb rounded" th:src="@{/user/{id}/pic(id=${session.u.id})}"></li>
                             <li class="nav-item dropdown ms-auto">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" th:text="${session.u.username}" data-bs-display="static" aria-expanded="false">
                                     Username
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">

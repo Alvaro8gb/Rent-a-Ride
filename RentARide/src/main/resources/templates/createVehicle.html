@@ -141,18 +141,6 @@
     <th:block th:replace="fragments/footer.html :: footer" />
 
     <script>
-        $(document).ready(function() {
-            const input = $('#message');
-            const button = document.querySelector('#chatSend');
-        
-            input.on('keyup', function(event) {
-            if (event.key === 'Enter') {
-                console.log("Enviado mediante Enter");
-                button.click();
-            }
-            });
-        });
-
         function notify(){
             let params;
             params = { notification: "newVehicle" };

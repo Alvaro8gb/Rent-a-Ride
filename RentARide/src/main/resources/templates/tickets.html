@@ -32,8 +32,11 @@
                     <tr th:each="t, iterator : ${tickets}">
                         <td th:text="${#temporals.format(t.ocurranceDate, 'dd/MM/yyyy hh:mm')}"></td>
                         <td th:text="${t.vehicle.brand + ' ' + t.vehicle.modelName + ' - ' + t.vehicle.license}"></td>
-                        <td th:text="${t.Gravity}" th:class="${#strings.toLowerCase(t.Gravity.toString()) == 'baja' ? 'text-success' : #strings.toLowerCase(t.Gravity.toString()) == 'media' ? 'text-warning' : 'text-danger'}"></td>
                         <!-- <td th:text="${t.Gravity}"></td> -->
+                        <td th:text="${t.Gravity}" th:if="${t.Gravity.toString() == 'Alta'}" th:class="text-danger"></td>
+                        <td th:text="${t.Gravity}" th:if="${t.Gravity.toString() == 'Media'}" th:class="text-warning"></td>
+                        <td th:text="${t.Gravity}" th:if="${t.Gravity.toString() == 'Baja'}" th:class="text-success"></td>
+
                         <td th:text="${t.text}"></td>
                         <td class="form-group text-center">
                             <div class="form-group text-center">
@@ -49,7 +52,7 @@
             </table>
         </div>
 
-        <div th:unless="${!#lists.isEmpty(tickets)}">
+        <div th:unless="${!tickets.isEmpty()}">
             <div class="row mt-3">
                 <div class="col">
                     <p class="fs-4 text-center greyed">No existen incidencias</p>

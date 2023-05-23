@@ -263,10 +263,10 @@ public class MessageController {
 		message.setText(HtmlUtils.htmlEscape(o.get("notification").asText()));
 		message.setSender(sender);
 		
-		message.setUnattended(true);
 		List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
 		for(User u : users){
 			if(u.hasRole(Role.GESTOR)){
+				message.setUnattended(true);
 				message.setRecipient(u);
 				entityManager.persist(message);
 				entityManager.flush();
