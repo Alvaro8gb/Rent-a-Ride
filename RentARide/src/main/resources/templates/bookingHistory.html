@@ -35,6 +35,9 @@
                         <a class="text-decoration-none d-block mt-2 bookingListReportButton" th:id="${'report-' +  booking.vehicle.id}" data-bs-toggle="modal" th:onclick="'showModal(' + ${booking.vehicle.id} + ')'" data-bs-target="#modalTicket">
                             Reportar incidencia
                         </a>
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton" id data-bs-toggle="modal"  th:data-bs-target="|#modalValoracion${booking.vehicle.id}|">
+                            Valorar coche
+                        </a>
                     </div>
                 </div>   
                 
@@ -42,7 +45,41 @@
                     <div class="col-8">
                         <hr />
                     </div>
-                </div>  
+                </div> 
+                <div class="modal fade" th:id="|modalValoracion${booking.vehicle.id}|" tabindex="-1" aria-labelledby="modalValoracionlabel" aria-hidden="true">	
+                    <div class="modal-dialog modal-lg">	
+                        <div class="modal-content">	
+                            <div class="modal-header">	
+                                <h1 class="modal-title fs-5" id="modalTicketLabel">Realizar valoracion</h1>	
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>	
+                            </div>	
+            
+                            <form id="modalSendValoracion" method="POST" th:action="|/valoracion/nuevaValoracion/${booking.vehicle.id}|">
+                                <div class="modal-body">	
+                                    <div class="form-group mb-3">	
+                                        <label for="rating">Rating</label>	
+                                        <select name="rating" id="rating" class="form-select mt-1">	
+                                            <option value="1" >1</option>
+                                            <option value="2" >2</option>	
+                                            <option value="3" >3</option>		
+                                            <option value="4" >4</option>	
+                                            <option value="5" >5</option>	
+                                        </select>	
+                                    </div>	
+            
+                                    <div class="form-group">	
+                                        <label for="text">Descripcion</label>	
+                                        <textarea type="text" class="form-control" id="texto" name="texto" rows="5" placeholder="Escriba aqui la valoracion"></textarea>	
+                                    </div>	
+                                </div>
+            
+                                <div class="modal-footer">
+                                    <button id="ok" class="btn mb-2">Enviar</button>	
+                                </div>
+                            </form>	
+                        </div>	
+                    </div>	
+                </div> 
             </div>
         </div>          
     </div>
@@ -79,6 +116,8 @@
             </div>	
         </div>	
     </div>
+
+    
 
     <th:block th:replace="fragments/footer.html :: footer" />
     <script th:src="@{/js/bookingHistory.js}"> </script>
