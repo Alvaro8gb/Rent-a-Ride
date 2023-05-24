@@ -281,4 +281,15 @@ public class VehicleController {
         }
         return "redirect:/vehicle/carsManagement";
     }
+
+    @GetMapping("/enOferta")
+    public String index(Model model) {
+        List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findOfertas", Vehicle.class).getResultList();
+        
+        model.addAttribute("ofertas", vs);
+        // Se envia mensaje a la cola 
+        model.addAttribute("idReceiver", 0);
+        
+        return "cochesEnOferta";
+    }
 }

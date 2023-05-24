@@ -33,6 +33,10 @@
                             </li>
 
                             <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and !session.u.hasRole('GESTOR')}">
+                                <a class="nav-link" th:href="|/vehicle/enOferta|">Coches en Oferta</a>
+                            </li>
+
+                            <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and !session.u.hasRole('GESTOR')}">
                                 <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>
                             </li>
 

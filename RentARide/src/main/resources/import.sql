@@ -33,17 +33,17 @@ VALUES
 (4, 'Valencia', 664098237),
 (5, 'Málaga', 644991205);
 
-INSERT INTO vehicle (CV, LICENSE, AUTONOMY, CONSUMPTION, DOORS, FUEL, MODEL_NAME, BRAND, OLD_YEAR, SEATS, TRANSMISSION, LOCATION, PRICE_BY_DAY) VALUES
-(100, '8673GVZ', 800, 8.6, 5, 'Gasolina', 'A3', 'Audi', 2020, 5, 'Automatico', 1, 100),
-(200, '8673GVZ', 750, 9.1, 5, 'Gasolina', 'A4', 'Audi',  2020, 5, 'Automatico', 2, 110),
-(300, '8673GVZ', 320, 19.0, 5, 'Electrico', 'iX3', 'BMW', 2022,  5, 'Automatico', 3, 120),
-(100, '8673GVZ', 280, 12.7, 3, 'Gasolina', 'Z4', 'BMW', 2010, 2, 'Automatico', 4, 130),
-(100, '8673GVZ', 780, 3.6, 5, 'Diesel', 'C4', 'Citroën', 2020, 5, 'Manual', 5, 140),
-(100, '8673GVZ', 640, 6.2, 5, 'Gasolina', 'Corsa', 'Opel', 2020, 5, 'Manual', 1, 150),
-(100, '8673GVZ', 305, 12.5, 3, 'Gasolina', 'RX-7', 'Mazda', 2020, 2, 'Manual', 2, 160),
-(100, '8673GVZ', 345, 7.6, 5, 'Gasolina', 'A-Class', 'Mercedes', 2020, 5, 'Automatico', 3, 170),
-(100, '8673GVZ',  800, 8.4, 3, 'Diesel', 'Sprinter', 'Mercedes', 2020,  7, 'Automatico', 4, 180),
-(100, '8673GVZ',  326, 22, 5, 'Electrico', 'Model Y', 'Tesla', 2021, 5, 'Automatico', 5, 190);
+INSERT INTO vehicle (CV, LICENSE, AUTONOMY, CONSUMPTION, DOORS, FUEL, MODEL_NAME, BRAND, OLD_YEAR, SEATS, TRANSMISSION, LOCATION, PRICE_BY_DAY, OFERTA) VALUES
+(100, '8673GVZ', 800, 8.6, 5, 'Gasolina', 'A3', 'Audi', 2020, 5, 'Automatico', 1, 100, 80),
+(200, '8673GVZ', 750, 9.1, 5, 'Gasolina', 'A4', 'Audi',  2020, 5, 'Automatico', 2, 110, NULL),
+(300, '8673GVZ', 320, 19.0, 5, 'Electrico', 'iX3', 'BMW', 2022,  5, 'Automatico', 3, 120, NULL),
+(100, '8673GVZ', 280, 12.7, 3, 'Gasolina', 'Z4', 'BMW', 2010, 2, 'Automatico', 4, 130, NULL),
+(100, '8673GVZ', 780, 3.6, 5, 'Diesel', 'C4', 'Citroën', 2020, 5, 'Manual', 5, 140, NULL),
+(100, '8673GVZ', 640, 6.2, 5, 'Gasolina', 'Corsa', 'Opel', 2020, 5, 'Manual', 1, 150, 120),
+(100, '8673GVZ', 305, 12.5, 3, 'Gasolina', 'RX-7', 'Mazda', 2020, 2, 'Manual', 2, 160, NULL),
+(100, '8673GVZ', 345, 7.6, 5, 'Gasolina', 'A-Class', 'Mercedes', 2020, 5, 'Automatico', 3, 170, 159),
+(100, '8673GVZ',  800, 8.4, 3, 'Diesel', 'Sprinter', 'Mercedes', 2020,  7, 'Automatico', 4, 180, NULL),
+(100, '8673GVZ',  326, 22, 5, 'Electrico', 'Model Y', 'Tesla', 2021, 5, 'Automatico', 5, 190, 150);
 
 INSERT INTO booking (USER_ID, VEHICLE_ID, IN_DATE, OUT_DATE, PRICE)
 VALUES

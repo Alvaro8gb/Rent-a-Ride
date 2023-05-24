@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Mis reservas</title>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container my-4">
+        <h2 class="pageTitle text-center mt-4 mb-4">Coches en oferta</h2>
+
+        <th:block th:replace="fragments/flash :: flash" />
+
+
+        <div class="row">
+            <div th:each="o : ${ofertas}" class="col-12 p-2">
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center align-self-center">
+                        <img class="img-fluid" th:src="|/vehicle/${o.id}/pic|" alt="Imagen coche">
+                    </div>
+
+                    <div class="col-4 align-self-center">
+                        <p class="m-0 p-0 bookingListCar" th:text="${o.brand + ' ' + o.modelName}"></p>
+                        <p class="m-0 p-0 bookingListLicense" th:text="${o.license}"></p>
+                    </div>
+
+                    <div class="col-3 text-end align-self-center">
+                        <p class="m-0 p-0 bookingListPrice" th:text="${o.oferta + '€'}"></p>
+                        <p class="m-0 p-0 bookingListPriceTag">Precio rebajado</p>
+                    </div>
+
+                    <div class="col-3 text-end align-self-center">
+                        <p class="m-0 p-0 bookingListPrice" th:text="${o.priceByDay + '€'}"></p>
+                        <p class="m-0 p-0 bookingListPriceTag">Precio sin rebajar</p>
+                    </div>
+                </div>   
+                
+                <div class="row justify-content-center m-3">
+                    <div class="col-8">
+                        <hr />
+                    </div>
+                </div>  
+            </div>
+        </div>          
+    </div>
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>

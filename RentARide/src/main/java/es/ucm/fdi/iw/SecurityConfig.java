@@ -65,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Vehicle Controller
 				.antMatchers("/vehicle/search", "/vehicle/{\\d+}/pic").permitAll()
 				.antMatchers("/vehicle/create").hasAnyRole("ADMIN", "GESTOR")
+				.antMatchers("/vehicle/enOferta").hasAnyRole("ADMIN", "GESTOR", "USER")
 				.antMatchers("/vehicle/{\\d+}/modify", "/vehicle/createVehicle", "/vehicle/carsManagement", "/vehicle/{\\d+}/delete").hasAnyRole("ADMIN", "GESTOR")
 				.antMatchers("/vehicle/{\\d+}").permitAll()
                 

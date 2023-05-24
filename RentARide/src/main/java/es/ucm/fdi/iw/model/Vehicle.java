@@ -3,6 +3,8 @@ package es.ucm.fdi.iw.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,7 +40,9 @@ import java.time.format.DateTimeFormatter;
     @NamedQuery(name="Vehicle.allLocation",
             query="SELECT l.name FROM Location l"),
     @NamedQuery(name="Vehicle.searchWithFilter",
-    query="SELECT v FROM Vehicle v WHERE UPPER(CONCAT(v.brand, ' ' ,v.modelName)) LIKE CONCAT('%', UPPER(:filtro), '%')")
+    query="SELECT v FROM Vehicle v WHERE UPPER(CONCAT(v.brand, ' ' ,v.modelName)) LIKE CONCAT('%', UPPER(:filtro), '%')"),
+    @NamedQuery(name="Vehicle.findOfertas",
+            query="SELECT v FROM Vehicle v WHERE v.oferta is not null")
 })
 
 public class Vehicle implements Transferable<Vehicle.Transfer>{
@@ -107,6 +111,9 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
     @Column(nullable = false)
     private float priceByDay;
 
+    @Column(nullable = true)
+    private Float oferta;
+
     public boolean isAvailable(){
         LocalDate current_date = LocalDate.now();
 
@@ -135,14 +142,14 @@ public class Vehicle implements Transferable<Vehicle.Transfer>{
         private String license;
         private int autonomy;
         private float priceByDay;
-
+        private Float oferta;
     }
     
     @Override
     public Transfer toTransfer() {
         return new Transfer(id, brand, modelName, oldYear, 
         fuel, consumption, transmission, doors, seats, 
-        cv, license, autonomy, priceByDay);
+        cv, license, autonomy, priceByDay, oferta);
     }
 
     @Override
