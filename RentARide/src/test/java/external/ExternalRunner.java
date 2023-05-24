@@ -33,6 +33,9 @@ class ExternalRunner {
         return Karate.run("security").relativeTo(getClass());
     }
 
-
+    @Karate.Test
+    Karate testModificarVehiculo() {
+        return Karate.run("modifyVehicle").relativeTo(getClass());
+    }
 }
 
