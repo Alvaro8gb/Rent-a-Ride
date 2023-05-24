@@ -59,7 +59,9 @@ VALUES
 (2, 10, '2023-05-21', '2023-05-30', 400),
 (3, 1, '2022-05-3', '2022-05-22', 50);
 
-
+INSERT INTO Valoracion (IN_DATE, RATING, TEXTO, VEHICLE_ID , USER_ID)
+VALUES
+('2023-05-3',5, 'Que esta pasando',1, 1);
 
 -- start id numbering from a value that is larger than any assigned above
 ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;

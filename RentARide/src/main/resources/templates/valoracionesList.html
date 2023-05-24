@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <th:block th:include="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Mis valoraciones</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container min-vh-60 mb-3">
+
+        <div class="row">
+            <h2 class="pageTitle text-center mt-3"> Valoraciones
+        </div>
+        
+        <div th:if="${!valoraciones.isEmpty()}" class="row">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Vehículo</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Descripcion</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="v: ${valoraciones}">
+                        <td th:text="${v.id.userID}">
+                            <p></p>
+                        </td>
+                        <td th:text="${v.id.vehicleID}"></td>
+                        <!-- <td th:text="${t.Gravity}"></td> -->
+                        <td th:text="${v.in_date}"></td>
+                        <td th:text="${v.rating}"></td>
+                        <td th:text="${v.texto}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:unless="${!valoraciones.isEmpty()}">
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="fs-4 text-center greyed">No existen valoraciones</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+
+</body>
+
+</html>
