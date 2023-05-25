@@ -1,14 +1,14 @@
 function processBooking(response){
     console.log(response);
-    let car = response["data"];
+    let car = response.data;
 
     if (!car){
         $("#content-booking").text("No info");
     }
     else{
-        $("#precio-book").text(car["price"] + "€");
-        $("#in-date").text(car["id"]["in_date"]);    
-        $("#out-date").text(car["id"]["in_date"]);    
+        $("#precio-book").text(car.price + "€");
+        $("#in-date").text(car.id.in_date);    
+        $("#out-date").text(car.id.in_date);    
     }
 
     $("#modalAlquiler").modal("show");

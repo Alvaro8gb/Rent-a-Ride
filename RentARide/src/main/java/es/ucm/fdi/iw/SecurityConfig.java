@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/messages/in", "/messages/unread", "/messages/history/{\\d+}").hasAnyRole("ADMIN", "GESTOR")
 
 				// User Controller
+				.antMatchers("/user/signup").permitAll()
 				.antMatchers("/user/userList", "/user/{\\d+}/delete", "/user/{\\d+}/modify").hasAnyRole("ADMIN", "GESTOR")
 
 	            .anyRequest().authenticated()

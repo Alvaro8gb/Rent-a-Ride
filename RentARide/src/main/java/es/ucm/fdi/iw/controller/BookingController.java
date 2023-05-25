@@ -104,7 +104,7 @@ public class BookingController {
         LocalDate date = LocalDate.now();
         int dia = date.getDayOfWeek().getValue();
 
-        switch(dia) {
+        switch(dia) { // Esto no seria mas faci hacer  date = date.minusDays(dia+6)
             case 1:
                 date = date.minusDays(7);
                 break;

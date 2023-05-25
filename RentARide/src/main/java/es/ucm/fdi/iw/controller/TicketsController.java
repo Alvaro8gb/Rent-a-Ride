@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.ucm.fdi.iw.model.Ticket;
@@ -52,7 +51,7 @@ public class TicketsController {
     @Transactional
     public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session) {
 
-        try {
+        try { // Probelma http://localhost:8080/incidencias/ habiendo hecho el login
             Ticket target = entityManager.find(Ticket.class, id);
             entityManager.remove(target);
             entityManager.flush();
@@ -70,7 +69,7 @@ public class TicketsController {
     public ResponseEntity<String> exportCSV() {
         List<Ticket> ts = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();
 
-        String csvData = Ticket.serializeToCSV(ts);
+        String csvData = Ticket.serialize2csv(ts);
 
         // Devuelve una respuesta con el contenido CSV en el cuerpo
         return ResponseEntity.ok()

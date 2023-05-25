@@ -65,7 +65,7 @@ public class Booking implements Transferable<Booking.Transfer> {
                 return toTransfer().toString();
         }
 
-        public String toJSON() {
+        public String toJSON() { // Para eso esta el toTransfer
                 StringBuilder stringBuilder = new StringBuilder();
         
                 stringBuilder.append("{");

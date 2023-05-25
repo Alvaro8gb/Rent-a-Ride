@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -104,10 +105,12 @@ public class Message implements Transferable<Message.Transfer> {
 
 	@Override
 	public Transfer toTransfer() {
-		return new Transfer(sender.getUsername(), recipient == null ? null : recipient.getUsername(), 
+
+		return new Transfer(sender.getUsername(), 
+			recipient == null ? null : recipient.getUsername(), 
 			DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateSent),
 			dateRead == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateRead),
-			text, sender.getId(), recipient == null ? null : recipient.getId(), id
+			text, sender.getId(), recipient == null ? -1 : recipient.getId(), id
         );
     }
 }
