@@ -276,4 +276,31 @@ public class MessageController {
 
 		return "{\"result\": \"message sent.\"}";
 	}
+
+	@PostMapping("/mandarValoracion")
+	@ResponseBody
+	@Transactional
+	public String mandarValoracion(@RequestBody JsonNode o, Model model, HttpSession session)
+							throws JsonProcessingException {
+
+		Message message = new Message();
+		User sender = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
+		
+		message.setDateSent(LocalDateTime.now());
+		message.setText(HtmlUtils.htmlEscape(o.get("notificacion").asText()));
+		message.setSender(sender);
+		
+		List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
+		for(User u : users){
+			if(u.hasRole(Role.GESTOR) || u.hasRole(Role.ADMIN)){
+				message.setUnattended(true);
+				message.setRecipient(u);
+				entityManager.persist(message);
+				entityManager.flush();
+				sendMsg(message, u);
+			}
+		}
+
+		return "{\"result\": \"message sent.\"}";
+	}
 }

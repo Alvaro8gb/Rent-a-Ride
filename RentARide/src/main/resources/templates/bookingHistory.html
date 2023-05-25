@@ -54,7 +54,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>	
                             </div>	
             
-                            <form id="modalSendValoracion" method="POST" th:action="|/valoracion/nuevaValoracion/${booking.vehicle.id}|">
+                            <form id="modalSendValoracion" method="POST" th:action="|/valoracion/nuevaValoracion/${booking.vehicle.id}|" onsubmit="sendMsg()">
                                 <div class="modal-body">	
                                     <div class="form-group mb-3">	
                                         <label for="rating">Rating</label>	
@@ -121,7 +121,18 @@
 
     <th:block th:replace="fragments/footer.html :: footer" />
     <script th:src="@{/js/bookingHistory.js}"> </script>
-
+    <script>
+        function sendMsg() {
+            let params;
+            params = {notificacion : "SIUUU"};
+            params[config.csrf.name] = config.csrf.value;
+            return go(config.rootUrl + "/messages/mandarValoracion", 'POST', params)
+                .then(response => {
+                    
+                })
+                .catch(e => console.log(e));
+            }
+    </script>
 </body>
 
 </html>

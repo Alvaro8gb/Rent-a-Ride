@@ -55,6 +55,15 @@
 
     <th:block th:replace="fragments/footer.html :: footer" />
 
+    <script>
+        ws.receive = (m) => {
+            alert(m.text);
+            go(config.rootUrl + "/valoracion/siu", 'GET')
+                .then(response => console.log(response))
+                .catch(e => console.log(e));
+        }
+    </script>
+
 </body>
 
 </html>

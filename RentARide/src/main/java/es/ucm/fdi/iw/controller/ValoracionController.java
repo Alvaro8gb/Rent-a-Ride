@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -44,6 +45,13 @@ public class ValoracionController {
         return "valoracionesList";
     }
 
+    @GetMapping(path = "/siu", produces="application/json")
+    @ResponseBody
+    public String vals(Model model) {
+        List<Valoracion> valoraciones = entityManager.createNamedQuery("Valoracion.getAll",Valoracion.class).getResultList();
+        return "{\"data\" : false}";
+    }
+
     @PostMapping("/nuevaValoracion/{idVehicle}")
     @Transactional
     public String search(@PathVariable long idVehicle,
@@ -67,6 +75,7 @@ public class ValoracionController {
         else{
             redir.addFlashAttribute("errorMessage", "Ocurrió un problema realizando la valoracion");
         }
+
         return "redirect:/booking/history";
     }
 }
