@@ -6,11 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.NamedQuery;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @NamedQuery(name="Configuration.findAll",
             query="SELECT c FROM Configuration c")
 
@@ -23,7 +25,4 @@ public class Configuration {
         @Column(nullable = false)
         private String configValue;
 
-        public Configuration() {
-            
-        }
 }

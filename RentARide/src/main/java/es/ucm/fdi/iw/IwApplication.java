@@ -42,7 +42,6 @@ class LoadConfiguration implements ApplicationContextAware {
 		EntityManager em = context.getBean(EntityManager.class);
 		List<Configuration> configData = em.createNamedQuery("Configuration.findAll", Configuration.class)
 				.getResultList();
-		;
 
 		Map<String, Object> propertySource = new HashMap<>();
 		for (Configuration data : configData)
