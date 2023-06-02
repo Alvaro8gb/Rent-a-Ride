@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <th:block th:include="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Chats entrantes</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container min-vh-50 max-vh-50 mb-3">
+        <div class="row">
+            <h2 class="pageTitle text-center mt-3">Mis mensajes entrantes</h2>
+        </div>
+
+
+        <div th:if="${!#lists.isEmpty(listMsgs)}" class="row">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre de Usuario</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Mensaje</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="msg, iterator : ${listMsgs}">
+                        <td th:text="${msg.sender.username}"></td>
+                        <td th:text="${#temporals.format(msg.dateSent, 'dd/MM/yyyy hh:mm')}"></td>
+                        <td th:text="${msg.text}"></td>
+
+                        <td class="form-group text-center">
+                            <div class="form-group text-center">
+                                <button class="border-0 bg-transparent"
+                                    th:attr="onclick='openChat(' + ${msg.sender.id} + ', ' + ${msg.id} + ')'">
+                                    <i class="fa-solid fa-message"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(listMsgs)}">
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="fs-4 text-center greyed">No tienes ningun mensaje</p>
+                </div>
+            </div>
+
+        </div>
+
+            <th:block th:replace="fragments/chat.html :: chat" />
+
+
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/chat.js}"> </script>
+
+</body>
+
+</html>

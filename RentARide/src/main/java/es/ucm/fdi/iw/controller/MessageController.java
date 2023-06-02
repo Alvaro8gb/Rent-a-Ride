@@ -26,10 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.ucm.fdi.iw.model.Message;
-import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,6 +67,19 @@ public class MessageController {
 		model.addAttribute("attendedMsgs", attendedMsgs); // Return attended history
 
 		return "messages";
+	}
+
+	@GetMapping("/list")
+	public String inChats(Model model,  HttpSession session) {
+
+		User sender = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
+
+		List<Message> pendingMsgs = entityManager.createNamedQuery("Message.findAllByUserID", Message.class)
+		.setParameter("idUser", sender.getId()).getResultList();
+
+		model.addAttribute("listMsgs", pendingMsgs); // Return messages queue
+
+		return "userMessage";
 	}
 
 	/**

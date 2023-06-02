@@ -324,7 +324,6 @@ public class UserController {
 		if (err == null) {
 			User requester = (User) session.getAttribute("u");
 			User target = entityManager.find(User.class, id);
-			if (requester.getRoles().toUpperCase().contains("ADMIN")) {
 				try {
 					User aux = entityManager.createNamedQuery("User.byUserName", User.class)
 							.setParameter("username", cuenta).getSingleResult();
@@ -343,9 +342,7 @@ public class UserController {
 					changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles, imagen);
 					redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
 				}
-			} else {
-				redirAttrs.addFlashAttribute("errorMessage", "No tienes permiso para realizar la acción");
-			}
+			
 		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}
@@ -362,11 +359,20 @@ public class UserController {
 			@RequestParam MultipartFile imagen,
 			HttpSession session) {
 		String err = checkData(dni, correo, imagen);
+
+		
 		if (err == null) {
 			User requester = (User) session.getAttribute("u");
 			User target = entityManager.find(User.class, requester.getId());
-			changeUserInfo(target, requester, session, dni, correo, nombre, apellido, null, null, imagen);
-			redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
+			String roles = requester.getRoles();
+
+			if (!roles.contains("ADMIN") && requester.getId() != target.getId() ) { 
+				redirAttrs.addFlashAttribute("errorMessage", "No tienes permisos");
+			}
+			else{
+				changeUserInfo(target, requester, session, dni, correo, nombre, apellido, null, null, imagen);
+				redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
+				}
 		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}

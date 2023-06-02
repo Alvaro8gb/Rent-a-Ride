@@ -28,9 +28,15 @@
                         </li>
                         
                         <th:block th:if="${session.u}">
-                            <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN')}">
-                                <a class="nav-link" th:href="@{/booking/history}">Mis reservas</a>
-                            </li>
+                            <th:block th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and  !session.u.hasRole('GESTOR')}">
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/booking/history}">Mis reservas</a>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/messages/list}">Mis chats</a>
+                                </li>
+        
+                            </th:block>
 
                             <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and !session.u.hasRole('GESTOR')}">
                                 <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>

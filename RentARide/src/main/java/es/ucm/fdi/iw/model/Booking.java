@@ -64,18 +64,4 @@ public class Booking implements Transferable<Booking.Transfer> {
         public String toString() {
                 return toTransfer().toString();
         }
-
-        public String toJSON() { // Para eso esta el toTransfer
-                StringBuilder stringBuilder = new StringBuilder();
-        
-                stringBuilder.append("{");
-                stringBuilder.append("\"vehicleID\": " + id.getVehicleID() + ", ");
-                stringBuilder.append("\"userID\": " + id.getUserID() + ", ");
-                stringBuilder.append("\"inDate\": \"" + DateTimeFormatter.ISO_LOCAL_DATE.format(id.getIn_date()) + "\", ");
-                stringBuilder.append("\"outDate\": \"" + DateTimeFormatter.ISO_LOCAL_DATE.format(id.getOut_date()) + "\", ");
-                stringBuilder.append("\"price\": " + price);
-                stringBuilder.append("}");
-        
-                return stringBuilder.toString();
-        }
 }

@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import com.opencsv.CSVWriter;
 
@@ -31,12 +32,10 @@ import com.opencsv.CSVWriter;
             query="SELECT t FROM Ticket t ")
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class Ticket {
+
     
-    public Ticket() {
-
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
     @SequenceGenerator(name = "gen", sequenceName = "gen")
