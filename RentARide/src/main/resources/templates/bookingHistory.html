@@ -15,7 +15,6 @@
 
         <th:block th:replace="fragments/flash :: flash" />
 
-
         <div class="row">
             <div th:each="booking : ${bookings}" class="col-12 p-2">
                 <div class="row justify-content-center">
@@ -26,7 +25,8 @@
                     <div class="col-4 align-self-center">
                         <p class="m-0 p-0 bookingListCar" th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName}"></p>
                         <p class="m-0 p-0 bookingListLicense" th:text="${booking.vehicle.license}"></p>
-                        <p class="m-0 p-0 bookingListDates" th:text="${booking.id.in_date + ' - ' + booking.id.out_date}"></p>
+                        <p class="m-0 p-0 bookingListDates" th:text="${booking.in_date + ' - ' + booking.out_date}"></p>
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton"  th:href="@{/booking/book/{id}(id=${booking.idr})}" > Ver booking </a>
                     </div>
 
                     <div class="col-4 text-end  align-self-center">
@@ -68,7 +68,7 @@
 
                         <div class="form-group">	
                             <label for="text">Incidencia</label>	
-                            <textarea type="text" minlength="5" class="form-control" id="text" name="text" rows="5" placeholder="Escriba aqui el problema"></textarea>	
+                            <textarea type="text" class="form-control" id="text" name="text" rows="5" placeholder="Escriba aqui el problema"></textarea>	
                         </div>	
                     </div>
 

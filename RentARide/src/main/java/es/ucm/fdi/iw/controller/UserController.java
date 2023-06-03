@@ -243,7 +243,7 @@ public class UserController {
 		return "profile";
 	}
 
-	@PostMapping("/{id}/delete")
+	@PostMapping("/{id}/delete") // rEVISAR 
 	@Transactional
 	public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session) {
 		User requester = (User) session.getAttribute("u");
@@ -257,7 +257,7 @@ public class UserController {
 				LocalDate today = LocalDate.now();
 
 				for (int i = 0; i < target.getBookings().size(); i++) {
-					if (target.getBookings().get(i).getId().getOut_date().compareTo(today) > 0) {
+					if (target.getBookings().get(i).getOut_date().compareTo(today) > 0) {
 						reservaActiva = true;
 						System.out.println("tiene una reserva activa XDFD");
 					}

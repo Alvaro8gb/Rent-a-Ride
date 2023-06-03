@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Mis reservas</title>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container my-4">
+        <h2 class=" text-center mt-4 mb-4">Gracias por reservar con nosotros!</h2>
+
+        <th:block th:replace="fragments/flash :: flash" />
+
+                <div class="row justify-content-center">
+                    <div class="col-2 text-center align-self-center">
+                        <img class="img-fluid" th:src="@{/vehicle/{id}/pic(id=${booking.vehicle.id})}" alt="Imagen coche">
+                    </div>
+
+                    <div class="col-4 align-self-center">
+                        <p class="m-0 p-0 bookingListCar" th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName}"></p>
+                        <p class="m-0 p-0 bookingListLicense" th:text="${booking.vehicle.license}"></p>
+                        <p class="m-0 p-0 bookingListDates" th:text="${booking.in_date + ' - ' + booking.out_date}"></p>
+                        <p class="m-0 p-0 bookingListPriceTag " th:text="${booking.price + '€'}">Precio total</p>
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton"  th:href="@{/booking/book/{id}/delete(id=${booking.idr})}" > Eliminar booking </a>
+
+                    </div>
+
+                </div>    
+        </div>          
+    </div>
+
+   
+    <th:block th:replace="fragments/footer.html :: footer" />
+
+</body>
+
+</html>

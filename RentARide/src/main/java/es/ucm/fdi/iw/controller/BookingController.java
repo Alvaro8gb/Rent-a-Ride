@@ -1,6 +1,5 @@
 package es.ucm.fdi.iw.controller;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -31,66 +30,81 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.ucm.fdi.iw.model.Booking;
-import es.ucm.fdi.iw.model.BookingID;
 import es.ucm.fdi.iw.model.Ticket;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
-
 /**
- *  Non-authenticated requests only.
+ * Non-authenticated requests only.
  */
 @Controller
 @RequestMapping("booking")
 public class BookingController {
 
-	private static final Logger log = LogManager.getLogger(BookingController.class);
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
-
+    private static final Logger log = LogManager.getLogger(BookingController.class);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Autowired
-	private EntityManager entityManager;
+    private EntityManager entityManager;
+
+    @GetMapping("book/{idBook}")
+    public String history(Model model,  @PathVariable String idBook) {
+        
+        Booking b = entityManager.createNamedQuery("Booking.byId", Booking.class)
+                                                .setParameter("id", idBook).getSingleResult();
+
+        model.addAttribute("booking", b);
+
+        log.info("Viendo el boking {} con id {}", b.toString(), idBook);
+
+        return "book";
+    }
 
     @PostMapping("book/{idVehicle}")
     @Transactional
     public String booking(Model model, RedirectAttributes redirAttrs,
-                            @PathVariable long idVehicle,
-                            @RequestParam(required=false) String inDate,
-                            @RequestParam(required=false) String outDate,
-                            @RequestParam(required=false) Float precio,
-                            HttpSession session){
-                                
+            @PathVariable long idVehicle,
+            @RequestParam(required = true) String inDate,
+            @RequestParam(required = true) String outDate,
+            HttpSession session) {
+
         try {
-            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
-            User requester = (User)session.getAttribute("u");
+            
             LocalDate inDateTime = LocalDate.parse(inDate, formatter);
             LocalDate outDateTime = LocalDate.parse(outDate, formatter);
-            BookingID bookingID = new BookingID(idVehicle, requester.getId(), inDateTime, outDateTime);
+
+            Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
+            User requester = (User) session.getAttribute("u");
             User user = entityManager.find(User.class, requester.getId());
+
             long daysDifference = ChronoUnit.DAYS.between(inDateTime, outDateTime) + 1;
-            Booking target = new Booking(bookingID,daysDifference * precio, user, vehicle);
-    
+        
+            Booking target = new Booking(UserController.generateRandomBase64Token(8),
+                    inDateTime, outDateTime,
+                    daysDifference * vehicle.getPriceByDay(),
+                    user, vehicle);
+
             entityManager.persist(target);
             entityManager.flush();
 
-            redirAttrs.addFlashAttribute("successMessage", "La reserva se ha realizado con éxito");
+            redirAttrs.addFlashAttribute("successMessage", "La reserva se ha realizado con éxito");  
         } catch (Exception e) {
             redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema realizando la reserva");
         }
 
-        
         return String.format("redirect:/vehicle/%d", idVehicle);
     }
 
-    @GetMapping(path="/{idVehicle}", produces = "application/json")
+    @GetMapping(path = "/{idVehicle}", produces = "application/json")
     @ResponseBody
-    public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException{
-  
+    public String viewBooking(Model model, @PathVariable long idVehicle) throws JsonProcessingException {
+
         Vehicle vehicle = entityManager.find(Vehicle.class, idVehicle);
-        Booking book = vehicle.getBookings().size() > 0? vehicle.getBookings().get(0): null;
-        
+        Booking book = vehicle.getBookings().size() > 0 ? vehicle.getBookings().get(0) : null;
+
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = book == null? "{\"data\": false}" : "{\"data\": " +objectMapper.writeValueAsString(book.toTransfer()) +"}";
+        String jsonString = book == null ? "{\"data\": false}"
+                : "{\"data\": " + objectMapper.writeValueAsString(book.toTransfer()) + "}";
 
         log.info("booking {} {}", idVehicle, jsonString);
 
@@ -104,7 +118,7 @@ public class BookingController {
         LocalDate date = LocalDate.now();
         int dia = date.getDayOfWeek().getValue();
 
-        switch(dia) { // Esto no seria mas faci hacer  date = date.minusDays(dia+6)
+        switch (dia) { // Esto no seria mas faci hacer date = date.minusDays(dia+6)
             case 1:
                 date = date.minusDays(7);
                 break;
@@ -128,11 +142,11 @@ public class BookingController {
                 break;
         }
 
-        for(int i = 0; i < threeWeeks; i++) {
+        for (int i = 0; i < threeWeeks; i++) {
             List<Booking> data = entityManager.createNamedQuery("Booking.bydate", Booking.class)
-            .setParameter("in_date", date)
-            .setParameter("out_date", date)
-            .getResultList();
+                    .setParameter("in_date", date)
+                    .setParameter("out_date", date)
+                    .getResultList();
 
             if (data.size() != 0)
                 res.put(date, data);
@@ -143,16 +157,16 @@ public class BookingController {
         }
 
         model.addAttribute("bookings", res);
-        
+
         return "listBookings";
     }
 
     @GetMapping("history")
     public String history(Model model, HttpSession session) {
-        User requester = (User)session.getAttribute("u");
+        User requester = (User) session.getAttribute("u");
         List<Booking> bookings = entityManager.createNamedQuery("Booking.byUser", Booking.class)
-                                                .setParameter("userID", requester.getId())
-                                                .getResultList();
+                .setParameter("userID", requester.getId())
+                .getResultList();
 
         model.addAttribute("bookings", bookings);
         model.addAttribute("gravitys", Arrays.asList(Ticket.Gravity.values()));
@@ -162,14 +176,14 @@ public class BookingController {
         return "bookingHistory";
     }
 
-    @GetMapping(path="/details", produces = "application/json")
+    @GetMapping(path = "/details", produces = "application/json")
     @ResponseBody
-    public String getDetails(Model model, @RequestParam long vehicleID, 
-                                          @RequestParam long userID) throws JsonProcessingException {
-  
+    public String getDetails(Model model, @RequestParam long vehicleID,
+            @RequestParam long userID) throws JsonProcessingException {
+
         Vehicle vehicle = entityManager.find(Vehicle.class, vehicleID);
         User user = entityManager.find(User.class, userID);
-        
+
         StringBuilder stringBuilder = new StringBuilder();
         ObjectMapper objectMapper = new ObjectMapper();
 

@@ -106,7 +106,7 @@ public class Vehicle implements Transferable<Vehicle.Transfer> {
         LocalDate current_date = LocalDate.now();
 
         for (Booking b : bookings) {
-            if (!(current_date.isAfter(b.getId().getIn_date()) && current_date.isBefore(b.getId().getOut_date()))) {
+            if (!(current_date.isAfter(b.getIn_date()) && current_date.isBefore(b.getOut_date()))) {
                 return false;
             }
         }

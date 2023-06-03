@@ -36,14 +36,14 @@
                 <p class="text-center greyed" th:if="${#lists.isEmpty(day.value)}">Sin movimientos</p>
 
                 <div class="card calendarEvent mt-3" th:each="booking : ${day.value}" th:attr="onClick='showDetails(' + ${booking.toTransfer()} + ')'">
-                    <div class="calendarEventStrip bookingStart mb-2" th:if="${booking.id.in_date.isEqual(day.key)}">
+                    <div class="calendarEventStrip bookingStart mb-2" th:if="${booking.in_date.isEqual(day.key)}">
                     </div>
-                    <div class="calendarEventStrip bookingEnd mb-2" th:if="${booking.id.out_date.isEqual(day.key)}">
+                    <div class="calendarEventStrip bookingEnd mb-2" th:if="${booking.out_date.isEqual(day.key)}">
                     </div>
 
                     <div class="card-body">
-                        <p class="card-title" th:if="${booking.id.in_date.isEqual(day.key)}">Inicio reserva</p>
-                        <p class="card-title" th:if="${booking.id.out_date.isEqual(day.key)}">Fin reserva</p>
+                        <p class="card-title" th:if="${booking.in_date.isEqual(day.key)}">Inicio reserva</p>
+                        <p class="card-title" th:if="${booking.out_date.isEqual(day.key)}">Fin reserva</p>
                         <p class="card-text"
                             th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName + ' - ' + booking.vehicle.license}">
                         </p>

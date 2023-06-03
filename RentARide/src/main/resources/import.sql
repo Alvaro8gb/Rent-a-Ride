@@ -45,20 +45,12 @@ INSERT INTO vehicle (CV, LICENSE, AUTONOMY, CONSUMPTION, DOORS, FUEL, MODEL_NAME
 (100, '8673GVZ',  800, 8.4, 3, 'Diesel', 'Sprinter', 'Mercedes', 2020,  7, 'Automatico', 4, 180),
 (100, '8673GVZ',  326, 22, 5, 'Electrico', 'Model Y', 'Tesla', 2021, 5, 'Automatico', 5, 190);
 
-INSERT INTO booking (USER_ID, VEHICLE_ID, IN_DATE, OUT_DATE, PRICE)
-VALUES
-(1, 1, '2023-05-3', '2023-05-22', 50),
-(2, 2, '2023-05-1', '2023-05-3', 80),
-(1, 3, '2023-05-4', '2023-05-24', 100),
-(2, 4, '2023-05-1', '2023-05-4', 120),
-(1, 5, '2023-05-10', '2023-05-26', 150),
-(2, 6, '2023-05-1', '2023-05-10', 200),
-(1, 7, '2023-05-21', '2023-05-28', 250),
-(2, 8, '2023-05-21', '2023-05-29', 300),
-(1, 9, '2023-05-21', '2023-05-30', 350),
-(2, 10, '2023-05-21', '2023-05-30', 400),
-(3, 1, '2022-05-3', '2022-05-22', 50);
 
+
+INSERT INTO booking (idr, in_date, out_date, price, user_id, vehicle_id)
+VALUES ('your_generated_id', '2023-06-03', '2023-06-05', 102.5, 3, 2),
+       ('rT55HyvGklo', '2023-06-13', '2023-06-14', 220.0, 3, 2),
+       ('DRbfIVRIUzw', '2023-06-29', '2023-06-30', 360.0, 3, 9);
 
 
 -- start id numbering from a value that is larger than any assigned above
