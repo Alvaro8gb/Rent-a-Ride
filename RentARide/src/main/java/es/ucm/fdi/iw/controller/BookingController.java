@@ -47,7 +47,7 @@ public class BookingController {
     @Autowired
     private EntityManager entityManager;
 
-    @GetMapping("book/{idBook}")
+    @GetMapping("/{idBook}")
     public String history(Model model,  @PathVariable String idBook) {
         
         Booking b = entityManager.createNamedQuery("Booking.byId", Booking.class)
@@ -60,7 +60,7 @@ public class BookingController {
         return "book";
     }
 
-    @PostMapping("book/{idVehicle}")
+    @PostMapping("/{idVehicle}")
     @Transactional
     public String booking(Model model, RedirectAttributes redirAttrs,
             @PathVariable long idVehicle,
@@ -82,7 +82,7 @@ public class BookingController {
             Booking target = new Booking(UserController.generateRandomBase64Token(8),
                     inDateTime, outDateTime,
                     daysDifference * vehicle.getPriceByDay(),
-                    user, vehicle);
+                    user, vehicle, false);
 
             entityManager.persist(target);
             entityManager.flush();
@@ -93,6 +93,50 @@ public class BookingController {
         }
 
         return String.format("redirect:/vehicle/%d", idVehicle);
+    }
+
+    @PostMapping("/delete/{id}")
+    @Transactional
+    public String delete(@PathVariable String id, RedirectAttributes redirAttrs, HttpSession session) {
+
+        try { 
+
+            Booking target = entityManager.find(Booking.class, id);
+            
+
+            if (!target.isCancelled()){
+
+                target.setCancelled(true);
+                entityManager.persist(target);
+                entityManager.flush();
+                redirAttrs.addFlashAttribute("successMessage", "Se ha solicitado la cancelación");
+
+            }else{
+                redirAttrs.addFlashAttribute("successMessage", "Ya se ha solicitado la cancelación");
+            }           
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema eliminando la resrva");
+        }
+
+        return "redirect:/booking/"+ id;
+    }
+
+    @PostMapping("confirmDelete/{id}")
+    @Transactional
+    public String confirm_delete(@PathVariable String id, RedirectAttributes redirAttrs, HttpSession session) {
+
+        try { 
+            Booking target = entityManager.find(Booking.class, id);
+            entityManager.remove(target);
+            entityManager.flush();
+            redirAttrs.addFlashAttribute("successMessage", "La reserva se ha eliminado con éxito");
+        } catch (Exception e) {
+            redirAttrs.addFlashAttribute("errorMessage", "Ocurrió un problema eliminando la resrva");
+        }
+
+        // Comprobar si roll admin
+        return "redirect:/booking/all";
+
     }
 
     @GetMapping(path = "/{idVehicle}", produces = "application/json")

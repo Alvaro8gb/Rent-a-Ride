@@ -47,10 +47,10 @@ INSERT INTO vehicle (CV, LICENSE, AUTONOMY, CONSUMPTION, DOORS, FUEL, MODEL_NAME
 
 
 
-INSERT INTO booking (idr, in_date, out_date, price, user_id, vehicle_id)
-VALUES ('your_generated_id', '2023-06-03', '2023-06-05', 102.5, 3, 2),
-       ('rT55HyvGklo', '2023-06-13', '2023-06-14', 220.0, 3, 2),
-       ('DRbfIVRIUzw', '2023-06-29', '2023-06-30', 360.0, 3, 9);
+INSERT INTO booking (idr, in_date, out_date, price, user_id, vehicle_id, cancelled)
+VALUES ('your_generated_id', '2023-06-03', '2023-06-05', 102.5, 3, 2, FALSE),
+       ('rT55HyvGklo', '2023-06-13', '2023-06-14', 220.0, 3, 2, FALSE),
+       ('DRbfIVRIUzw', '2023-06-29', '2023-06-30', 360.0, 3, 9, TRUE);
 
 
 -- start id numbering from a value that is larger than any assigned above

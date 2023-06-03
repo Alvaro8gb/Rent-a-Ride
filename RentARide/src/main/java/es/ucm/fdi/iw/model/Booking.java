@@ -48,6 +48,9 @@ public class Booking implements Transferable<Booking.Transfer> {
         @ManyToOne
         private Vehicle vehicle;
 
+        @Column(nullable = false)
+        private boolean cancelled;
+
         @Getter
         @AllArgsConstructor
         public static class Transfer {

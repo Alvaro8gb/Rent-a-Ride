@@ -25,8 +25,21 @@
                         <p class="m-0 p-0 bookingListLicense" th:text="${booking.vehicle.license}"></p>
                         <p class="m-0 p-0 bookingListDates" th:text="${booking.in_date + ' - ' + booking.out_date}"></p>
                         <p class="m-0 p-0 bookingListPriceTag " th:text="${booking.price + '€'}">Precio total</p>
-                        <a class="text-decoration-none d-block mt-2 bookingListReportButton"  th:href="@{/booking/book/{id}/delete(id=${booking.idr})}" > Eliminar booking </a>
+                        
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton" th:attr="data-booking-id=${booking.idr}" onclick="enviarFormulario(this.getAttribute('data-booking-id'))">Eliminar booking</a>
 
+                        <form id="deleteForm" th:action="@{/booking/delete/}" method="POST">
+                            <input type="hidden" name="id" th:value="${booking.idr}">
+                        </form>
+                        
+                        <script>
+                            function enviarFormulario(id) {
+                                console.log("Borrando book con id {}", id)
+                                var action = $('#deleteForm').attr('action');
+                                $('#deleteForm').attr('action', action + id);
+                                $('#deleteForm').submit();
+                            }
+                        </script>
                     </div>
 
                 </div>    

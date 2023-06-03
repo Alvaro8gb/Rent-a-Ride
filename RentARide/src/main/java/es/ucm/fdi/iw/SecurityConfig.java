@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/incidencias/export", "/incidencias/all").hasAnyRole("ADMIN", "GESTOR")
 
 				// Booking Controller
-				.antMatchers("/booking/all", "/booking/list", "/booking/details").hasAnyRole("ADMIN", "GESTOR")
+				.antMatchers("/booking/all", "/booking/list", "/booking/details", "/booking/confirmDelete/**").hasAnyRole("ADMIN", "GESTOR")
 
 				// Message Controller
 				.antMatchers("/messages/in", "/messages/unread", "/messages/history/{\\d+}").hasAnyRole("ADMIN", "GESTOR")

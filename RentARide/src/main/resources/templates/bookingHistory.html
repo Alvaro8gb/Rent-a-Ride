@@ -26,7 +26,7 @@
                         <p class="m-0 p-0 bookingListCar" th:text="${booking.vehicle.brand + ' ' + booking.vehicle.modelName}"></p>
                         <p class="m-0 p-0 bookingListLicense" th:text="${booking.vehicle.license}"></p>
                         <p class="m-0 p-0 bookingListDates" th:text="${booking.in_date + ' - ' + booking.out_date}"></p>
-                        <a class="text-decoration-none d-block mt-2 bookingListReportButton"  th:href="@{/booking/book/{id}(id=${booking.idr})}" > Ver booking </a>
+                        <a class="text-decoration-none d-block mt-2 bookingListReportButton"  th:href="@{/booking/{id}(id=${booking.idr})}" > Ver booking </a>
                     </div>
 
                     <div class="col-4 text-end  align-self-center">

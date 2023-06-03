@@ -24,6 +24,7 @@
                         <th scope="col">Fecha fin</th>
                         <th scope="col">Vehículo</th>
                         <th scope="col">Usuario</th>
+                        <th scope="col">Cancelado</th>
                         <th class="text-center" scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -34,14 +35,15 @@
                         <td th:text="${#temporals.format(b.out_date, 'dd/MM/yyyy hh:mm')}"></td>
                         <td th:text="${b.vehicle.brand + ' ' + b.vehicle.modelName + ' - ' + b.vehicle.license}"></td>
                         <td th:text="${b.user.username}"></td>
+                        <td th:text="${b.cancelled} ? 'Si' : 'No'"></td>
                         <td class="form-group text-center">
                             <div class="row d-flex justify-content-between">
-                                <form method="POST" th:action="@{/book/{id}/delete (id=${b.idr})}">
+                                <form method="POST" th:action="@{/booking/confirmDelete/{id}(id=${b.idr})}">
                                     <button class="border-0 bg-transparent d-inline-block" title="Eliminar" type="submit"><i
                                             class="fa-solid fa-xl fa-trash"></i></button>
                                 </form>
                                 <div class="d-inline-block">
-                                    <a th:href="@{/booking/book/{id}(id=${b.idr})}" title="Ver reserva"><i
+                                    <a th:href="@{/booking/{id}(id=${b.idr})}" title="Ver reserva"><i
                                         class="fa-solid fa-xl fa-eye"></i></a>
                                 </div>
                                 

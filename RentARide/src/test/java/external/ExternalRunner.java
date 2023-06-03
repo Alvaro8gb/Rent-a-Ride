@@ -33,6 +33,10 @@ class ExternalRunner {
         return Karate.run("security").relativeTo(getClass());
     }
 
+    @Karate.Test
+    Karate testModUsuario() {
+        return Karate.run("modUser").relativeTo(getClass());
+    }
 
 }
 
