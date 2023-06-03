@@ -51,11 +51,74 @@ function insertMessage(text, sender) {
         lastMessage.after(newMessage); // Insert the new message after the last message
 }
 
+function insertFlash(text) {
+    $('.incomingMessages').prepend(`
+        <div class='row justify-content-center mt-4' id='flash'>
+            <div class='col-8 text-center'>
+                <div class='alert alert-primary' role='alert'>
+                    ¡Nuevo mensaje pendiente de atender!
+                </div>
+            </div>
+        </div>
+
+        <script>
+            setTimeout(function() {
+                // Fade out flash message after 0.5s
+                var flashMessage = document.getElementById('flash');
+                flashMessage.style.transition = 'opacity 0.75s';
+                flashMessage.remove();
+		    }, 3000);
+        </script>
+    `);
+
+    console.log(text);
+    var msg = text.split('-');
+
+    if ($(".incomingMessagesTable").length == 0) {
+        $('.noMessages').remove()
+        $('.incomingMessages').append(`
+            <div class="row tableContainer">
+                <table class="table table-hover table-striped align-middle incomingMessagesTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre de Usuario</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Mensaje</th>
+                            <th class="text-center" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        `);
+    }
+
+    $(".incomingMessages tbody").append(`
+        <tr>    
+            <td>${msg[1]}</td>
+            <td>${msg[2]}</td>
+            <td>${msg[3]}</td>
+
+            <td class="form-group text-center">
+                <div class="form-group text-center">
+                    <button class="border-0 bg-transparent" onclick='openChat(${msg[4]}, ${msg[5]})'>
+                        <i class="fa-solid fa-message"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>    
+    `);
+}
+
 ws.receive = (m) => {
-    if (m.text == "chatAccepted") {
+   if (m.text == "chatAccepted") {
         insertMessage(`El agente ${m["from"]} se ha conectado al chat.`, false);
         $(".agentChatForm button").attr("onclick", `sendMsg(${m["senderID"]})`);
-    } else
+    } else if (m.text.indexOf('newMessageNotification') !== -1)
+        insertFlash(m.text);
+    else
         insertMessage(m.text, false);
 }
 

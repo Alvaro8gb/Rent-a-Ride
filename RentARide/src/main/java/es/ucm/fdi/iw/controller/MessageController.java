@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
@@ -126,6 +127,22 @@ public class MessageController {
 			
 			entityManager.persist(message);
 			entityManager.flush();
+
+			/* Notify Managers about a new message */
+			List<User> managers = entityManager.createNamedQuery("User.getManagers", User.class).getResultList();
+
+			Message notification = new Message();
+			notification.setDateSent(LocalDateTime.now());
+			notification.setSender(sender);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+			notification.setText(String.format("newMessageNotification-%s-%s-%s-%s-%s", 
+									sender.getUsername(), message.getDateSent().format(formatter), message.getText(), sender.getId(), message.getId()));
+
+			for (User manager : managers) {
+				notification.setRecipient(manager);
+				sendMsg(notification, manager);
+			}
+			
 		} else {
 			User recipient = entityManager.find(User.class, idUser);
 			message.setRecipient(recipient);

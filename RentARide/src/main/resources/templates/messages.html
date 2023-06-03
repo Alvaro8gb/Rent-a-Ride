@@ -10,15 +10,15 @@
 
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <div class="container min-vh-50 max-vh-50 mb-3">
+    <div class="container incomingMessages min-vh-50 max-vh-50 mb-3">
         <div class="row">
             <h2 class="pageTitle text-center mt-3">Chats entrantes
                 <span th:text="${#lists.size(pendingMsgs)}" class="badge bg-warning text-dark rounded-pill">4</span>
             </h2>
         </div>
 
-        <div th:if="${!#lists.isEmpty(pendingMsgs)}" class="row">
-            <table class="table table-hover table-striped align-middle">
+        <div th:if="${!#lists.isEmpty(pendingMsgs)}" class="row tableContainer">
+            <table class="table table-hover table-striped align-middle incomingMessagesTable">
                 <thead>
                     <tr>
                         <th scope="col">Nombre de Usuario</th>
@@ -46,16 +46,10 @@
             </table>
         </div>
         <div th:if="${#lists.isEmpty(pendingMsgs)}">
-            <div class="row mt-3">
+            <div class="row mt-3 noMessages">
                 <div class="col">
                     <p class="fs-4 text-center greyed">No hay mensajes pendientes</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col text-center">
-                <a class="text-decoration-none" th:attr="onclick='location.reload()'">Comprobar nuevos mensajes</a>
             </div>
         </div>
     </div>

@@ -29,7 +29,10 @@ import java.util.List;
                 query="SELECT u FROM User u WHERE u.enabled = TRUE"),
         @NamedQuery(name="User.byUserName",
                 query="SELECT u FROM User u "
-                + "WHERE u.username = :username")
+                + "WHERE u.username = :username"),
+        @NamedQuery(name="User.getManagers",
+                query="SELECT u FROM User u "
+                + "WHERE u.roles LIKE '%GESTOR%'")
 })
 @Table(name="IWUser")
 public class User implements Transferable<User.Transfer> {
