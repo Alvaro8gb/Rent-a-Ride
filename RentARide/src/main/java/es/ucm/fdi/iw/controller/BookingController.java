@@ -161,6 +161,17 @@ public class BookingController {
         return "listBookings";
     }
 
+    @GetMapping("/all")
+    @Transactional 
+    public String findAllTickets(Model model) {
+
+        List<Booking> books = entityManager.createNamedQuery("Booking.findAll", Booking.class).getResultList();
+
+        model.addAttribute("books", books);
+
+        return "booksManager";
+    }
+
     @GetMapping("history")
     public String history(Model model, HttpSession session) {
         User requester = (User) session.getAttribute("u");

@@ -39,9 +39,9 @@ public class TicketsController {
     public String userTickets(Model model, HttpSession session) {
         User user = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
-        List<Ticket> pendingMsgs = user.getTickets();
+        List<Ticket> tickets = user.getTickets();
 
-        model.addAttribute("tickets", pendingMsgs); // Return messages queue
+        model.addAttribute("tickets", tickets); // Return messages queue
 
         return "tickets";
     }
@@ -107,7 +107,7 @@ public class TicketsController {
         return "redirect:/booking/history";
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/all")
     @Transactional 
     public String findAllTickets(Model model) {
 

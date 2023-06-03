@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <th:block th:include="fragments/head :: header" />
+    <title th:inline="text">[[${@environment.getProperty('APP_NAME')}]] - Todas las reservas</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <div class="container min-vh-60 mb-3">
+
+        <div class="row">
+            <h2 class="pageTitle text-center mt-3"> Todas las reservas
+        </div>
+
+        <div th:if="${!#lists.isEmpty(books)}" class="row">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha inicio</th>
+                        <th scope="col">Fecha fin</th>
+                        <th scope="col">Vehículo</th>
+                        <th scope="col">Usuario</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="b, iterator : ${books}">
+                        <td th:text="${#temporals.format(b.in_date, 'dd/MM/yyyy hh:mm')}"></td>
+                        <td th:text="${#temporals.format(b.out_date, 'dd/MM/yyyy hh:mm')}"></td>
+                        <td th:text="${b.vehicle.brand + ' ' + b.vehicle.modelName + ' - ' + b.vehicle.license}"></td>
+                        <td th:text="${b.user.username}"></td>
+                        <td class="form-group text-center">
+                            <div class="row d-flex justify-content-between">
+                                <form method="POST" th:action="@{/book/{id}/delete (id=${b.idr})}">
+                                    <button class="border-0 bg-transparent d-inline-block" title="Eliminar" type="submit"><i
+                                            class="fa-solid fa-xl fa-trash"></i></button>
+                                </form>
+                                <div class="d-inline-block">
+                                    <a th:href="@{/booking/book/{id}(id=${b.idr})}" title="Ver reserva"><i
+                                        class="fa-solid fa-xl fa-eye"></i></a>
+                                </div>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#lists.isEmpty(books)}">
+            <div class="row mt-3">
+                <div class="col">
+                    <p class="fs-4 text-center greyed">No existen reservas</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+    <script th:src="@{/js/chat.js}"> </script>
+
+</body>
+
+</html>

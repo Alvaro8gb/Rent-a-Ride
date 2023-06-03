@@ -9,15 +9,19 @@
 
     <!-- barra de navegación bootstrap 5 -->
     <header th:fragment="nav">
-        <nav th:classappend="${#ctx.springRequestContext.requestUri} == '/' ? whiteNavbar : greenNavbar" class="navbar navbar-expand-md">
+        <nav th:classappend="${#ctx.springRequestContext.requestUri} == '/' ? whiteNavbar : greenNavbar"
+            class="navbar navbar-expand-md">
             <div class="container-fluid">
                 <!-- nombre del sitio; es un enlace que lleva a la página ppal -->
                 <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/img/{imgName}(imgName=${@environment.getProperty('APP_LOGO')})}" alt="logo" width="45" height="45" class="d-inline-block align-text-top">
+                    <img th:src="@{/img/{imgName}(imgName=${@environment.getProperty('APP_LOGO')})}" alt="logo"
+                        width="45" height="45" class="d-inline-block align-text-top">
                 </a>
 
                 <!-- menu hamburguesa si no cabe todo -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-item fa-solid fa-bars"></span>
                 </button>
 
@@ -26,61 +30,92 @@
                         <li class="nav-item px-3">
                             <a class="nav-link" th:href="@{/}">Inicio</a>
                         </li>
-                        
+
+                        <!-- Usuarios logeados-->
                         <th:block th:if="${session.u}">
-                            <th:block th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and  !session.u.hasRole('GESTOR')}">
+
+                            <!-- SOLO USUARIO -->
+                            <th:block
+                                th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and !session.u.hasRole('GESTOR')}">
+
                                 <li class="nav-item px-3">
                                     <a class="nav-link" th:href="@{/booking/history}">Mis reservas</a>
                                 </li>
                                 <li class="nav-item px-3">
                                     <a class="nav-link" th:href="@{/messages/list}">Mis chats</a>
                                 </li>
-        
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>
+                                </li>
                             </th:block>
 
-                            <li class="nav-item px-3" th:if="${session.u.hasRole('USER') and !session.u.hasRole('ADMIN') and !session.u.hasRole('GESTOR')}">
-                                <a class="nav-link" th:href="@{/incidencias/}">Mis incidencias</a>
-                            </li>
 
-                            <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN') or session.u.hasRole('GESTOR')}">
-                                <a class="nav-link" th:href="@{/incidencias/listar/}">Ver incidencias</a>
-                            </li>
+
+                            <!--SOLO ADMIN -->
+                            <th:block th:if="${session.u.hasRole('ADMIN')}">
+
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/user/userList}">Gestión de usuarios</a>
+                                </li>
+                            </th:block>
+
+                            <!-- ADMIN Y GESTOR-->
 
                             <th:block th:if="${session.u.hasRole('GESTOR') or session.u.hasRole('ADMIN')}">
-                            <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/vehicle/createVehicle}">Crear Vehículo</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/vehicle/carsManagement}">Gestión de flota</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/booking/list}">Calendario</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" th:href="@{/messages/in}">Mensajes entrantes</a>
-                            </li>
-                            <li class="nav-item px-3" th:if="${session.u.hasRole('ADMIN')}">
-                                <a class="nav-link" th:href="@{/user/userList}">Gestión de usuarios</a>
-                            </li>
+
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/vehicle/createVehicle}">Crear Vehículo</a>
+                                </li>
+
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/booking/list}">Calendario</a>
+                                </li>
+                                
+                                <li class="nav-item px-3">
+                                    <a class="nav-link" th:href="@{/messages/in}">Mensajes entrantes</a>
+                                </li>
+
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    data-bs-display="static" aria-expanded="false">
+                                        Gestión
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" th:href="@{/vehicle/carsManagement}">Flota</a>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item" th:href="@{/booking/all}">Reservas</a>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item" th:href="@{/incidencias/all}">Incidencias</a>
+                                    </div>
+                                </li>
+
                             </th:block>
+
                         </th:block>
+
                     </ul>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <th:block th:if="${session.u}">
-                            <li class="d-flex align-items-center"><img class="iwthumb rounded" th:src="@{/user/{id}/pic(id=${session.u.id})}"></li>
+                            <li class="d-flex align-items-center"><img class="iwthumb rounded"
+                                    th:src="@{/user/{id}/pic(id=${session.u.id})}"></li>
                             <li class="nav-item dropdown ms-auto">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    data-bs-display="static" aria-expanded="false">
                                     Username
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" th:href="@{/user/profile}">Perfil</a></li>
-                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                     <li>
                                         <form th:action="@{/logout}" method="post">
-                                            <button id="logout" type="submit" class="dropdown-item">Cerrar sesión</button>
+                                            <button id="logout" type="submit" class="dropdown-item">Cerrar
+                                                sesión</button>
                                         </form>
                                     </li>
                                 </ul>
