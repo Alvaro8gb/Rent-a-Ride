@@ -34,9 +34,7 @@ import es.ucm.fdi.iw.model.Ticket;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehicle;
 
-/**
- * Non-authenticated requests only.
- */
+
 @Controller
 @RequestMapping("booking")
 public class BookingController {
@@ -50,8 +48,12 @@ public class BookingController {
     @GetMapping("/{idBook}")
     public String history(Model model,  @PathVariable String idBook) {
         
-        Booking b = entityManager.createNamedQuery("Booking.byId", Booking.class)
-                                                .setParameter("id", idBook).getSingleResult();
+        Booking b = entityManager.find(Booking.class, idBook);
+
+        if (b == null){
+            model.addAttribute("status", 403);
+            return "error";
+        }              
 
         model.addAttribute("booking", b);
 
@@ -102,7 +104,6 @@ public class BookingController {
         try { 
 
             Booking target = entityManager.find(Booking.class, id);
-            
 
             if (!target.isCancelled()){
 
@@ -162,29 +163,7 @@ public class BookingController {
         LocalDate date = LocalDate.now();
         int dia = date.getDayOfWeek().getValue();
 
-        switch (dia) { // Esto no seria mas faci hacer date = date.minusDays(dia+6)
-            case 1:
-                date = date.minusDays(7);
-                break;
-            case 2:
-                date = date.minusDays(8);
-                break;
-            case 3:
-                date = date.minusDays(9);
-                break;
-            case 4:
-                date = date.minusDays(10);
-                break;
-            case 5:
-                date = date.minusDays(11);
-                break;
-            case 6:
-                date = date.minusDays(12);
-                break;
-            case 7:
-                date = date.minusDays(13);
-                break;
-        }
+        date = date.minusDays(dia+6);
 
         for (int i = 0; i < threeWeeks; i++) {
             List<Booking> data = entityManager.createNamedQuery("Booking.bydate", Booking.class)

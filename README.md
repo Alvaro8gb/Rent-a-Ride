@@ -20,7 +20,10 @@ Los usuarios de la aplicación podrán reservar coches de manera fácil y rápid
   - Realizar reservas de vehículos
   - Ver Mis reservas
   - Ver un calendario con todas las reservas de la semana anterior, la actual y la posterior, así como sus detalles
+  - Gestor puede ver reservas y cancelarlas
+  - El cliente puede solictar borrar una reserva
 - Mensajes
+  - Mis mensajes, cliente puede ver su historico de mensajes
   - Enviar mensajes por parte de los clientes
   - Panel de control para los gestores donde pueden atender mensajes y ver el historial de las conversaciones con todos los usuarios
 - Incidencias
@@ -31,7 +34,6 @@ Los usuarios de la aplicación podrán reservar coches de manera fácil y rápid
 - Usuarios
   - Los usuarios pueden ver su perfil y editar los detalles
   - Los administradores pueden acceder a un listado para gestionar los usuarios, pudiendo modificarlos y borrarlos
-
 
 ## Diagrama de la DB
 
@@ -67,6 +69,7 @@ Hemos creado varios test para comprobar que funciona todo correctamente y es seg
   - Scenario: login correcto como a
   - Scenario: login correcto como user
   - Scenario: logout after login
+- [file](./RentARide/src/test/java/external/modUser.feature): Prueba modificar usuario no gestor
 
 ## Comentarios
 

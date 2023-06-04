@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-
-
 import java.io.*;
 import java.security.SecureRandom;
 import java.time.LocalDate;
@@ -61,7 +59,6 @@ public class UserController {
 	@Autowired
 	private LocalData localData;
 
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -69,8 +66,6 @@ public class UserController {
 	private final String mensajeErrorDNI = "El DNI proporcionado no es válido";
 	private final String mensajeErrorEmail = "El correo proporcionado no es válido";
 	private final String mensajeErrorPassword = "Las contraseñas no coinciden o debe tener 8-16 caracteres una \nmayuscula, una minuscula, un número y un caracter especial";
-
-
 
 	/**
 	 * Exception to use when denying access to unauthorized users.
@@ -243,7 +238,7 @@ public class UserController {
 		return "profile";
 	}
 
-	@PostMapping("/{id}/delete") // rEVISAR 
+	@PostMapping("/{id}/delete") // rEVISAR
 	@Transactional
 	public String delete(@PathVariable long id, RedirectAttributes redirAttrs, HttpSession session) {
 		User requester = (User) session.getAttribute("u");
@@ -324,25 +319,25 @@ public class UserController {
 		if (err == null) {
 			User requester = (User) session.getAttribute("u");
 			User target = entityManager.find(User.class, id);
-				try {
-					User aux = entityManager.createNamedQuery("User.byUserName", User.class)
-							.setParameter("username", cuenta).getSingleResult();
-					if (aux != null) {
-						if (target.getId() == aux.getId()) {
-							changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles,
-									imagen);
-							redirAttrs.addFlashAttribute("successMessage",
-									"El Usuario " + id + " se ha modificado con éxito");
-						} else {
-							redirAttrs.addFlashAttribute("errorMessage",
-									"El Nombre de usuario '" + cuenta + "' ya existe. Por favor, modifícalo");
-						}
+			try {
+				User aux = entityManager.createNamedQuery("User.byUserName", User.class)
+						.setParameter("username", cuenta).getSingleResult();
+				if (aux != null) {
+					if (target.getId() == aux.getId()) {
+						changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles,
+								imagen);
+						redirAttrs.addFlashAttribute("successMessage",
+								"El Usuario " + id + " se ha modificado con éxito");
+					} else {
+						redirAttrs.addFlashAttribute("errorMessage",
+								"El Nombre de usuario '" + cuenta + "' ya existe. Por favor, modifícalo");
 					}
-				} catch (Exception e) {
-					changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles, imagen);
-					redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
 				}
-			
+			} catch (Exception e) {
+				changeUserInfo(target, requester, session, dni, correo, nombre, apellido, cuenta, roles, imagen);
+				redirAttrs.addFlashAttribute("successMessage", "El Usuario " + id + " se ha modificado con éxito");
+			}
+
 		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}
@@ -360,19 +355,17 @@ public class UserController {
 			HttpSession session) {
 		String err = checkData(dni, correo, imagen);
 
-		
 		if (err == null) {
 			User requester = (User) session.getAttribute("u");
 			User target = entityManager.find(User.class, requester.getId());
 			String roles = requester.getRoles();
 
-			if (!roles.contains("ADMIN") && requester.getId() != target.getId() ) { 
+			if (!roles.contains("ADMIN") && requester.getId() != target.getId()) {
 				redirAttrs.addFlashAttribute("errorMessage", "No tienes permisos");
-			}
-			else{
+			} else {
 				changeUserInfo(target, requester, session, dni, correo, nombre, apellido, null, null, imagen);
 				redirAttrs.addFlashAttribute("successMessage", "El perfil se ha modificado con éxito");
-				}
+			}
 		} else {
 			redirAttrs.addFlashAttribute("errorMessage", err);
 		}
@@ -380,13 +373,13 @@ public class UserController {
 	}
 
 	@GetMapping("/userList")
-    public String userList(Model model) {
-        List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
-        
-        model.addAttribute("users", users);
-        
-        return "userList";
-    }
+	public String userList(Model model) {
+		List<User> users = entityManager.createNamedQuery("User.all", User.class).getResultList();
+
+		model.addAttribute("users", users);
+
+		return "userList";
+	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {

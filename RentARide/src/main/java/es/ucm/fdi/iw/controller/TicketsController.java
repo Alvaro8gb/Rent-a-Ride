@@ -35,7 +35,7 @@ public class TicketsController {
     private EntityManager entityManager;
 
     @GetMapping("/")
-    @Transactional 
+    @Transactional
     public String userTickets(Model model, HttpSession session) {
         User user = entityManager.find(User.class, ((User) session.getAttribute("u")).getId());
 
@@ -108,7 +108,7 @@ public class TicketsController {
     }
 
     @GetMapping("/all")
-    @Transactional 
+    @Transactional
     public String findAllTickets(Model model) {
 
         List<Ticket> tickets = entityManager.createNamedQuery("Ticket.findAll", Ticket.class).getResultList();

@@ -24,33 +24,30 @@ import com.opencsv.CSVWriter;
 @Data
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Ticket.deleteTicket",
-            query="DELETE FROM Ticket t "
-                    + "WHERE t.id = :id")
-            })
-@NamedQuery(name="Ticket.findAll",
-            query="SELECT t FROM Ticket t ")
+        @NamedQuery(name = "Ticket.deleteTicket", query = "DELETE FROM Ticket t "
+                + "WHERE t.id = :id")
+})
+@NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t ")
 
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ticket {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
     @SequenceGenerator(name = "gen", sequenceName = "gen")
-	private long id;
+    private long id;
 
     @ManyToOne
     private User user;
-    
+
     @ManyToOne
     private Vehicle vehicle;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private LocalDate ocurranceDate;
-    
-    @Column (nullable = false)
+
+    @Column(nullable = false)
     private String text;
 
     public enum Gravity {
@@ -59,24 +56,24 @@ public class Ticket {
         Alta
     }
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Gravity gravity;
 
-    public static String serialize2csv(List<Ticket> tickets){
+    public static String serialize2csv(List<Ticket> tickets) {
         StringWriter stringWriter = new StringWriter();
         CSVWriter csvWriter = new CSVWriter(stringWriter);
 
-        String[] header = {"id", "idUser", "idVehicle", "ocurranceDate", "text", "gravity"};
+        String[] header = { "id", "idUser", "idVehicle", "ocurranceDate", "text", "gravity" };
         csvWriter.writeNext(header);
 
         for (Ticket ticket : tickets) {
             String[] data = {
-                String.valueOf(ticket.getId()),
-                String.valueOf(ticket.getUser().getId()),
-                String.valueOf(ticket.getVehicle().getId()),
-                ticket.getOcurranceDate().toString(),
-                ticket.getText(),
-                ticket.getGravity().toString()
+                    String.valueOf(ticket.getId()),
+                    String.valueOf(ticket.getUser().getId()),
+                    String.valueOf(ticket.getVehicle().getId()),
+                    ticket.getOcurranceDate().toString(),
+                    ticket.getText(),
+                    ticket.getGravity().toString()
             };
             csvWriter.writeNext(data);
         }
@@ -87,7 +84,7 @@ public class Ticket {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         return stringWriter.toString();
     }
 }

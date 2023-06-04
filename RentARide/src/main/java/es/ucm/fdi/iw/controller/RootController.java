@@ -14,17 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.ucm.fdi.iw.model.Vehicle;
 
-
-/**
- *  Non-authenticated requests only.
- */
 @Controller
 public class RootController {
 
-	private static final Logger log = LogManager.getLogger(RootController.class);
+    private static final Logger log = LogManager.getLogger(RootController.class);
 
     @Autowired
-	private EntityManager entityManager;
+    private EntityManager entityManager;
 
     public RootController() {
 
@@ -34,18 +30,18 @@ public class RootController {
     public String login(Model model) {
         return "login";
     }
-    
+
     @GetMapping("/")
     public String index(Model model) {
         List<Vehicle> vs = entityManager.createNamedQuery("Vehicle.findAll", Vehicle.class).getResultList();
         List<String> locations = entityManager.createNamedQuery("Vehicle.allLocation", String.class).getResultList();
-        
+
         model.addAttribute("vehicles", vs);
         model.addAttribute("locations", locations);
 
-        // Se envia mensaje a la cola 
+        // Se envia mensaje a la cola
         model.addAttribute("idReceiver", 0);
-        
+
         return "index";
     }
 }

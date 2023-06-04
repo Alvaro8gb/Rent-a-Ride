@@ -71,10 +71,11 @@ public class VehicleController {
 
     @GetMapping("{id}")
     public String index(Model model, @PathVariable long id) {
+
         Vehicle target = entityManager.find(Vehicle.class, id);
 
         if (target == null) {
-            model.addAttribute("status", 400);
+            model.addAttribute("status", 403);
             return "error";
         }
 
@@ -114,7 +115,7 @@ public class VehicleController {
 
     @PostMapping("/create")
     @Transactional
-    public String create(Model model, 
+    public String create(Model model,
             @RequestParam(required = true) String marca,
             @RequestParam(required = true) String modelo,
             @RequestParam(required = true) int anio,

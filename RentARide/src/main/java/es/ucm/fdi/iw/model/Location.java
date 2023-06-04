@@ -14,10 +14,8 @@ import javax.persistence.OneToMany;
 import lombok.Data;
 
 @NamedQueries({
-    @NamedQuery(name="Location.byName",
-    query="SELECT l FROM Location l WHERE l.name = :name"),
-    @NamedQuery(name="Location.findAll",
-    query="SELECT l FROM Location l ")
+        @NamedQuery(name = "Location.byName", query = "SELECT l FROM Location l WHERE l.name = :name"),
+        @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l ")
 })
 
 @Entity
@@ -25,8 +23,8 @@ import lombok.Data;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private int id;
 
     @Column(nullable = false)
@@ -35,7 +33,7 @@ public class Location {
     @Column(nullable = false)
     private int contactNumber;
 
-    @OneToMany(mappedBy="location")
-	private List<Vehicle> vehicles;
-    
+    @OneToMany(mappedBy = "location")
+    private List<Vehicle> vehicles;
+
 }
