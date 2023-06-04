@@ -1,4 +1,4 @@
-# RentARide - Entrega Pre-Examen
+# RentARide - Entrega Post-Examen
 
 ## Propuesta
 
@@ -70,7 +70,3 @@ Hemos creado varios test para comprobar que funciona todo correctamente y es seg
   - Scenario: login correcto como user
   - Scenario: logout after login
 - [file](./RentARide/src/test/java/external/modUser.feature): Prueba modificar usuario no gestor
-
-## Comentarios
-
-Nos habría quedado por implementar la carga de la flota de coches a través de un fichero para permitir la carga masiva. 
